@@ -16,12 +16,11 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        System.out.println("work");
         MyModel model = new MyModel();
         //model.startServers();
         MyViewModel viewModel = new MyViewModel(model);
 
-        Parent root = FXMLLoader.load(getClass().getResource("../View/MyView.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("../View/Landing.fxml"));
         primaryStage.setTitle("MY APP");
         primaryStage.setScene(new Scene(root, 300, 275));
         primaryStage.show();
