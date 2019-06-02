@@ -27,6 +27,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         setStage(primaryStage);
+        System.out.println("dsdsd");
         MyModel model = new MyModel();
         //model.startServers();
         MyViewModel viewModel = new MyViewModel(model);
