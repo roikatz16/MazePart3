@@ -106,7 +106,7 @@
                         <graphic>
                            <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                               <image>
-                                 <Image url="@../../resources/pikachu.png" />
+                                 <Image url="@../../resources/Images/pikachu.png" />
                               </image>
                            </ImageView>
                         </graphic>
@@ -128,7 +128,7 @@
                         <graphic>
                            <ImageView fx:id="stowe" fitHeight="50.0" fitWidth="50.0" onDragDetected="#pickStowe" pickOnBounds="true" preserveRatio="true">
                               <image>
-                                 <Image url="@../../resources/stewie3.jpg" />
+                                 <Image url="@../../resources/Images/stewie3.jpg" />
                               </image>
                            </ImageView>
                         </graphic>
@@ -137,7 +137,7 @@
                         <graphic>
                            <ImageView fx:id="netta" fitHeight="82.0" fitWidth="79.0" onDragDetected="#pickNetta" pickOnBounds="true" preserveRatio="true">
                               <image>
-                                 <Image url="@../../resources/netta.jpeg" />
+                                 <Image url="@../../resources/Images/netta.jpeg" />
                               </image>
                            </ImageView>
                         </graphic>
@@ -147,7 +147,7 @@
                            <ImageView fx:id="homer" fitHeight="50.0" fitWidth="85.0" onDragDetected="#pickHomer" pickOnBounds="true" preserveRatio="true">
 
                               <image>
-                                 <Image url="@../../resources/homer.png" />
+                                 <Image url="@../../resources/Images/homer.png" />
                               </image>
                            </ImageView>
                         </graphic>
@@ -185,7 +185,7 @@
                         <graphic>
                            <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                               <image>
-                                 <Image url="@../../resources/8TEbe48pc.jpg" />
+                                 <Image url="@../../resources/Images/8TEbe48pc.jpg" />
                               </image>
                            </ImageView>
                         </graphic>
@@ -202,7 +202,7 @@
                         <graphic>
                            <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                               <image>
-                                 <Image url="@../../resources/syn.jpeg" />
+                                 <Image url="@../../resources/Images/syn.jpeg" />
                               </image>
                            </ImageView>
                         </graphic>

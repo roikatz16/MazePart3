@@ -92,6 +92,7 @@ public class NewGameController {
 
 
     public void pressedCustom(ActionEvent actionEvent) {
+            gameParams[0]="custom";
             row.setVisible(true);
             col.setVisible(true);
             rowLabel.setVisible(true);
