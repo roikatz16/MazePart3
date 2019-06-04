@@ -36,11 +36,11 @@ public class Main extends Application {
 
         //---------------
 
-
+        System.out.println("ddd");
         MyModel model = new MyModel();
         viewModel = new MyViewModel(model);
         model.startServers();
-        System.out.println("ds");
+
         setStage(primaryStage);
         model.addObserver(viewModel);
         //---------------
