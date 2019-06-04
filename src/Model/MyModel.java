@@ -3,6 +3,8 @@ import java.io.*;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Observable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import Client.Client;
 import Client.IClientStrategy;
@@ -11,7 +13,6 @@ import Server.Server;
 import Server.ServerStrategyGenerateMaze;
 import Server.ServerStrategySolveSearchProblem;
 import algorithms.mazeGenerators.Maze;
-import algorithms.mazeGenerators.MyMazeGenerator;
 import javafx.scene.input.KeyCode;
 
 
@@ -19,12 +20,16 @@ public class MyModel extends Observable implements IModel {
 
     Server mazeGeneratingServer;
     Server solveSearchProblemServer;
-    private int characterPositionRow = 1;
-    private int characterPositionColumn = 1;
-    private char[] mazeAsArray;
+    private int currentPositionRow;
+    private int currentPositionColumn;
+    private Maze maze;
+    private ExecutorService threadPool = Executors.newCachedThreadPool();
+
+
 
     public void Model() {
         //Raise the servers
+
         mazeGeneratingServer =new Server(5400, 1000, new ServerStrategyGenerateMaze());
         solveSearchProblemServer = new Server(5401, 5000, new ServerStrategySolveSearchProblem());
     }
@@ -41,67 +46,107 @@ public class MyModel extends Observable implements IModel {
 
 
     @Override
-    public Maze generateMaze(int row, int col) {
-        //generate maze, change char position
-        //todo use servers
-        MyMazeGenerator mg = new MyMazeGenerator();
-        Maze maze = mg.generate(row, col);
-        return maze;
+    public void generateMaze(int row, int col) {
+
+        //Generate maze
+        threadPool.execute(() -> {
+            generateMazeWithServers(row,col);
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            currentPositionColumn = maze.getStartPosition().getColumnIndex();
+            currentPositionRow = maze.getStartPosition().getRowIndex();
+            setChanged();
+            notifyObservers();
+        });
+    }
+
+    private void generateMazeWithServers(int row,int col){
+        try {
+            Client client = new Client(InetAddress.getLocalHost(), 5400, new IClientStrategy() {
+                public void clientStrategy(InputStream inFromServer, OutputStream outToServer) {
+                    try {
+                        ObjectOutputStream toServer = new ObjectOutputStream(outToServer);
+                        ObjectInputStream fromServer = new ObjectInputStream(inFromServer);
+                        toServer.flush();
+                        int[] mazeDimensions = new int[]{row, col};
+                        toServer.writeObject(mazeDimensions);
+                        toServer.flush();
+                        byte[] compressedMaze = (byte[])((byte[])fromServer.readObject());
+                        InputStream is = new MyDecompressorInputStream(new ByteArrayInputStream(compressedMaze));
+                        byte[] decompressedMaze = new byte[20018];
+                        is.read(decompressedMaze);
+                        maze = new Maze(decompressedMaze);
+                        if(maze != null){
+                            maze.print();
+                        }
+
+                    } catch (Exception var10) {
+                        var10.printStackTrace();
+                    }
+                }
+            });
+            client.communicateWithServer();
+        } catch (UnknownHostException var1) {
+            var1.printStackTrace();
+        }
     }
 
 
     public void moveCharacter(KeyCode movement, char[][] array) {
         switch (movement) {
             case NUMPAD8://UP
-                if(checkPassability(characterPositionRow+1,characterPositionColumn, array)){
-                    characterPositionRow++;
+                if(checkPassability(currentPositionRow +1, currentPositionColumn, array)){
+                    currentPositionRow++;
                 }
                 break;
 
 
             case NUMPAD2://DOWN
-                if(checkPassability(characterPositionRow-1,characterPositionColumn, array)){
-                    characterPositionRow--;
+                if(checkPassability(currentPositionRow -1, currentPositionColumn, array)){
+                    currentPositionRow--;
                 }
                 break;
 
             case NUMPAD4://LEFT
-                if(checkPassability(characterPositionRow,characterPositionColumn-1, array)){
-                    characterPositionColumn--;
+                if(checkPassability(currentPositionRow, currentPositionColumn -1, array)){
+                    currentPositionColumn--;
                 }
                 break;
 
             case NUMPAD6://RIGHT
-                if(checkPassability(characterPositionRow,characterPositionColumn+1, array)){
-                    characterPositionColumn++;
+                if(checkPassability(currentPositionRow, currentPositionColumn +1, array)){
+                    currentPositionColumn++;
                 }
                 break;
 
             case NUMPAD7://UP-LEFT
-                if(checkPassability(characterPositionRow+1,characterPositionColumn-1, array)){
-                    characterPositionRow++;
-                    characterPositionColumn--;
+                if(checkPassability(currentPositionRow +1, currentPositionColumn -1, array)){
+                    currentPositionRow++;
+                    currentPositionColumn--;
                 }
                 break;
 
             case NUMPAD9://UP-RIGHT
-                if(checkPassability(characterPositionRow+1,characterPositionColumn+1, array)){
-                    characterPositionRow++;
-                    characterPositionColumn++;
+                if(checkPassability(currentPositionRow +1, currentPositionColumn +1, array)){
+                    currentPositionRow++;
+                    currentPositionColumn++;
                 }
                 break;
 
             case NUMPAD3://DOWN-RIGHT
-                if(checkPassability(characterPositionRow-1,characterPositionColumn+1, array)){
-                    characterPositionRow--;
-                    characterPositionColumn++;
+                if(checkPassability(currentPositionRow -1, currentPositionColumn +1, array)){
+                    currentPositionRow--;
+                    currentPositionColumn++;
                 }
                 break;
 
             case NUMPAD1://DOWN-LEFT
-                if(checkPassability(characterPositionRow-1,characterPositionColumn-1, array)){
-                    characterPositionRow--;
-                    characterPositionColumn--;
+                if(checkPassability(currentPositionRow -1, currentPositionColumn -1, array)){
+                    currentPositionRow--;
+                    currentPositionColumn--;
                 }
                 break;
         }
@@ -123,18 +168,16 @@ public class MyModel extends Observable implements IModel {
 
 
     @Override
-    public int[][] getMaze() {
-        return new int[0][];
+    public Maze getMaze() {
+        return maze;
     }
 
-    @Override
-    public int getCharacterPositionRow() {
-        return 0;
+    public int getCurrentPositionRow() {
+        return currentPositionRow;
     }
 
-    @Override
-    public int getCharacterPositionColumn() {
-        return 0;
+    public int getCurrentPositionColumn() {
+        return currentPositionColumn;
     }
 
     @Override
