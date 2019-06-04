@@ -20,7 +20,6 @@ public class MyViewController extends Controller implements IView, Initializable
 
 
     @FXML
-
     public MazeDisplayer mazeDisplayer;
     String[] mazeParams;
     char[][] maze;

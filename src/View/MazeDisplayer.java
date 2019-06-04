@@ -16,8 +16,14 @@ public class MazeDisplayer extends Canvas {
     private int characterPositionColumn;
 
     //region Properties
-    private StringProperty ImageFileNameWall = new SimpleStringProperty();
-    private StringProperty ImageFileNameCharacter = new SimpleStringProperty();
+    private StringProperty ImageFileNameWall;
+    private StringProperty ImageFileNameCharacter;
+
+
+    public MazeDisplayer(){
+        ImageFileNameWall = new SimpleStringProperty();
+        ImageFileNameCharacter = new SimpleStringProperty();
+    }
 
     public int getCharacterPositionRow() {
 

@@ -27,7 +27,7 @@ public class MyModel extends Observable implements IModel {
 
 
 
-    public void Model() {
+    public MyModel() {
         //Raise the servers
 
         mazeGeneratingServer =new Server(5400, 1000, new ServerStrategyGenerateMaze());

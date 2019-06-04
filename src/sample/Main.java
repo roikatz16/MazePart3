@@ -16,6 +16,7 @@ public class Main extends Application {
     private static MyViewModel viewModel;
 
 
+
     public static MyViewModel getViewModel(){return viewModel;}
     public static void setStage(Stage stage) {
         Main.primaryStage = stage;
@@ -37,6 +38,7 @@ public class Main extends Application {
         System.out.println("dsdsd");
         MyModel model = new MyModel();
         viewModel = new MyViewModel(model);
+        model.startServers();
         setStage(primaryStage);
         model.addObserver(viewModel);
         //---------------
