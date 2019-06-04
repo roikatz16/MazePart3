@@ -1,6 +1,8 @@
 package sample;
 
 import Model.MyModel;
+import View.MyViewController;
+import View.NewGameController;
 import ViewModel.MyViewModel;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -11,7 +13,10 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
     private static Stage primaryStage;
+    private static MyViewModel viewModel;
 
+
+    public static MyViewModel getViewModel(){return viewModel;}
     public static void setStage(Stage stage) {
         Main.primaryStage = stage;
     }
@@ -26,18 +31,39 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        setStage(primaryStage);
+
+        //---------------
+
         System.out.println("dsdsd");
         MyModel model = new MyModel();
-        MyViewModel viewModel = new MyViewModel(model);
+        viewModel = new MyViewModel(model);
+        setStage(primaryStage);
         model.addObserver(viewModel);
+        //---------------
+       //FXMLLoader fxmlLoader = new FXMLLoader();
+
+       // fxmlLoader.load(getClass().getResource("../View/MyView.fxml").openStream());
+       //MyViewController view = fxmlLoader.getController();
+        MyViewController view = new MyViewController();
+        view.setViewModel(viewModel);
+        viewModel.addObserver(view);
+
+        //fxmlLoader.load(getClass().getResource("../View/NewGame.fxml").openStream());
+        //NewGameController view1 = fxmlLoader.getController();
+        NewGameController view1 = new NewGameController();
+        view1.setViewModel(viewModel);
+        viewModel.addObserver(view1);
+
+        //MyViewController myViewController = new MyViewController(viewModel);
+        //NewGameController newGameController = new NewGameController(viewModel);
+
+        //viewModel.addObserver(newGameController);
         //model.startServers();
-
-
-        Parent root = FXMLLoader.load(getClass().getResource("../View/Landing.fxml"));
         primaryStage.setTitle("MY APP");
+        Parent root = FXMLLoader.load(getClass().getResource("../View/Landing.fxml"));
         primaryStage.setScene(new Scene(root, 600, 400));
         primaryStage.show();
+
     }
 
 

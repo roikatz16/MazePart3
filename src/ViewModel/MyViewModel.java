@@ -27,14 +27,13 @@ public class MyViewModel extends Observable implements Observer {
         this.model = model;
     }
 
-    public char[][] generateMaze(int row, int col){
-       return maze.getArray();
+    public void generateMaze(int row, int col){
+      model.generateMaze(row, col);
     }
 
     @Override
     public void update(Observable o, Object arg) {
         if (o==model){
-            System.out.println("workkk");
             mazeAsArray = (model.getMaze()).getArray();//possible not update charArray every time?
             rowStartPosition = (model.getMaze()).getStartPosition().getRowIndex() ;
             colStartPosition = (model.getMaze()).getStartPosition().getColumnIndex() ;

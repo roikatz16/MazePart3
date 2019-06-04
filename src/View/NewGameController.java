@@ -1,5 +1,6 @@
 package View;
 
+import ViewModel.MyViewModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,10 +18,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
-public class NewGameController {
+public class NewGameController extends Controller implements Initializable{
 
 
-    String[] gameParams = new String[4];
+    String[] gameParams = new String[11];
 
     public TextField row;
     public TextField col;
@@ -29,40 +30,19 @@ public class NewGameController {
 
     public Button submitButton;
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        viewModel = Main.getViewModel();
 
 
-    public void pickEasy(ActionEvent actionEvent) {
-        gameParams[0]="easy";
+        Stage s = Main.getStage();
+        s.setOnCloseRequest(e->{
+            e.consume();
+            closeProgram();
+        });
     }
 
-    public void pickMedium(ActionEvent actionEvent) {
-        gameParams[0]="medium";
-    }
 
-
-    public void PickHard(ActionEvent actionEvent) {
-        gameParams[0]="hard";
-    }
-
-    public void pickPikacu(ActionEvent actionEvent) {
-        gameParams[1]="pikacu";
-    }
-
-    public void pickStowe(MouseEvent mouseEvent) {
-        gameParams[1]="stowe";
-    }
-
-    public void pickNetta(MouseEvent mouseEvent) {
-        gameParams[1]="netta";
-    }
-
-    public void pickHomer(MouseEvent mouseEvent) {
-        gameParams[1]="homer";
-    }
-
-    public void pickTreeTheme(ActionEvent actionEvent) {
-        gameParams[2]="tree";
-    }
 
     public void exitGame(ActionEvent actionEvent) {
         closeProgram();
@@ -143,10 +123,83 @@ public class NewGameController {
         Parent root = FXMLLoader.load(getClass().getResource("../View/MyView.fxml"));
         s.setScene(new Scene(root, 600, 400));
         Main.setStage(s);
+        generateMaze();
         s.show();
     }
+    /*
+        ///////////////MAZE PARAMS/////////////
+        0 - DIFFICULTY
+        1 - DIFFICULTY (CUSTOM CASE) ROWS
+        2 - DIFFICULTY (CUSTOM CASE) COLUMNS
+        2 - CHARACTER
+        3 - THEME
+        4 - TIME (OLD GAME CASE)
+        5 - CHARACTER ROW POSITION
+        6 - CHARACTER COL POSITION
+        7 - CHARACTER START  ROW POSITION
+        8 - CHARACTER START COL POSITION
+        9 - CHARACTER END  ROW POSITION
+        10 - CHARACTER END COL POSITION
 
 
+        */
+    private void generateMaze() {
+        //get maze params from scene
+        System.out.println(gameParams[0]);
+        int row = 0;
+        int col = 0;
 
+        switch (gameParams[0]){
+            case "easy":
+                System.out.println(gameParams[0]);
+                row = 50;
+                col = 50;
+                break;
+            case "medium":
+                row = 100;
+                col = 200;
+                break;
+            case "hard":
+                row = 200;
+                col = 400;
+                break;
+            case "custom":
+                row = Integer.parseInt(gameParams[1]);
+                col = Integer.parseInt(gameParams[2]);
+        }
+        viewModel.generateMaze(row, col);
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        boolean bool = false;
+    }
+
+    public void pickEasy(ActionEvent actionEvent) {
+        gameParams[0]="easy";
+    }
+    public void pickMedium(ActionEvent actionEvent) {
+        gameParams[0]="medium";
+    }
+    public void PickHard(ActionEvent actionEvent) {
+        gameParams[0]="hard";
+    }
+
+    public void pickPikacu(ActionEvent actionEvent) {
+        gameParams[1]="pikacu";
+    }
+    public void pickStowe(MouseEvent mouseEvent) {
+        gameParams[1]="stowe";
+    }
+    public void pickNetta(MouseEvent mouseEvent) {
+        gameParams[1]="netta";
+    }
+    public void pickHomer(MouseEvent mouseEvent) {
+        gameParams[1]="homer";
+    }
+
+    public void pickTreeTheme(ActionEvent actionEvent) {
+        gameParams[2]="tree";
+    }
 }
 
