@@ -224,7 +224,7 @@
            <buttons>
              <Button fx:id="exit" mnemonicParsing="false" onAction="#exitGame" text="exit game" />
                <Button fx:id="landingButton" mnemonicParsing="false" onAction="#backToLanding" text="back to landing" />
-               <Button disable="true" mnemonicParsing="false" text="start game" />
+               <Button mnemonicParsing="false" onAction="#StartGame" text="start game" />
            </buttons>
          </ButtonBar>
       </bottom>

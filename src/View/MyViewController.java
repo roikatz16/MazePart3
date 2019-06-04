@@ -12,9 +12,10 @@ import javafx.scene.input.KeyEvent;
 import java.net.URL;
 import java.sql.SQLOutput;
 import java.util.Observable;
+import java.util.Observer;
 import java.util.ResourceBundle;
 
-public class MyViewController extends Observable implements IView, Initializable {
+public class MyViewController implements Observer, IView, Initializable {
 
 
     @FXML
@@ -53,17 +54,35 @@ public class MyViewController extends Observable implements IView, Initializable
         generateMaze();
 
     }
-    /*
 
+    /**
+     * This method is called whenever the observed object is changed. An
+     * application calls an <tt>Observable</tt> object's
+     * <code>notifyObservers</code> method to have all the object's
+     * observers notified of the change.
+     *
+     * @param o   the observable object.
+     * @param arg an argument passed to the <code>notifyObservers</code>
+     */
     @Override
     public void update(Observable o, Object arg) {
         if (o == viewModel) {
-            displayMaze(viewModel.getMaze());
-            btn_generateMaze.setDisable(false);
+            displayMaze(viewModel.getMazeAsArray());
+
         }
     }
 
-*/
+    public void displayMaze(char[][] maze) {
+        mazeDisplayer.setMaze(maze);
+        int characterPositionRow = viewModel.getRowCurrentPosition();
+        int characterPositionColumn = viewModel.getColCurrentPosition();
+        mazeDisplayer.setCharacterPosition(characterPositionRow, characterPositionColumn);
+    }
+
+    public void KeyPressed(KeyEvent keyEvent) {
+        viewModel.moveCharacter(keyEvent.getCode());
+        keyEvent.consume();
+    }
 
     public void generateMaze() {
         //get maze params from scene
@@ -87,9 +106,8 @@ public class MyViewController extends Observable implements IView, Initializable
                 row = Integer.parseInt(mazeParams[1]);
                 col = Integer.parseInt(mazeParams[2]);
         }
-        maze = viewModel.generateMaze(row, col);
-        int[] startArr = viewModel.getStartPosition();
-        int[] endArr = viewModel.getEndPosition();
+        viewModel.generateMaze(row, col);
+
         //displayMaze(maze,startArr[0],startArr[1],endArr[0],endArr[1]);
     }
 
@@ -116,10 +134,8 @@ public class MyViewController extends Observable implements IView, Initializable
         alert.show();
     }
 
-    public void KeyPressed(KeyEvent keyEvent) {
-        //viewModel.moveCharacter(keyEvent.getCode());
-        keyEvent.consume();
-    }
+
+
 
 
 }

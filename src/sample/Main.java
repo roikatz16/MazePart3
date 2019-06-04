@@ -29,8 +29,10 @@ public class Main extends Application {
         setStage(primaryStage);
         System.out.println("dsdsd");
         MyModel model = new MyModel();
-        //model.startServers();
         MyViewModel viewModel = new MyViewModel(model);
+        model.addObserver(viewModel);
+        //model.startServers();
+
 
         Parent root = FXMLLoader.load(getClass().getResource("../View/Landing.fxml"));
         primaryStage.setTitle("MY APP");

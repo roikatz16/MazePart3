@@ -137,5 +137,16 @@ public class NewGameController {
     }
 
 
+
+    public void StartGame(ActionEvent actionEvent) throws IOException {
+        Stage s = Main.getStage();
+        Parent root = FXMLLoader.load(getClass().getResource("../View/MyView.fxml"));
+        s.setScene(new Scene(root, 600, 400));
+        Main.setStage(s);
+        s.show();
+    }
+
+
+
 }
 
