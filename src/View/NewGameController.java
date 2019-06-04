@@ -27,7 +27,6 @@ public class NewGameController extends Controller implements Initializable{
     public TextField col;
     public Text rowLabel;
     public Text colLabel;
-
     public Button submitButton;
 
     @Override

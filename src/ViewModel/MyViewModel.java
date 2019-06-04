@@ -1,10 +1,7 @@
 package ViewModel;
 
 import Model.IModel;
-import algorithms.mazeGenerators.Maze;
-import algorithms.mazeGenerators.Position;
 import javafx.scene.input.KeyCode;
-
 import java.util.Observable;
 import java.util.Observer;
 
@@ -12,7 +9,6 @@ public class MyViewModel extends Observable implements Observer {
 
     private IModel model;
 
-    public Maze maze;
     private char[][] mazeAsArray;
     private int rowStartPosition;
     private int colStartPosition;

@@ -1,32 +1,31 @@
 package View;
 
-
-import ViewModel.MyViewModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.input.KeyEvent;
-
-import java.net.URL;
-import java.sql.SQLOutput;
 import java.util.Observable;
-import java.util.Observer;
-import java.util.ResourceBundle;
-
-public class MyViewController extends Controller implements IView, Initializable {
 
 
+public class MyViewController extends Controller implements IView {
 
     @FXML
-    private MazeDisplayer mazeDisplayer;
+    public MazeDisplayer mazeDisplayer;
 
+    public void KeyPressed(KeyEvent keyEvent) {
+        viewModel.moveCharacter(keyEvent.getCode());
+        keyEvent.consume();
+    }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        //DISPLAY MAZE BY PARAMS THAT SENT FROM NEW GAME / OLD GAME
+    public void solveMaze(ActionEvent actionEvent) {
 
+        showAlert("Solving maze..");
+    }
+
+    private void showAlert(String alertMessage) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setContentText(alertMessage);
+        alert.show();
     }
 
     /**
@@ -41,51 +40,10 @@ public class MyViewController extends Controller implements IView, Initializable
     @Override
     public void update(Observable o, Object arg) {
         if (o == viewModel) {
-            displayMaze(viewModel.getMazeAsArray());
-
+            mazeDisplayer.setMaze(viewModel.getMazeAsArray());
+            int characterPositionRow = viewModel.getRowCurrentPosition();
+            int characterPositionColumn = viewModel.getColCurrentPosition();
+            mazeDisplayer.setCharacterPosition(characterPositionRow, characterPositionColumn);
         }
     }
-
-    public void displayMaze(char[][] maze) {
-        mazeDisplayer.getId();
-        mazeDisplayer.setMaze(maze);
-        int characterPositionRow = viewModel.getRowCurrentPosition();
-        int characterPositionColumn = viewModel.getColCurrentPosition();
-        mazeDisplayer.setCharacterPosition(characterPositionRow, characterPositionColumn);
-    }
-
-    public void KeyPressed(KeyEvent keyEvent) {
-        viewModel.moveCharacter(keyEvent.getCode());
-        keyEvent.consume();
-    }
-
-
-
-/*
-    public void displayMaze(char[][] maze,int startR, int startC, int endR, int endC) {
-        mazeDisplayer.setMaze(maze);
-        int characterPositionRow = viewModel.getCharacterPositionRow();
-        int characterPositionColumn = viewModel.getCharacterPositionColumn();
-        mazeDisplayer.setCharacterPosition(characterPositionRow, characterPositionColumn);
-        this.characterPositionRow.set(characterPositionRow + "");
-        this.characterPositionColumn.set(characterPositionColumn + "");
-    }
-
-*/
-
-    public void solveMaze(ActionEvent actionEvent) {
-
-        showAlert("Solving maze..");
-    }
-
-    private void showAlert(String alertMessage) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setContentText(alertMessage);
-        alert.show();
-    }
-
-
-
-
-
 }
