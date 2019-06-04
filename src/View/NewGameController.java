@@ -119,9 +119,13 @@ public class NewGameController extends Controller implements Initializable{
 
 
     public void StartGame(ActionEvent actionEvent) throws IOException {
+        FXMLLoader fxmlLoader= new FXMLLoader();
         Stage s = Main.getStage();
-        Parent root = FXMLLoader.load(getClass().getResource("../View/MyView.fxml"));
+        Parent root = fxmlLoader.load(getClass().getResource("../View/MyView.fxml").openStream());
         s.setScene(new Scene(root, 600, 400));
+        MyViewController vc = fxmlLoader.getController();
+        vc.setViewModel(viewModel);
+        viewModel.addObserver(vc);
         Main.setStage(s);
         generateMaze();
         s.show();

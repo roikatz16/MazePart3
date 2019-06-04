@@ -1,5 +1,6 @@
 package View;
 
+import ViewModel.MyViewModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -31,6 +32,7 @@ public class LandingController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         Stage s = Main.getStage();
+
         s.setOnCloseRequest(e->{
             e.consume();
             closeProgram();
@@ -42,8 +44,13 @@ public class LandingController implements Initializable {
     public Button oldGameButton;
     public Button instructionsButton;
     public Button exitButton;
+    //private FXMLLoader fxmlLoader;
 
+    private MyViewModel viewModel;
 
+    public void setViewModel(MyViewModel viewModel) {
+        this.viewModel = viewModel;
+    }
 
 
 
@@ -77,11 +84,17 @@ public class LandingController implements Initializable {
     }
 
     public void goToNewGame(ActionEvent actionEvent) throws IOException {
+        FXMLLoader fxmlLoader= new FXMLLoader();
         Stage s = Main.getStage();
-        Parent root = FXMLLoader.load(getClass().getResource("../View/NewGame.fxml"));
+        Parent root = fxmlLoader.load(getClass().getResource("../View/NewGame.fxml").openStream());
         s.setScene(new Scene(root, 600, 400));
+        NewGameController ng = fxmlLoader.getController();
+        ng.setViewModel(viewModel);
+        viewModel.addObserver(ng);
         Main.setStage(s);
         s.show();
 
     }
+
+
 }

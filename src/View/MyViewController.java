@@ -20,12 +20,7 @@ public class MyViewController extends Controller implements IView, Initializable
 
 
     @FXML
-    public MazeDisplayer mazeDisplayer;
-    String[] mazeParams;
-    char[][] maze;
-
-
-
+    private MazeDisplayer mazeDisplayer;
 
 
     @Override
@@ -52,6 +47,7 @@ public class MyViewController extends Controller implements IView, Initializable
     }
 
     public void displayMaze(char[][] maze) {
+        mazeDisplayer.getId();
         mazeDisplayer.setMaze(maze);
         int characterPositionRow = viewModel.getRowCurrentPosition();
         int characterPositionColumn = viewModel.getColCurrentPosition();
