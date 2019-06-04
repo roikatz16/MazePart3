@@ -155,16 +155,16 @@ public class NewGameController extends Controller implements Initializable{
         switch (gameParams[0]){
             case "easy":
                 System.out.println(gameParams[0]);
-                row = 50;
-                col = 50;
+                row = 30;
+                col = 30;
                 break;
             case "medium":
-                row = 100;
-                col = 200;
+                row = 30;
+                col = 40;
                 break;
             case "hard":
-                row = 200;
-                col = 400;
+                row = 30;
+                col = 50;
                 break;
             case "custom":
                 row = Integer.parseInt(gameParams[1]);
