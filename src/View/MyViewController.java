@@ -2,12 +2,19 @@ package View;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.input.KeyEvent;
+import javafx.stage.Stage;
+import sample.Main;
+
+import java.net.URL;
 import java.util.Observable;
+import java.util.ResourceBundle;
 
 
-public class MyViewController extends Controller implements IView {
+public class MyViewController extends Controller implements IView, Initializable {
 
     //private boolean isMakingMove = false;
     @FXML
@@ -48,5 +55,33 @@ public class MyViewController extends Controller implements IView {
             int characterPositionColumn = viewModel.getColCurrentPosition();
             mazeDisplayer.setCharacterPosition(characterPositionRow, characterPositionColumn);
         }
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        Stage s = Main.getStage();
+        s.setOnCloseRequest(e->{
+            e.consume();
+            closeProgram();
+        });
+    }
+
+    public void exitGame(ActionEvent actionEvent) {
+        closeProgram();
+
+
+    }
+
+    private void closeProgram() {
+        Stage s = Main.getStage();
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Do you want to save the game?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
+        alert.showAndWait();
+
+        if (alert.getResult() == ButtonType.YES) {
+            s.close();
+            viewModel.close();
+
+        }
+
     }
 }

@@ -46,7 +46,9 @@ public class MyViewModel extends Observable implements Observer {
         }
     }
 
-
+    public void close(){
+        model.stopServers();
+    }
 
     public void moveCharacter(KeyCode movement){
         model.moveCharacter(movement, mazeAsArray);

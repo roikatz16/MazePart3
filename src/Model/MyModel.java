@@ -5,6 +5,7 @@ import java.net.UnknownHostException;
 import java.util.Observable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 import Client.Client;
 import Client.IClientStrategy;
@@ -39,11 +40,18 @@ public class MyModel extends Observable implements IModel {
         mazeGeneratingServer.start();
     }
 
-    public void stopServers() {
-        mazeGeneratingServer.stop();
-        solveSearchProblemServer.stop();
-    }
 
+    @Override
+    public void stopServers() {
+        try {
+            mazeGeneratingServer.stop();
+            solveSearchProblemServer.stop();
+            threadPool.shutdown();
+            threadPool.awaitTermination(3, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            //e.printStackTrace();
+        }
+    }
 
     @Override
     public void generateMaze(int row, int col) {
@@ -97,55 +105,55 @@ public class MyModel extends Observable implements IModel {
 
     public void moveCharacter(KeyCode movement, char[][] array) {
         switch (movement) {
-            case NUMPAD8://UP
-                if(checkPassability(currentPositionRow +1, currentPositionColumn, array)){
-                    currentPositionRow++;
-                }
-                break;
-
-
-            case NUMPAD2://DOWN
+            case T://UP
                 if(checkPassability(currentPositionRow -1, currentPositionColumn, array)){
                     currentPositionRow--;
                 }
                 break;
 
-            case NUMPAD4://LEFT
+
+            case B://DOWN
+                if(checkPassability(currentPositionRow +1, currentPositionColumn, array)){
+                    currentPositionRow++;
+                }
+                break;
+
+            case F://LEFT
                 if(checkPassability(currentPositionRow, currentPositionColumn -1, array)){
                     currentPositionColumn--;
                 }
                 break;
 
-            case NUMPAD6://RIGHT
+            case H://RIGHT
                 if(checkPassability(currentPositionRow, currentPositionColumn +1, array)){
                     currentPositionColumn++;
                 }
                 break;
 
-            case NUMPAD7://UP-LEFT
-                if(checkPassability(currentPositionRow +1, currentPositionColumn -1, array)){
-                    currentPositionRow++;
+            case R://UP-LEFT
+                if(checkPassability(currentPositionRow -1, currentPositionColumn -1, array)){
+                    currentPositionRow--;
                     currentPositionColumn--;
                 }
                 break;
 
-            case NUMPAD9://UP-RIGHT
-                if(checkPassability(currentPositionRow +1, currentPositionColumn +1, array)){
-                    currentPositionRow++;
-                    currentPositionColumn++;
-                }
-                break;
-
-            case NUMPAD3://DOWN-RIGHT
+            case Y://UP-RIGHT
                 if(checkPassability(currentPositionRow -1, currentPositionColumn +1, array)){
                     currentPositionRow--;
                     currentPositionColumn++;
                 }
                 break;
 
-            case NUMPAD1://DOWN-LEFT
-                if(checkPassability(currentPositionRow -1, currentPositionColumn -1, array)){
-                    currentPositionRow--;
+            case N://DOWN-RIGHT
+                if(checkPassability(currentPositionRow +1, currentPositionColumn +1, array)){
+                    currentPositionRow++;
+                    currentPositionColumn++;
+                }
+                break;
+
+            case V://DOWN-LEFT
+                if(checkPassability(currentPositionRow +1, currentPositionColumn -1, array)){
+                    currentPositionRow++;
                     currentPositionColumn--;
                 }
                 break;

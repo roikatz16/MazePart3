@@ -11,6 +11,7 @@ public interface IModel {
     int getCurrentPositionRow();
     int getCurrentPositionColumn();
     int [][] solveMaze();
+    void stopServers();
 
 
 }
