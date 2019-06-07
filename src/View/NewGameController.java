@@ -32,7 +32,8 @@ public class NewGameController extends Controller implements Initializable{
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         viewModel = Main.getViewModel();
-
+        gameParams[0] = "easy";
+        gameParams[3] = "netta";
 
         Stage s = Main.getStage();
         s.setOnCloseRequest(e->{
@@ -121,7 +122,7 @@ public class NewGameController extends Controller implements Initializable{
         FXMLLoader fxmlLoader= new FXMLLoader();
         Stage s = Main.getStage();
         Parent root = fxmlLoader.load(getClass().getResource("../View/MyView.fxml").openStream());
-        s.setScene(new Scene(root, 600, 400));
+        s.setScene(new Scene(root, 1000, 800));
         MyViewController vc = fxmlLoader.getController();
         vc.setViewModel(viewModel);
         viewModel.addObserver(vc);
@@ -134,8 +135,8 @@ public class NewGameController extends Controller implements Initializable{
         0 - DIFFICULTY
         1 - DIFFICULTY (CUSTOM CASE) ROWS
         2 - DIFFICULTY (CUSTOM CASE) COLUMNS
-        2 - CHARACTER
-        3 - THEME
+        3 - CHARACTER
+        4 - THEME
         4 - TIME (OLD GAME CASE)
         5 - CHARACTER ROW POSITION
         6 - CHARACTER COL POSITION
