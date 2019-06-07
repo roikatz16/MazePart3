@@ -9,6 +9,7 @@ import java.util.concurrent.TimeUnit;
 
 import Client.Client;
 import Client.IClientStrategy;
+import IO.MyCompressorOutputStream;
 import IO.MyDecompressorInputStream;
 import Server.Server;
 import Server.ServerStrategyGenerateMaze;
@@ -191,6 +192,22 @@ public class MyModel extends Observable implements IModel {
     @Override
     public int[][] solveMaze() {
         return new int[0][];
+    }
+
+
+    public void saveGame(int CharacterPositionRow, int characterPositionCol, String characterName, String fileName){
+
+
+        try {
+            OutputStream out = new MyCompressorOutputStream(new FileOutputStream(fileName));
+            out.write(maze.toByteArray());
+            out.flush();
+            out.close();
+        } catch (IOException var8) {
+            var8.printStackTrace();
+        }
+
+
     }
 
 }

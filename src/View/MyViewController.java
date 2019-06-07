@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import sample.Main;
@@ -13,6 +14,7 @@ import sample.Main;
 import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.Observable;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 
@@ -29,7 +31,7 @@ public class MyViewController extends Controller implements IView, Initializable
             e.consume();
             closeProgram();
         });
-        mazeDisplayer.setViewModel(viewModel);
+
 
     }
 
@@ -93,5 +95,27 @@ public class MyViewController extends Controller implements IView, Initializable
 
         }
 
+    }
+
+    public void saveGame(ActionEvent actionEvent) {
+
+
+        TextInputDialog dialog = new TextInputDialog("my game");
+        dialog.setTitle("SAVE GAME");
+        dialog.setHeaderText("Please, save your game");
+        dialog.setContentText("Please enter a valid name (characters only!):");
+
+        String fileName ="";
+        Optional<String> result = dialog.showAndWait();
+        if (result.isPresent()){
+            fileName = result.get();
+        }
+
+        int CharacterPositionRow = mazeDisplayer.getCharacterPositionRow();
+        int characterPositionCol = mazeDisplayer.getCharacterPositionColumn();
+        String gameParams[] = mazeDisplayer.getGameParams();
+        String characterName = gameParams[3];
+
+        viewModel.saveGame(CharacterPositionRow, characterPositionCol,characterName,fileName);
     }
 }

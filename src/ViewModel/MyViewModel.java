@@ -92,4 +92,8 @@ public class MyViewModel extends Observable implements Observer {
     public void setParams(String[] params) {
         this.params = params;
     }
+
+    public void saveGame(int characterPositionRow ,int characterPositionCol, String characterName, String fileName){
+        model.saveGame(characterPositionRow,characterPositionCol,characterName,fileName);
+    }
 }

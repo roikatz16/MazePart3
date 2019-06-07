@@ -42,10 +42,6 @@ public class MazeDisplayer extends Canvas {
 
     }
 
-    public void setViewModel(MyViewModel viewModel) {
-        this.viewModel = viewModel;
-        //bindProperties(viewModel);
-    }
 
     public int getCharacterPositionRow() {
 
@@ -55,6 +51,10 @@ public class MazeDisplayer extends Canvas {
     public int getCharacterPositionColumn() {
 
         return characterPositionColumn;
+    }
+
+    public String[] getGameParams() {
+        return gameParams;
     }
 
     public void setMaze(char[][] maze) throws FileNotFoundException {

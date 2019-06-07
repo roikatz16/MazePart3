@@ -97,4 +97,15 @@ public class LandingController implements Initializable {
     }
 
 
+    public void oldGamesMenu(ActionEvent actionEvent) throws IOException {
+        FXMLLoader fxmlLoader= new FXMLLoader();
+        Stage s = Main.getStage();
+        Parent root = fxmlLoader.load(getClass().getResource("../View/Load.fxml").openStream());
+        s.setScene(new Scene(root, 600, 400));
+        LoadController lc = fxmlLoader.getController();
+        lc.setViewModel(viewModel);
+        viewModel.addObserver(lc);
+        Main.setStage(s);
+        s.show();
+    }
 }

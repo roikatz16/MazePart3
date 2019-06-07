@@ -14,4 +14,5 @@ public interface IModel {
     void stopServers();
 
 
+    void saveGame(int characterPositionRow, int characterPositionCol, String characterName, String fileName);
 }

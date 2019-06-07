@@ -88,7 +88,7 @@ public class NewGameController extends Controller implements Initializable{
         generateMaze();
         Stage s = Main.getStage();
         Parent root = fxmlLoader.load(getClass().getResource("../View/MyView.fxml").openStream());
-        s.setScene(new Scene(root, 600, 400));
+        s.setScene(new Scene(root, 1000, 800));
         MyViewController vc = fxmlLoader.getController();
 
         vc.setViewModel(viewModel);
