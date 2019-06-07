@@ -43,12 +43,7 @@ public class MyViewController extends Controller implements IView {
     @Override
     public void update(Observable o, Object arg) {
         if (o == viewModel) {
-         /*   if(!isMakingMove) {
-                mazeDisplayer.setMaze(viewModel.getMazeAsArray());
-            }
-            else{
-                isMakingMove = false;
-            }*/
+            mazeDisplayer.setMaze(viewModel.getMazeAsArray());
             int characterPositionRow = viewModel.getRowCurrentPosition();
             int characterPositionColumn = viewModel.getColCurrentPosition();
             mazeDisplayer.setCharacterPosition(characterPositionRow, characterPositionColumn);
