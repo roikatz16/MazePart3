@@ -2,7 +2,11 @@ package Model;
 import java.io.*;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Observable;
+import java.util.TimeZone;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -196,10 +200,41 @@ public class MyModel extends Observable implements IModel {
 
 
     public void saveGame(int CharacterPositionRow, int characterPositionCol, String characterName, String fileName){
+        TimeZone tz = TimeZone.getTimeZone("UTC");
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd--HH-mm"); // Quoted "Z" to indicate UTC, no timezone offset
+        df.setTimeZone(tz);
+        String nowAsISO = df.format(new Date());
+        String fileMetaData = fileName+ " " + nowAsISO + "METADATA";
 
+
+        try (BufferedWriter outWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(fileMetaData),"utf-8"),1024)) {
+
+            outWriter.write(characterName);
+            outWriter.newLine();
+            outWriter.write(Integer.toString(getCurrentPositionRow()));
+            outWriter.newLine();
+            outWriter.write(Integer.toString(getCurrentPositionColumn()));
+            outWriter.newLine();
+            outWriter.write(Integer.toString((getMaze().getStartPosition().getRowIndex())));
+            outWriter.newLine();
+            outWriter.write(Integer.toString((getMaze().getStartPosition().getColumnIndex())));
+            outWriter.newLine();
+            outWriter.write(Integer.toString(getMaze().getGoalPosition().getRowIndex()));
+            outWriter.newLine();
+            outWriter.write(Integer.toString(getMaze().getGoalPosition().getColumnIndex()));
+
+
+
+        } catch (UnsupportedEncodingException e1) {
+            e1.printStackTrace();
+        } catch (FileNotFoundException e1) {
+            e1.printStackTrace();
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
 
         try {
-            OutputStream out = new MyCompressorOutputStream(new FileOutputStream(fileName));
+            OutputStream out = new MyCompressorOutputStream(new FileOutputStream(fileName+ " " + nowAsISO));
             out.write(maze.toByteArray());
             out.flush();
             out.close();
@@ -207,7 +242,5 @@ public class MyModel extends Observable implements IModel {
             var8.printStackTrace();
         }
 
-
     }
-
 }
