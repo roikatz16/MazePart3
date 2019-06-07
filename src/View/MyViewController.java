@@ -9,12 +9,12 @@ import java.util.Observable;
 
 public class MyViewController extends Controller implements IView {
 
-    private boolean isMakingMove = false;
+    //private boolean isMakingMove = false;
     @FXML
     public MazeDisplayer mazeDisplayer;
 
     public void KeyPressed(KeyEvent keyEvent) {
-        isMakingMove = true;
+     //   isMakingMove = true;
         viewModel.moveCharacter(keyEvent.getCode());
         keyEvent.consume();
 
@@ -43,12 +43,12 @@ public class MyViewController extends Controller implements IView {
     @Override
     public void update(Observable o, Object arg) {
         if (o == viewModel) {
-            if(!isMakingMove) {
+         /*   if(!isMakingMove) {
                 mazeDisplayer.setMaze(viewModel.getMazeAsArray());
             }
             else{
                 isMakingMove = false;
-            }
+            }*/
             int characterPositionRow = viewModel.getRowCurrentPosition();
             int characterPositionColumn = viewModel.getColCurrentPosition();
             mazeDisplayer.setCharacterPosition(characterPositionRow, characterPositionColumn);

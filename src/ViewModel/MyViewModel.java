@@ -30,6 +30,9 @@ public class MyViewModel extends Observable implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         if (o==model){
+            if(arg!=null&& arg instanceof Boolean && !(Boolean)arg){
+
+            }
             mazeAsArray = (model.getMaze()).getArray();//possible not update charArray every time?
             rowStartPosition = (model.getMaze()).getStartPosition().getRowIndex() ;
             colStartPosition = (model.getMaze()).getStartPosition().getColumnIndex() ;

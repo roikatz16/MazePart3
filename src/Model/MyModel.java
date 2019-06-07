@@ -151,7 +151,7 @@ public class MyModel extends Observable implements IModel {
                 break;
         }
         setChanged();
-        notifyObservers();
+        notifyObservers(false);
     }
 
     private boolean checkPassability(int row, int col, char[][] array) {
