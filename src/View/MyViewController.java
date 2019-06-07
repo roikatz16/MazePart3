@@ -2,6 +2,7 @@ package View;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
@@ -9,6 +10,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import sample.Main;
 
+import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.Observable;
 import java.util.ResourceBundle;
@@ -19,6 +21,17 @@ public class MyViewController extends Controller implements IView, Initializable
     //private boolean isMakingMove = false;
     @FXML
     public MazeDisplayer mazeDisplayer;
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        Stage s = Main.getStage();
+        s.setOnCloseRequest(e->{
+            e.consume();
+            closeProgram();
+        });
+        mazeDisplayer.setViewModel(viewModel);
+
+    }
 
     public void KeyPressed(KeyEvent keyEvent) {
      //   isMakingMove = true;
@@ -50,21 +63,18 @@ public class MyViewController extends Controller implements IView, Initializable
     @Override
     public void update(Observable o, Object arg) {
         if (o == viewModel) {
-            mazeDisplayer.setMaze(viewModel.getMazeAsArray());
             int characterPositionRow = viewModel.getRowCurrentPosition();
             int characterPositionColumn = viewModel.getColCurrentPosition();
-            mazeDisplayer.setCharacterPosition(characterPositionRow, characterPositionColumn);
+            try {
+                mazeDisplayer.setMaze(viewModel.getMazeAsArray());
+                mazeDisplayer.setCharacterPosition(characterPositionRow, characterPositionColumn);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
         }
     }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        Stage s = Main.getStage();
-        s.setOnCloseRequest(e->{
-            e.consume();
-            closeProgram();
-        });
-    }
+
 
     public void exitGame(ActionEvent actionEvent) {
         closeProgram();

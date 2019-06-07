@@ -1,6 +1,7 @@
 package View;
 
 import ViewModel.MyViewModel;
+import javafx.beans.property.BooleanProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -8,11 +9,14 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import sample.Main;
+
 
 import java.io.IOException;
 import java.net.URL;
@@ -27,13 +31,18 @@ public class NewGameController extends Controller implements Initializable{
     public TextField col;
     public Text rowLabel;
     public Text colLabel;
+    @FXML
+    private RadioButton CustomButton;
+    @FXML
+
     public Button submitButton;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         viewModel = Main.getViewModel();
         gameParams[0] = "easy";
-        gameParams[3] = "netta";
+        gameParams[3] = "Netta";
+
 
         Stage s = Main.getStage();
         s.setOnCloseRequest(e->{
@@ -71,66 +80,28 @@ public class NewGameController extends Controller implements Initializable{
     }
 
 
-    public void pressedCustom(ActionEvent actionEvent) {
-            gameParams[0]="custom";
-            row.setVisible(true);
-            col.setVisible(true);
-            rowLabel.setVisible(true);
-            colLabel.setVisible(true);
-            row.setDisable(false);
-            col.setDisable(false);
-            submitButton.setVisible(true);
-    }
-
-    public void keyReleasedProperly(KeyEvent keyEvent) {
-        String rowText = row.getText();
-        String colText = col.getText();
-        boolean isDisabled = rowText.trim().isEmpty()||rowText.isEmpty()||colText.trim().isEmpty()||colText.isEmpty();
-        submitButton.setDisable(isDisabled);
-    }
-
-    public void getCustomMazeSize(ActionEvent actionEvent) {
-        if (isInt(row,row.getText()) && isInt(col,col.getText()) ){
-            gameParams[2] = row.getText();
-            gameParams[3] = col.getText();
-        }
-
-
-    }
-
-
-    //Validate age
-    private boolean isInt(TextField input, String message){
-        try{
-            int age = Integer.parseInt(input.getText());
-            System.out.println("row/col is: " + age);
-            return true;
-        }catch(NumberFormatException e){
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error Dialog");
-            alert.setHeaderText("Look, an Error Dialog");
-            alert.setContentText("Ooops, there was an error! " + message + " is not a number");
-
-            alert.showAndWait();
-            return false;
-        }
-    }
-
-
 
     public void StartGame(ActionEvent actionEvent) throws IOException {
         FXMLLoader fxmlLoader= new FXMLLoader();
+
+        sendParamsToViewModel();
+        generateMaze();
         Stage s = Main.getStage();
         Parent root = fxmlLoader.load(getClass().getResource("../View/MyView.fxml").openStream());
         s.setScene(new Scene(root, 600, 400));
         MyViewController vc = fxmlLoader.getController();
-        //MazeDisplayer md = fxmlLoader.getController();
+
         vc.setViewModel(viewModel);
         viewModel.addObserver(vc);
         Main.setStage(s);
-        generateMaze();
+
         s.show();
     }
+
+    private void sendParamsToViewModel() {
+        viewModel.setParams(gameParams);
+    }
+
     /*
         ///////////////MAZE PARAMS/////////////
         0 - DIFFICULTY
@@ -169,6 +140,7 @@ public class NewGameController extends Controller implements Initializable{
                 col = 50;
                 break;
             case "custom":
+                getCustomMazeSize();
                 row = Integer.parseInt(gameParams[1]);
                 col = Integer.parseInt(gameParams[2]);
         }
@@ -181,30 +153,88 @@ public class NewGameController extends Controller implements Initializable{
     }
 
     public void pickEasy(ActionEvent actionEvent) {
+
         gameParams[0]="easy";
+        setRowsCol(true);
+
     }
     public void pickMedium(ActionEvent actionEvent) {
+
         gameParams[0]="medium";
+        setRowsCol(true);
     }
     public void PickHard(ActionEvent actionEvent) {
+
         gameParams[0]="hard";
+        setRowsCol(true);
     }
 
-    public void pickPikacu(ActionEvent actionEvent) {
-        gameParams[1]="pikacu";
+    public void pressedCustom(ActionEvent actionEvent) {
+
+        gameParams[0]="custom";
+        setRowsCol(false);
     }
-    public void pickStowe(MouseEvent mouseEvent) {
-        gameParams[1]="stowe";
+
+    private void setRowsCol(boolean val){
+        row.setDisable(val);
+        col.setDisable(val);
     }
-    public void pickNetta(MouseEvent mouseEvent) {
-        gameParams[1]="netta";
+
+
+    public void getCustomMazeSize() {
+        if (isInt(row,row.getText()) && isInt(col,col.getText()) ){
+            gameParams[1] = row.getText();
+            gameParams[2] = col.getText();
+        }
+
+
     }
-    public void pickHomer(MouseEvent mouseEvent) {
-        gameParams[1]="homer";
+
+    //Validate age
+    private boolean isInt(TextField input, String message){
+        try{
+            int age = Integer.parseInt(input.getText());
+            System.out.println("row/col is: " + age);
+            return true;
+        }catch(NumberFormatException e){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error Dialog");
+            alert.setHeaderText("Look, an Error Dialog");
+            alert.setContentText("Ooops, there was an error! " + message + " is not a number");
+
+            alert.showAndWait();
+            return false;
+        }
     }
+
+
+
 
     public void pickTreeTheme(ActionEvent actionEvent) {
         gameParams[2]="tree";
+    }
+
+    public void pickNetta(MouseEvent mouseEvent) {
+        gameParams[3]="Netta";
+    }
+
+
+    public void pickDana(ActionEvent actionEvent) {
+        gameParams[3]="Dana";
+    }
+
+    public void pickIzhar(ActionEvent actionEvent) {gameParams[3]="Izhar";
+    }
+
+    public void pickGali(ActionEvent actionEvent) {gameParams[3]="Gali";
+    }
+
+    public void pickEuroVisionTheme(ActionEvent actionEvent) {
+        gameParams[4] = "EuroVision";
+    }
+
+    public void pickHomeTheme(ActionEvent actionEvent) {
+        gameParams[4] = "Home";
     }
 }
 

@@ -8,10 +8,9 @@
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleGroup?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
@@ -37,9 +36,9 @@
                </AnchorPane>
              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="346.0" prefWidth="120.0">
                   <children>
-                     <RadioButton fx:id="easyButton" layoutX="-4.0" layoutY="-20.0" mnemonicParsing="false" onAction="#pickEasy" prefHeight="80.0" prefWidth="100.0" selected="true" text="Easy" AnchorPane.bottomAnchor="180.0" AnchorPane.leftAnchor="-4.0" AnchorPane.topAnchor="-20.0">
+                     <RadioButton fx:id="easyButton" layoutX="-4.0" mnemonicParsing="false" onAction="#pickEasy" prefHeight="42.0" prefWidth="64.0" selected="true" text="Easy" AnchorPane.bottomAnchor="188.0" AnchorPane.leftAnchor="-4.0" AnchorPane.topAnchor="0.0">
                         <padding>
-                           <Insets bottom="30.0" left="5.0" top="30.0" />
+                           <Insets bottom="10.0" left="5.0" top="10.0" />
                         </padding>
                         <opaqueInsets>
                            <Insets />
@@ -48,35 +47,34 @@
                            <ToggleGroup fx:id="g" />
                         </toggleGroup>
                      </RadioButton>
-                     <RadioButton fx:id="MediumButton" layoutX="-4.0" layoutY="14.0" mnemonicParsing="false" onAction="#pickMedium" prefHeight="71.0" prefWidth="100.0" text="Medium" toggleGroup="$g">
+                     <RadioButton fx:id="MediumButton" layoutX="-3.0" layoutY="35.0" mnemonicParsing="false" onAction="#pickMedium" prefHeight="50.0" prefWidth="72.0" text="Medium" toggleGroup="$g">
                         <padding>
-                           <Insets bottom="30.0" left="5.0" top="30.0" />
+                           <Insets bottom="10.0" left="5.0" top="10.0" />
                         </padding>
                         <opaqueInsets>
                            <Insets />
                         </opaqueInsets>
                      </RadioButton>
-                     <RadioButton fx:id="HardButton" layoutX="-4.0" layoutY="49.0" mnemonicParsing="false" onAction="#PickHard" prefHeight="80.0" prefWidth="100.0" text="Hard" toggleGroup="$g">
+                     <RadioButton fx:id="HardButton" layoutX="2.0" layoutY="85.0" mnemonicParsing="false" onAction="#PickHard" prefHeight="38.0" prefWidth="62.0" text="Hard" toggleGroup="$g" AnchorPane.leftAnchor="-3.0">
                         <padding>
-                           <Insets bottom="30.0" left="5.0" top="30.0" />
+                           <Insets bottom="10.0" left="5.0" top="10.0" />
                         </padding>
                         <opaqueInsets>
                            <Insets />
                         </opaqueInsets>
                      </RadioButton>
-                     <RadioButton fx:id="CustomButton" layoutX="-4.0" layoutY="89.0" mnemonicParsing="false" onAction="#pressedCustom" prefHeight="80.0" prefWidth="100.0" text="Custom" toggleGroup="$g">
+                     <RadioButton fx:id="CustomButton" layoutX="-2.0" layoutY="130.0" mnemonicParsing="false" onAction="#pressedCustom" prefHeight="20.0" prefWidth="70.0" text="Custom" toggleGroup="$g" AnchorPane.leftAnchor="-3.0">
                         <padding>
-                           <Insets bottom="30.0" left="5.0" top="30.0" />
+                           <Insets bottom="10.0" left="5.0" top="10.0" />
                         </padding>
                         <opaqueInsets>
                            <Insets />
                         </opaqueInsets>
                      </RadioButton>
-                     <Text fx:id="rowLabel" disable="true" layoutX="8.0" layoutY="164.0" strokeType="OUTSIDE" strokeWidth="0.0" text="rows" visible="false" />
-                     <Text fx:id="colLabel" disable="true" layoutX="63.0" layoutY="163.0" strokeType="OUTSIDE" strokeWidth="0.0" text="columns" visible="false" />
-                     <TextField fx:id="row" disable="true" layoutX="8.0" layoutY="176.0" onKeyReleased="#keyReleasedProperly" prefHeight="26.0" prefWidth="46.0" promptText="20" visible="false" />
-                     <TextField fx:id="col" disable="true" layoutX="66.0" layoutY="176.0" onKeyReleased="#keyReleasedProperly" prefHeight="26.0" prefWidth="46.0" promptText="20" visible="false" />
-                     <Button fx:id="submitButton" disable="true" layoutX="28.0" layoutY="203.0" mnemonicParsing="false" onAction="#getCustomMazeSize" text="submit" visible="false" />
+                     <Text fx:id="rowLabel" disable="true" layoutX="21.0" layoutY="181.0" strokeType="OUTSIDE" strokeWidth="0.0" text="rows" />
+                     <Text fx:id="colLabel" disable="true" layoutX="63.0" layoutY="182.0" strokeType="OUTSIDE" strokeWidth="0.0" text="columns" />
+                     <TextField fx:id="row" disable="true" layoutX="10.0" layoutY="189.0" prefHeight="26.0" prefWidth="46.0" promptText="20" />
+                     <TextField fx:id="col" disable="true" layoutX="62.0" layoutY="189.0" prefHeight="26.0" prefWidth="46.0" promptText="20" />
                   </children>
                </AnchorPane>
            </items>
@@ -89,7 +87,7 @@
          </SplitPane>
       </left>
       <center>
-         <SplitPane dividerPositions="0.20634920634920634" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" BorderPane.alignment="CENTER">
+         <SplitPane orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" BorderPane.alignment="CENTER">
            <items>
              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="154.0" prefWidth="161.0">
                   <children>
@@ -98,70 +96,21 @@
                            <Font name="System Bold Italic" size="13.0" />
                         </font>
                      </Label>
-                  </children>
-               </AnchorPane>
-             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="310.0" prefWidth="278.0">
-                  <children>
-                     <RadioButton fx:id="pickacu" mnemonicParsing="false" onAction="#pickPikacu" selected="true">
-                        <graphic>
-                           <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                              <image>
-
-                              </image>
-                           </ImageView>
-                        </graphic>
-                        <toggleGroup>
-                           <ToggleGroup fx:id="ch" />
-                        </toggleGroup>
-                     </RadioButton>
-                     <RadioButton layoutY="139.0" mnemonicParsing="false" toggleGroup="$ch">
-                        <graphic>
-                           <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
-                        </graphic>
-                     </RadioButton>
-                     <RadioButton layoutY="196.0" mnemonicParsing="false" toggleGroup="$ch">
-                        <graphic>
-                           <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
-                        </graphic>
-                     </RadioButton>
-                     <RadioButton layoutY="66.0" mnemonicParsing="false" toggleGroup="$ch">
-                        <graphic>
-                           <ImageView fx:id="stowe" fitHeight="50.0" fitWidth="50.0" onDragDetected="#pickStowe" pickOnBounds="true" preserveRatio="true">
-                              <image>
-
-                              </image>
-                           </ImageView>
-                        </graphic>
-                     </RadioButton>
-                     <RadioButton layoutX="139.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="95.0" toggleGroup="$ch">
-                        <graphic>
-                           <ImageView fx:id="netta" fitHeight="38.0" fitWidth="93.0" onDragDetected="#pickNetta" pickOnBounds="true" preserveRatio="true">
-                              <image>
-
-                              </image>
-                           </ImageView>
-                        </graphic>
-                     </RadioButton>
-                     <RadioButton layoutX="139.0" layoutY="66.0" mnemonicParsing="false" toggleGroup="$ch">
-                        <graphic>
-                           <ImageView fx:id="homer" fitHeight="50.0" fitWidth="85.0" onDragDetected="#pickHomer" pickOnBounds="true" preserveRatio="true">
-
-                              <image>
-
-                              </image>
-                           </ImageView>
-                        </graphic>
-                     </RadioButton>
-                     <RadioButton layoutX="139.0" layoutY="139.0" mnemonicParsing="false" toggleGroup="$ch">
-                        <graphic>
-                           <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
-                        </graphic>
-                     </RadioButton>
-                     <RadioButton layoutX="139.0" layoutY="189.0" mnemonicParsing="false" toggleGroup="$ch">
-                        <graphic>
-                           <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
-                        </graphic>
-                     </RadioButton>
+                     <Pane layoutY="67.0" prefHeight="244.0" prefWidth="278.0">
+                        <children>
+                           <RadioButton fx:id="Netta" layoutX="14.0" layoutY="23.0" mnemonicParsing="false" onAction="#pickNetta" selected="true" text="NETTA">
+                              <toggleGroup>
+                                 <ToggleGroup fx:id="c" />
+                              </toggleGroup></RadioButton>
+                           <RadioButton fx:id="Dana" layoutX="27.0" layoutY="130.0" mnemonicParsing="false" onAction="#pickDana" text="DANA" toggleGroup="$c" />
+                           <Pane layoutX="75.0" layoutY="23.0" prefHeight="244.0" prefWidth="278.0">
+                              <children>
+                                 <RadioButton fx:id="Izhar" layoutX="112.0" layoutY="105.0" mnemonicParsing="false" onAction="#pickIzhar" text="IZHAR" toggleGroup="$c" />
+                              </children>
+                           </Pane>
+                           <RadioButton fx:id="Gali" layoutX="194.0" layoutY="13.0" mnemonicParsing="false" onAction="#pickGali" text="GALI" toggleGroup="$c" />
+                        </children>
+                     </Pane>
                   </children>
                </AnchorPane>
            </items>
@@ -181,39 +130,16 @@
                </AnchorPane>
              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                   <children>
-                     <RadioButton fx:id="treeTheme" mnemonicParsing="false" onAction="#pickTreeTheme" prefHeight="85.0" prefWidth="118.0" selected="true">
-                        <graphic>
-                           <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                              <image>
-
-                              </image>
-                           </ImageView>
-                        </graphic>
+                     <RadioButton mnemonicParsing="false" onAction="#pickEuroVisionTheme" prefHeight="85.0" prefWidth="153.0" selected="true" text="Default EuroVision view">
                         <toggleGroup>
                            <ToggleGroup fx:id="th" />
                         </toggleGroup>
                      </RadioButton>
-                     <Label text="Default - forest view" />
                   </children>
                </AnchorPane>
                <AnchorPane layoutX="10.0" layoutY="10.0" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                   <children>
-                     <RadioButton mnemonicParsing="false" prefHeight="85.0" prefWidth="118.0" toggleGroup="$th">
-                        <graphic>
-                           <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                              <image>
-
-                              </image>
-                           </ImageView>
-                        </graphic>
-                     </RadioButton>
-                     <Label text="synaguage view" />
-                     <RadioButton layoutY="77.0" mnemonicParsing="false" prefHeight="85.0" prefWidth="118.0" toggleGroup="$th">
-                        <graphic>
-                           <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
-                        </graphic>
-                     </RadioButton>
-                     <Label layoutY="76.0" text="home view" />
+                     <RadioButton layoutY="14.0" mnemonicParsing="false" onAction="#pickHomeTheme" prefHeight="85.0" prefWidth="118.0" text="home view" toggleGroup="$th" />
                   </children>
                </AnchorPane>
            </items>

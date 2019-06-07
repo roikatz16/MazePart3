@@ -9,6 +9,8 @@ public class MyViewModel extends Observable implements Observer {
 
     private IModel model;
 
+    private String[] params;
+
     private char[][] mazeAsArray;
     private int rowStartPosition;
     private int colStartPosition;
@@ -81,5 +83,13 @@ public class MyViewModel extends Observable implements Observer {
 
     public int getColCurrentPosition() {
         return colCurrentPosition;
+    }
+
+    public String[] getParams() {
+        return params;
+    }
+
+    public void setParams(String[] params) {
+        this.params = params;
     }
 }
