@@ -4,6 +4,7 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Observable;
 import java.util.TimeZone;
@@ -19,6 +20,8 @@ import Server.Server;
 import Server.ServerStrategyGenerateMaze;
 import Server.ServerStrategySolveSearchProblem;
 import algorithms.mazeGenerators.Maze;
+import algorithms.search.AState;
+import algorithms.search.Solution;
 import javafx.scene.input.KeyCode;
 
 
@@ -29,13 +32,13 @@ public class MyModel extends Observable implements IModel {
     private int currentPositionRow;
     private int currentPositionColumn;
     private Maze maze;
+    private ArrayList<AState> solutionAsList;
     private ExecutorService threadPool = Executors.newCachedThreadPool();
 
 
 
     public MyModel() {
         //Raise the servers
-
         mazeGeneratingServer =new Server(5400, 1000, new ServerStrategyGenerateMaze());
         solveSearchProblemServer = new Server(5401, 5000, new ServerStrategySolveSearchProblem());
     }
@@ -44,7 +47,6 @@ public class MyModel extends Observable implements IModel {
         solveSearchProblemServer.start();
         mazeGeneratingServer.start();
     }
-
 
     @Override
     public void stopServers() {
@@ -72,7 +74,7 @@ public class MyModel extends Observable implements IModel {
             currentPositionColumn = maze.getStartPosition().getColumnIndex();
             currentPositionRow = maze.getStartPosition().getRowIndex();
             setChanged();
-            notifyObservers();
+            notifyObservers("generate");
         });
     }
 
@@ -106,7 +108,59 @@ public class MyModel extends Observable implements IModel {
             var1.printStackTrace();
         }
     }
+    @Override
+    public int[][] solveMaze() {
 
+        //Generate maze
+        threadPool.execute(() -> {
+            solveMazeWithServers();
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            setChanged();
+            notifyObservers("solved");
+        });
+        return new int[0][];
+    }
+
+
+    public void solveMazeWithServers() {
+
+        try {
+            Client client = new Client(InetAddress.getLocalHost(), 5401, new IClientStrategy() {
+                @Override
+                public void clientStrategy(InputStream inFromServer, OutputStream outToServer) {
+                    try {
+                        //System.out.println(System.getProperty("java.io.tmpdir"));
+                        ObjectOutputStream toServer = new ObjectOutputStream(outToServer);
+                        ObjectInputStream fromServer = new ObjectInputStream(inFromServer);
+                        toServer.flush();
+                        //MyMazeGenerator mg = new MyMazeGenerator();
+                        //Maze maze = mg.generate(4, 4);
+                        //maze.print();
+                        toServer.writeObject(maze); //send maze to server
+                        toServer.flush();
+                        Solution mazeSolution = (Solution) fromServer.readObject(); //read generated maze (compressed with MyCompressor) from server
+
+                        //Print Maze Solution retrieved from the server
+                        System.out.println(String.format("Solution steps: %s", mazeSolution));
+                        solutionAsList = mazeSolution.getSolutionPath();//todo ?
+                        for (int i = 0; i < solutionAsList.size(); i++) {
+                            System.out.println(String.format("%s. %s", i, solutionAsList.get(i).toString()));
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+            client.communicateWithServer();
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
+
+    }
 
     public void moveCharacter(KeyCode movement, char[][] array) {
         switch (movement) {
@@ -164,14 +218,14 @@ public class MyModel extends Observable implements IModel {
                 break;
         }
         setChanged();
-        notifyObservers(false);
+        notifyObservers("move");
     }
 
     private boolean checkPassability(int row, int col, char[][] array) {
         if(row<0 ||
                 col<0 ||
-                row>= array.length||
-                col>= array[0].length||
+                row >= array.length||
+                col >= array[0].length||
                 array[row][col]=='1')
         {
             return false;
@@ -180,23 +234,9 @@ public class MyModel extends Observable implements IModel {
     }
 
 
-    @Override
-    public Maze getMaze() {
-        return maze;
-    }
 
-    public int getCurrentPositionRow() {
-        return currentPositionRow;
-    }
 
-    public int getCurrentPositionColumn() {
-        return currentPositionColumn;
-    }
 
-    @Override
-    public int[][] solveMaze() {
-        return new int[0][];
-    }
 
 
     public void saveGame(int CharacterPositionRow, int characterPositionCol, String characterName, String fileName){
@@ -241,6 +281,29 @@ public class MyModel extends Observable implements IModel {
         } catch (IOException var8) {
             var8.printStackTrace();
         }
+    }
+    @Override
+    public Maze getMaze() {
+        return maze;
+    }
 
+    public ArrayList<AState> getSolutionAsList() {
+        return solutionAsList;
+    }
+
+    public int getCurrentPositionRow() {
+        return currentPositionRow;
+    }
+
+    public int getCurrentPositionColumn() {
+        return currentPositionColumn;
+    }
+
+    public void setCurrentPositionRow(int currentPositionRow) {
+        this.currentPositionRow = currentPositionRow;
+    }
+
+    public void setCurrentPositionColumn(int currentPositionColumn) {
+        this.currentPositionColumn = currentPositionColumn;
     }
 }

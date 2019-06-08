@@ -52,13 +52,8 @@ public class LandingController implements Initializable {
         this.viewModel = viewModel;
     }
 
-
-
-
     public void exitGame(ActionEvent actionEvent) {
         closeProgram();
-
-
     }
 
     private void closeProgram() {
@@ -69,16 +64,13 @@ public class LandingController implements Initializable {
         if (alert.getResult() == ButtonType.YES) {
             s.close();
         }
-
     }
-
 
     public void goToInstructions(ActionEvent actionEvent) throws IOException {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Maze game instructions");
         alert.setHeaderText("Look, an Information Dialog");
         alert.setContentText("I have a great message for you!");
-
         alert.showAndWait();
 
     }
@@ -93,7 +85,6 @@ public class LandingController implements Initializable {
         viewModel.addObserver(ng);
         Main.setStage(s);
         s.show();
-
     }
 
 

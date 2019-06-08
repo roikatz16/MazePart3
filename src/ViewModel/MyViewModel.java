@@ -1,7 +1,10 @@
 package ViewModel;
 
 import Model.IModel;
+import algorithms.search.AState;
 import javafx.scene.input.KeyCode;
+
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -12,6 +15,8 @@ public class MyViewModel extends Observable implements Observer {
     private String[] params;
 
     private char[][] mazeAsArray;
+    private ArrayList<int[]> solutionAsIntegersList;
+
     private int rowStartPosition;
     private int colStartPosition;
     private int rowGoalPosition;
@@ -29,23 +34,48 @@ public class MyViewModel extends Observable implements Observer {
       model.generateMaze(row, col);
     }
 
+    public void solveMaze() { model.solveMaze();}
+
     @Override
     public void update(Observable o, Object arg) {
         if (o==model){
-            if(arg!=null&& arg instanceof Boolean && !(Boolean)arg){
 
-            }
-            mazeAsArray = (model.getMaze()).getArray();//possible not update charArray every time?
-            rowStartPosition = (model.getMaze()).getStartPosition().getRowIndex() ;
-            colStartPosition = (model.getMaze()).getStartPosition().getColumnIndex() ;
+            mazeAsArray = (model.getMaze()).getArray();
+            solutionAsIntegersList = convert(model.getSolutionAsList());
             rowGoalPosition = (model.getMaze()).getGoalPosition().getRowIndex() ;
             colGoalPosition = (model.getMaze()).getGoalPosition().getColumnIndex() ;
+            rowStartPosition = (model.getMaze()).getStartPosition().getRowIndex() ;
+            colStartPosition = (model.getMaze()).getStartPosition().getColumnIndex() ;
             rowCurrentPosition = model.getCurrentPositionRow();
             colCurrentPosition = model.getCurrentPositionColumn();
 
             setChanged();
-            notifyObservers();
+            notifyObservers(arg);
         }
+    }
+
+    private ArrayList<int[]> convert (ArrayList<AState> ASlist){
+        if (ASlist == null){
+            return null;
+        }
+        ArrayList<int[]> result = new ArrayList<>();
+        String word;
+        String[] parts;
+        String rowString;
+        String colString;
+
+        for (int i = 0; i < ASlist.size(); i++) {
+            word = ASlist.get(i).toString().replace("(", "").replace(")", "");
+            parts =  word.split(",");
+            rowString = parts[0];
+            colString = parts[1];
+            int[] pare = new int[2];
+            pare[0] = Integer.parseInt(rowString);
+            pare[1] =  Integer.parseInt(colString);
+            result.add(pare);
+        }
+
+        return result;
     }
 
     public void close(){
@@ -56,18 +86,18 @@ public class MyViewModel extends Observable implements Observer {
         model.moveCharacter(movement, mazeAsArray);
     }
 
-
     public char[][] getMazeAsArray() {
         return mazeAsArray;
     }
 
-    public int getRowStartPosition() {
-        return rowStartPosition;
+    public ArrayList<int[]> getSolutionAsIntegersList() {
+        return solutionAsIntegersList;
     }
 
-    public int getColStartPosition() {
-        return colStartPosition;
-    }
+    public int getRowStartPosition() { return rowStartPosition; }
+
+
+    public int getColStartPosition() { return colStartPosition; }
 
     public int getRowGoalPosition() {
         return rowGoalPosition;
@@ -83,6 +113,17 @@ public class MyViewModel extends Observable implements Observer {
 
     public int getColCurrentPosition() {
         return colCurrentPosition;
+    }
+
+    public void setRowCurrentPosition(int rowCurrentPosition) {
+        this.rowCurrentPosition = rowCurrentPosition;
+        model.setCurrentPositionRow(rowCurrentPosition);
+
+    }
+
+    public void setColCurrentPosition(int colCurrentPosition) {
+        this.colCurrentPosition = colCurrentPosition;
+        model.setCurrentPositionColumn(colCurrentPosition);
     }
 
     public String[] getParams() {

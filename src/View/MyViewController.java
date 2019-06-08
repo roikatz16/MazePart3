@@ -2,9 +2,9 @@ package View;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.input.KeyEvent;
@@ -16,13 +16,17 @@ import java.net.URL;
 import java.util.Observable;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.concurrent.TimeUnit;
 
 
 public class MyViewController extends Controller implements IView, Initializable {
 
-    //private boolean isMakingMove = false;
     @FXML
     public MazeDisplayer mazeDisplayer;
+    @FXML
+    private Button solve;
+    @FXML
+    private Button restart;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -36,15 +40,35 @@ public class MyViewController extends Controller implements IView, Initializable
     }
 
     public void KeyPressed(KeyEvent keyEvent) {
-     //   isMakingMove = true;
+        //   isMakingMove = true;
         viewModel.moveCharacter(keyEvent.getCode());
         keyEvent.consume();
 
     }
 
-    public void solveMaze(ActionEvent actionEvent) {
+    public void solveMaze(ActionEvent actionEvent) throws InterruptedException {
+        solve.setDisable(true);
+        solve.cancelButtonProperty();
+        restart.setDisable(true);
+        restart.cancelButtonProperty();
+       TimeUnit.SECONDS.sleep(2);
+        viewModel.solveMaze();
+        solve.setDisable(false);
+        restart.setDisable(false);
+    }
 
-        showAlert("Solving maze..");
+    public void restart() throws FileNotFoundException {
+        restart.setDisable(true);
+        //restart.cancelButtonProperty();
+        solve.setDisable(true);
+        //solve.cancelButtonProperty();
+        int characterPositionRow = viewModel.getRowStartPosition();
+        int characterPositionColumn = viewModel.getColStartPosition();
+        viewModel.setRowCurrentPosition(characterPositionRow);
+        viewModel.setColCurrentPosition(characterPositionColumn);
+        mazeDisplayer.setCharacterPosition(viewModel.getRowCurrentPosition(), viewModel.getColCurrentPosition());
+        restart.setDisable(false);
+        solve.setDisable(false);
     }
 
     private void showAlert(String alertMessage) {
@@ -64,24 +88,30 @@ public class MyViewController extends Controller implements IView, Initializable
      */
     @Override
     public void update(Observable o, Object arg) {
+
         if (o == viewModel) {
-            int characterPositionRow = viewModel.getRowCurrentPosition();
-            int characterPositionColumn = viewModel.getColCurrentPosition();
+
             try {
-                mazeDisplayer.setMaze(viewModel.getMazeAsArray());
+                int goalPositionRow = viewModel.getRowGoalPosition();
+                int goalPositionCol = viewModel.getColGoalPosition();
+                mazeDisplayer.setMaze(viewModel.getMazeAsArray(), goalPositionRow, goalPositionCol );
+                int characterPositionRow = viewModel.getRowCurrentPosition();
+                int characterPositionColumn = viewModel.getColCurrentPosition();
                 mazeDisplayer.setCharacterPosition(characterPositionRow, characterPositionColumn);
+                if(arg!="move"){
+                    mazeDisplayer.setSolutionAsIntegersList(viewModel.getSolutionAsIntegersList());
+                }
+
+
+
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
         }
     }
 
-
-
     public void exitGame(ActionEvent actionEvent) {
         closeProgram();
-
-
     }
 
     private void closeProgram() {
@@ -92,9 +122,7 @@ public class MyViewController extends Controller implements IView, Initializable
         if (alert.getResult() == ButtonType.YES) {
             s.close();
             viewModel.close();
-
         }
-
     }
 
     public void saveGame(ActionEvent actionEvent) {
