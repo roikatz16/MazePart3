@@ -3,16 +3,15 @@ package View;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.TextInputDialog;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import sample.Main;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -21,6 +20,7 @@ import java.util.concurrent.TimeUnit;
 
 public class MyViewController extends Controller implements IView, Initializable {
 
+    private ArrayList<int[]> solutionAsIntegersList;
     @FXML
     public MazeDisplayer mazeDisplayer;
     @FXML
@@ -28,33 +28,51 @@ public class MyViewController extends Controller implements IView, Initializable
     @FXML
     private Button restart;
 
+
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
         Stage s = Main.getStage();
         s.setOnCloseRequest(e->{
             e.consume();
             closeProgram();
         });
-
-
     }
 
     public void KeyPressed(KeyEvent keyEvent) {
-        //   isMakingMove = true;
         viewModel.moveCharacter(keyEvent.getCode());
         keyEvent.consume();
 
     }
 
-    public void solveMaze(ActionEvent actionEvent) throws InterruptedException {
-        solve.setDisable(true);
-        solve.cancelButtonProperty();
-        restart.setDisable(true);
-        restart.cancelButtonProperty();
-       TimeUnit.SECONDS.sleep(2);
-        viewModel.solveMaze();
-        solve.setDisable(false);
-        restart.setDisable(false);
+    public void solveMaze() throws InterruptedException, FileNotFoundException {
+
+        if(solve.getText().equals("Solve")) {
+            solve.setText("Hide Solution");
+
+            solve.setDisable(true);
+            restart.setDisable(true);
+            if(solutionAsIntegersList==null) {
+                TimeUnit.SECONDS.sleep(2);
+                viewModel.solveMaze();
+            }
+            else{
+                mazeDisplayer.redrawWithSolution();
+            }
+            solve.setDisable(false);
+            restart.setDisable(false);
+        }
+
+        else{
+            solve.setText("Solve");
+            solve.setDisable(true);
+            restart.setDisable(true);
+            mazeDisplayer.redrawWithoutSolution();
+            solve.setDisable(false);
+            restart.setDisable(false);
+        }
+
     }
 
     public void restart() throws FileNotFoundException {
@@ -77,6 +95,23 @@ public class MyViewController extends Controller implements IView, Initializable
         alert.show();
     }
 
+    @FXML
+    private void backToNewGame(ActionEvent actionEvent) throws IOException {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Do you want to save the game before starting a new one?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
+        // alert.se
+        alert.showAndWait();
+
+        if (alert.getResult() == ButtonType.YES) {
+            saveGame();
+            newGame(actionEvent);
+        }
+
+        else if(alert.getResult() == ButtonType.NO){
+            newGame(actionEvent);
+        }
+    }
+
+
     /**
      * This method is called whenever the observed object is changed. An
      * application calls an <tt>Observable</tt> object's
@@ -98,9 +133,9 @@ public class MyViewController extends Controller implements IView, Initializable
                 int characterPositionRow = viewModel.getRowCurrentPosition();
                 int characterPositionColumn = viewModel.getColCurrentPosition();
                 mazeDisplayer.setCharacterPosition(characterPositionRow, characterPositionColumn);
-                if(arg!="move"){
-                    mazeDisplayer.setSolutionAsIntegersList(viewModel.getSolutionAsIntegersList());
-                }
+                solutionAsIntegersList=viewModel.getSolutionAsIntegersList();
+                mazeDisplayer.setSolutionAsIntegersList(solutionAsIntegersList);
+
 
 
 
@@ -110,24 +145,26 @@ public class MyViewController extends Controller implements IView, Initializable
         }
     }
 
-    public void exitGame(ActionEvent actionEvent) {
+    public void exitGame() {
         closeProgram();
     }
 
-    private void closeProgram() {
+    @Override
+    protected void closeProgram() {
         Stage s = Main.getStage();
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Do you want to save the game?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
         alert.showAndWait();
 
-        if (alert.getResult() == ButtonType.YES) {
+        if (alert.getResult() == ButtonType.YES || alert.getResult() == ButtonType.NO) {
+            if(alert.getResult() == ButtonType.YES){
+                saveGame();
+            }
             s.close();
             viewModel.close();
         }
     }
 
-    public void saveGame(ActionEvent actionEvent) {
-
-
+    public void saveGame() {
         TextInputDialog dialog = new TextInputDialog("my game");
         dialog.setTitle("SAVE GAME");
         dialog.setHeaderText("Please, save your game");

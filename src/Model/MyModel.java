@@ -54,7 +54,7 @@ public class MyModel extends Observable implements IModel {
             mazeGeneratingServer.stop();
             solveSearchProblemServer.stop();
             threadPool.shutdown();
-            threadPool.awaitTermination(3, TimeUnit.SECONDS);
+            threadPool.awaitTermination(0, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
             //e.printStackTrace();
         }

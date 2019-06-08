@@ -16,9 +16,10 @@ import sample.Main;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Observable;
 import java.util.ResourceBundle;
 
-public class LandingController implements Initializable {
+public class LandingController extends Controller implements Initializable {
 
 
     /**
@@ -44,26 +45,9 @@ public class LandingController implements Initializable {
     public Button oldGameButton;
     public Button instructionsButton;
     public Button exitButton;
-    //private FXMLLoader fxmlLoader;
-
-    private MyViewModel viewModel;
-
-    public void setViewModel(MyViewModel viewModel) {
-        this.viewModel = viewModel;
-    }
 
     public void exitGame(ActionEvent actionEvent) {
         closeProgram();
-    }
-
-    private void closeProgram() {
-        Stage s = Main.getStage();
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to exit?", ButtonType.YES, ButtonType.NO);
-        alert.showAndWait();
-
-        if (alert.getResult() == ButtonType.YES) {
-            s.close();
-        }
     }
 
     public void goToInstructions(ActionEvent actionEvent) throws IOException {
@@ -76,15 +60,7 @@ public class LandingController implements Initializable {
     }
 
     public void goToNewGame(ActionEvent actionEvent) throws IOException {
-        FXMLLoader fxmlLoader= new FXMLLoader();
-        Stage s = Main.getStage();
-        Parent root = fxmlLoader.load(getClass().getResource("../View/NewGame.fxml").openStream());
-        s.setScene(new Scene(root, 600, 400));
-        NewGameController ng = fxmlLoader.getController();
-        ng.setViewModel(viewModel);
-        viewModel.addObserver(ng);
-        Main.setStage(s);
-        s.show();
+        newGame(actionEvent);
     }
 
 
@@ -98,5 +74,10 @@ public class LandingController implements Initializable {
         viewModel.addObserver(lc);
         Main.setStage(s);
         s.show();
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+
     }
 }

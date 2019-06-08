@@ -55,16 +55,7 @@ public class NewGameController extends Controller implements Initializable{
 
     }
 
-    private void closeProgram() {
-        Stage s = Main.getStage();
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to exit?", ButtonType.YES, ButtonType.NO);
-        alert.showAndWait();
 
-        if (alert.getResult() == ButtonType.YES) {
-            s.close();
-        }
-
-    }
 
     public void backToLanding(ActionEvent actionEvent) throws IOException {
         Stage s = Main.getStage();

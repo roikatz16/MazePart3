@@ -11,9 +11,7 @@ import java.util.Observer;
 public class MyViewModel extends Observable implements Observer {
 
     private IModel model;
-
     private String[] params;
-
     private char[][] mazeAsArray;
     private ArrayList<int[]> solutionAsIntegersList;
 
@@ -25,15 +23,12 @@ public class MyViewModel extends Observable implements Observer {
     private int colCurrentPosition;
 
 
-
     public MyViewModel(IModel model) {
         this.model = model;
     }
-
     public void generateMaze(int row, int col){
       model.generateMaze(row, col);
     }
-
     public void solveMaze() { model.solveMaze();}
 
     @Override
@@ -89,28 +84,20 @@ public class MyViewModel extends Observable implements Observer {
     public char[][] getMazeAsArray() {
         return mazeAsArray;
     }
-
     public ArrayList<int[]> getSolutionAsIntegersList() {
         return solutionAsIntegersList;
     }
-
     public int getRowStartPosition() { return rowStartPosition; }
-
-
     public int getColStartPosition() { return colStartPosition; }
-
     public int getRowGoalPosition() {
         return rowGoalPosition;
     }
-
     public int getColGoalPosition() {
         return colGoalPosition;
     }
-
     public int getRowCurrentPosition() {
         return rowCurrentPosition;
     }
-
     public int getColCurrentPosition() {
         return colCurrentPosition;
     }
@@ -118,7 +105,6 @@ public class MyViewModel extends Observable implements Observer {
     public void setRowCurrentPosition(int rowCurrentPosition) {
         this.rowCurrentPosition = rowCurrentPosition;
         model.setCurrentPositionRow(rowCurrentPosition);
-
     }
 
     public void setColCurrentPosition(int colCurrentPosition) {
@@ -129,7 +115,6 @@ public class MyViewModel extends Observable implements Observer {
     public String[] getParams() {
         return params;
     }
-
     public void setParams(String[] params) {
         this.params = params;
     }

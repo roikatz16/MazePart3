@@ -43,6 +43,7 @@ public class Main extends Application {
 
         setStage(primaryStage);
         model.addObserver(viewModel);
+
         //---------------
        FXMLLoader fxmlLoader = new FXMLLoader();
 
@@ -51,7 +52,6 @@ public class Main extends Application {
         primaryStage.setScene(new Scene(root, 600, 400));
         LandingController lc = fxmlLoader.getController();
         lc.setViewModel(viewModel);
-
         primaryStage.show();
 
        // fxmlLoader.load(getClass().getResource("../View/MyView.fxml").openStream());

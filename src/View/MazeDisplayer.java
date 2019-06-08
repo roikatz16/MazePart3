@@ -22,6 +22,7 @@ public class MazeDisplayer extends Canvas {
     private String[] gameParams;
     private int goalPositionRow;
     private int goalPositionColumn;
+    private boolean showSolution;
 
 
 
@@ -43,6 +44,7 @@ public class MazeDisplayer extends Canvas {
      * constructor
      */
     public MazeDisplayer(){
+        showSolution = true;
         ImageFileNameWall = new SimpleStringProperty();
         ImageFileNameCharacter1 = new SimpleStringProperty();
         ImageFileNameCharacter2 = new SimpleStringProperty();
@@ -61,21 +63,21 @@ public class MazeDisplayer extends Canvas {
         goalPositionRow = row;
         goalPositionColumn = col;
         Image characterImage = chooseCharacter();
-        redraw(characterImage, "maze");
+        redraw(characterImage);
 
     }
 
     public void setSolutionAsIntegersList(ArrayList<int[]> solutionAsIntegersList) throws FileNotFoundException {
         this.solutionAsIntegersList = solutionAsIntegersList;
         Image characterImage = chooseCharacter();
-        redraw(characterImage, "solve");
+        redraw(characterImage);
     }
 
     public void setCharacterPosition(int row, int column) throws FileNotFoundException {
         characterPositionRow = row;
         characterPositionColumn = column;
         Image characterImage =  chooseCharacter();
-        redraw(characterImage, "move");
+        redraw(characterImage);
     }
 
     private Image chooseCharacter() throws FileNotFoundException {
@@ -95,7 +97,7 @@ public class MazeDisplayer extends Canvas {
     }
 
 
-    public void redraw(Image characterImage, String what) {
+    public void redraw(Image characterImage) {
         if (maze != null) {
             double canvasHeight = getHeight();
             double canvasWidth = getWidth();
@@ -121,10 +123,11 @@ public class MazeDisplayer extends Canvas {
                 }
 
                //draw solution
-               if(what=="solve"){
+               if(solutionAsIntegersList!=null && showSolution){
                    for (int i = 0; i < solutionAsIntegersList.size(); i++) {
                        gc.fillRect(solutionAsIntegersList.get(i)[1] * cellHeight, solutionAsIntegersList.get(i)[0] * cellWidth, cellHeight, cellWidth);
                        gc.drawImage(solutionImage, solutionAsIntegersList.get(i)[1] * cellHeight, solutionAsIntegersList.get(i)[0] * cellWidth, cellHeight, cellWidth);
+
                    }
                }
 
@@ -140,8 +143,16 @@ public class MazeDisplayer extends Canvas {
         }
     }
 
-    public void drawSolution(){
+    public void redrawWithoutSolution() throws FileNotFoundException {
+        Image characterImage =  chooseCharacter();
+        showSolution = false;
+        redraw(characterImage);
+    }
 
+    public void redrawWithSolution() throws FileNotFoundException {
+        Image characterImage =  chooseCharacter();
+        showSolution = true;
+        redraw(characterImage);
     }
 
     /* Getters & Setters */
@@ -157,6 +168,8 @@ public class MazeDisplayer extends Canvas {
     public int getCharacterPositionColumn() {
         return characterPositionColumn;
     }
+
+
 
     /* region Properties Getters & Setters */
 
@@ -197,5 +210,8 @@ public class MazeDisplayer extends Canvas {
     public void setImageFileNameSolution(String imageFileNameSolution) {
         this.ImageFileNameSolution.set(imageFileNameSolution);
     }
+
+
+
 }
 
