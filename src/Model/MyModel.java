@@ -4,10 +4,7 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Observable;
-import java.util.TimeZone;
+import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -34,6 +31,7 @@ public class MyModel extends Observable implements IModel {
     private Maze maze;
     private ArrayList<AState> solutionAsList;
     private ExecutorService threadPool = Executors.newCachedThreadPool();
+    private String characterName;
 
 
 
@@ -59,6 +57,7 @@ public class MyModel extends Observable implements IModel {
             //e.printStackTrace();
         }
     }
+
 
     @Override
     public void generateMaze(int row, int col) {
@@ -233,18 +232,12 @@ public class MyModel extends Observable implements IModel {
         return true;
     }
 
-
-
-
-
-
-
     public void saveGame(int CharacterPositionRow, int characterPositionCol, String characterName, String fileName){
-        TimeZone tz = TimeZone.getTimeZone("UTC");
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd--HH-mm"); // Quoted "Z" to indicate UTC, no timezone offset
+        TimeZone tz = TimeZone.getTimeZone("UTC+3");
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd&HH-mm"); // Quoted "Z" to indicate UTC, no timezone offset
         df.setTimeZone(tz);
         String nowAsISO = df.format(new Date());
-        String fileMetaData = fileName+ " " + nowAsISO + "METADATA";
+        String fileMetaData = fileName+ " "+ nowAsISO + "METADATA";
 
 
         try (BufferedWriter outWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(fileMetaData),"utf-8"),1024)) {
@@ -255,14 +248,8 @@ public class MyModel extends Observable implements IModel {
             outWriter.newLine();
             outWriter.write(Integer.toString(getCurrentPositionColumn()));
             outWriter.newLine();
-            outWriter.write(Integer.toString((getMaze().getStartPosition().getRowIndex())));
+            outWriter.write(Integer.toString(maze.toByteArray().length));
             outWriter.newLine();
-            outWriter.write(Integer.toString((getMaze().getStartPosition().getColumnIndex())));
-            outWriter.newLine();
-            outWriter.write(Integer.toString(getMaze().getGoalPosition().getRowIndex()));
-            outWriter.newLine();
-            outWriter.write(Integer.toString(getMaze().getGoalPosition().getColumnIndex()));
-
 
 
         } catch (UnsupportedEncodingException e1) {
@@ -282,6 +269,54 @@ public class MyModel extends Observable implements IModel {
             var8.printStackTrace();
         }
     }
+
+
+
+
+    @Override
+    public void loadGame(String gameTitle) throws IOException {
+        //extract string data from metaDATA file
+        int length = extractMetaDataFile(gameTitle);
+        while (gameTitle.charAt(gameTitle.length()-1)>58){
+            gameTitle = gameTitle.substring(0,gameTitle.length()-2);
+        }
+        //extract byte file to maze using decompressor
+        extractByteFile(gameTitle,length);
+
+        setChanged();
+        notifyObservers("loadMaze");
+
+    }
+
+    private int extractMetaDataFile(String gameTitle) throws IOException {
+        FileReader fileReader = new FileReader(gameTitle);
+        BufferedReader bufferedReader = new BufferedReader(fileReader);
+        List<String> lines = new ArrayList<String>();
+        String line = null;
+        while ((line = bufferedReader.readLine()) != null) {
+            lines.add(line);
+        }
+        characterName = lines.get(0);
+        currentPositionRow =  Integer.parseInt(lines.get(1));
+        currentPositionColumn = Integer.parseInt(lines.get(2));
+        return Integer.parseInt(lines.get(3));
+
+    }
+
+    private void extractByteFile(String gameTitle, int length) {
+        byte[] savedMazeBytes = new byte[0];
+
+        try {
+            InputStream in = new MyDecompressorInputStream(new FileInputStream(gameTitle));
+            savedMazeBytes = new byte[length];
+            in.read(savedMazeBytes);
+            in.close();
+        } catch (IOException var7) {
+            var7.printStackTrace();
+        }
+        maze = new Maze(savedMazeBytes);
+    }
+
     @Override
     public Maze getMaze() {
         return maze;
@@ -306,4 +341,12 @@ public class MyModel extends Observable implements IModel {
     public void setCurrentPositionColumn(int currentPositionColumn) {
         this.currentPositionColumn = currentPositionColumn;
     }
+
+
+    @Override
+    public String getCharacterName() {
+        return characterName;
+    }
+
+
 }

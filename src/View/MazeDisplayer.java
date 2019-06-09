@@ -161,6 +161,13 @@ public class MazeDisplayer extends Canvas {
         return gameParams;
     }
 
+    public void setCharacter(String Character) {
+        if (this.gameParams ==null){
+            this.gameParams = new String[11];
+        }
+        gameParams[3] = Character;
+    }
+
     public int getCharacterPositionRow() {
         return characterPositionRow;
     }

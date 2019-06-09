@@ -10,7 +10,9 @@ import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 import sample.Main;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Observer;
 
 public abstract class Controller implements Observer {
@@ -44,5 +46,30 @@ public abstract class Controller implements Observer {
         Main.setStage(s);
         s.show();
     }
+
+
+    protected ArrayList<String> getTitlesOfFiles(){
+        ArrayList<String> mazeTitles = new ArrayList<>();
+        File dir = new File(".");
+        File[] filesList = dir.listFiles();
+        for (File file : filesList) {
+            if (isMeta(file.getName())){
+                mazeTitles.add(file.getName());
+            }
+        }
+        return mazeTitles;
+    }
+
+    protected boolean isMeta(String name){
+        if (name.length()>7){
+
+            if(name.charAt(name.length()-1)=='A' && name.charAt(name.length()-2)=='T' && name.charAt(name.length()-3)=='A' ){
+                return true;
+            }
+        }
+        return false;
+    }
+
+
 
 }

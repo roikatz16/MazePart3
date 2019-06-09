@@ -2,6 +2,7 @@ package sample;
 
 import Model.MyModel;
 import View.LandingController;
+import View.LoadController;
 import View.MyViewController;
 import View.NewGameController;
 import ViewModel.MyViewModel;
@@ -36,7 +37,7 @@ public class Main extends Application {
 
         //---------------
 
-        System.out.println("ddd");
+
         MyModel model = new MyModel();
         viewModel = new MyViewModel(model);
         model.startServers();
@@ -46,6 +47,9 @@ public class Main extends Application {
 
         //---------------
        FXMLLoader fxmlLoader = new FXMLLoader();
+
+
+
 
         primaryStage.setTitle("MY APP");
         Parent root = fxmlLoader.load(getClass().getResource("../View/Landing.fxml").openStream());

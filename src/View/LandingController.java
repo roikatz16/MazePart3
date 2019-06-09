@@ -10,12 +10,15 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import sample.Main;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.ResourceBundle;
 
@@ -65,19 +68,35 @@ public class LandingController extends Controller implements Initializable {
 
 
     public void oldGamesMenu(ActionEvent actionEvent) throws IOException {
-        FXMLLoader fxmlLoader= new FXMLLoader();
-        Stage s = Main.getStage();
-        Parent root = fxmlLoader.load(getClass().getResource("../View/Load.fxml").openStream());
-        s.setScene(new Scene(root, 600, 400));
-        LoadController lc = fxmlLoader.getController();
+        //oldGame(actionEvent);
+
+        //validation();
+        FXMLLoader fxmlLoader1 = new FXMLLoader();
+        Stage d = Main.getStage();
+        Parent root = fxmlLoader1.load(getClass().getResource("../View/Load.fxml").openStream());
+        d.setScene(new Scene(root,900,600));
+        LoadController lc = fxmlLoader1.getController();
         lc.setViewModel(viewModel);
         viewModel.addObserver(lc);
-        Main.setStage(s);
-        s.show();
+        Main.setStage(d);
+        d.show();
     }
 
     @Override
     public void update(Observable o, Object arg) {
 
     }
+
+
+    private void validation() {
+        ArrayList<String> savedFiles = getTitlesOfFiles();
+        if (savedFiles.size() == 0) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error Error");
+            alert.setHeaderText("Ooops, there was an error!");
+            alert.setContentText("you have not saved any file, please create new game first!");
+            alert.showAndWait();
+        }
+    }
+
 }

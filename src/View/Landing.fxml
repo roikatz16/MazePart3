@@ -20,7 +20,7 @@
                 <children>
 
                     <Button text="Start new game" fx:id="newGameButton" onAction="#goToNewGame"/>
-                    <Button text="Load exciting game" onAction="#oldGamesMenu"/>
+                    <Button text="Load exciting game" fx:id="oldGameButton" onAction="#oldGamesMenu"/>
                     <Button text="Instructions" fx:id="instructionsButton" onAction="#goToInstructions"/>
                     <Button text="Exit game" fx:id="exitButton" onAction="#exitGame"/>
 

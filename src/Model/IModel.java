@@ -4,6 +4,7 @@ import algorithms.mazeGenerators.Maze;
 import algorithms.search.AState;
 import javafx.scene.input.KeyCode;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public interface IModel {
@@ -18,9 +19,14 @@ public interface IModel {
     void setCurrentPositionColumn(int col);
     int [][] solveMaze();
     void stopServers();
+    String getCharacterName();
 
 
     void saveGame(int characterPositionRow, int characterPositionCol, String characterName, String fileName);
 
 
+
+
+
+    void loadGame(String gameDate) throws IOException;
 }

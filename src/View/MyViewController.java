@@ -129,14 +129,13 @@ public class MyViewController extends Controller implements IView, Initializable
             try {
                 int goalPositionRow = viewModel.getRowGoalPosition();
                 int goalPositionCol = viewModel.getColGoalPosition();
-                mazeDisplayer.setMaze(viewModel.getMazeAsArray(), goalPositionRow, goalPositionCol );
+                mazeDisplayer.setCharacter(viewModel.getParams()[3]);
                 int characterPositionRow = viewModel.getRowCurrentPosition();
                 int characterPositionColumn = viewModel.getColCurrentPosition();
                 mazeDisplayer.setCharacterPosition(characterPositionRow, characterPositionColumn);
+                mazeDisplayer.setMaze(viewModel.getMazeAsArray(), goalPositionRow, goalPositionCol );
                 solutionAsIntegersList=viewModel.getSolutionAsIntegersList();
                 mazeDisplayer.setSolutionAsIntegersList(solutionAsIntegersList);
-
-
 
 
             } catch (FileNotFoundException e) {

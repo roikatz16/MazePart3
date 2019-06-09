@@ -2,8 +2,10 @@ package ViewModel;
 
 import Model.IModel;
 import algorithms.search.AState;
+import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
@@ -34,7 +36,6 @@ public class MyViewModel extends Observable implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         if (o==model){
-
             mazeAsArray = (model.getMaze()).getArray();
             solutionAsIntegersList = convert(model.getSolutionAsList());
             rowGoalPosition = (model.getMaze()).getGoalPosition().getRowIndex() ;
@@ -43,11 +44,18 @@ public class MyViewModel extends Observable implements Observer {
             colStartPosition = (model.getMaze()).getStartPosition().getColumnIndex() ;
             rowCurrentPosition = model.getCurrentPositionRow();
             colCurrentPosition = model.getCurrentPositionColumn();
-
-            setChanged();
-            notifyObservers(arg);
         }
+
+        if(o==model && arg.toString().equals("loadMaze")){
+            params = new String[11];
+            params[3] = model.getCharacterName();
+        }
+
+        setChanged();
+        notifyObservers();
+
     }
+
 
     private ArrayList<int[]> convert (ArrayList<AState> ASlist){
         if (ASlist == null){
@@ -121,5 +129,9 @@ public class MyViewModel extends Observable implements Observer {
 
     public void saveGame(int characterPositionRow ,int characterPositionCol, String characterName, String fileName){
         model.saveGame(characterPositionRow,characterPositionCol,characterName,fileName);
+    }
+
+    public void loadGame(String gameTitle) throws IOException {
+        model.loadGame(gameTitle);
     }
 }
