@@ -106,11 +106,11 @@ public class MyViewController extends Controller implements IView, Initializable
 
         if (alert.getResult() == ButtonType.YES) {
             saveGame();
-            newGame(actionEvent);
+            newGame();
         }
 
         else if(alert.getResult() == ButtonType.NO){
-            newGame(actionEvent);
+            newGame();
         }
     }
 

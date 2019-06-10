@@ -1,7 +1,6 @@
 package View;
 
 import ViewModel.MyViewModel;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -20,7 +19,6 @@ public abstract class Controller implements Observer {
 
     public void setViewModel(MyViewModel viewModel) {
         this.viewModel = viewModel;
-        //bindProperties(viewModel);
     }
 
     protected void closeProgram() {
@@ -35,7 +33,7 @@ public abstract class Controller implements Observer {
 
     }
 
-    protected void newGame(ActionEvent actionEvent) throws IOException {
+    protected void newGame() throws IOException {
         FXMLLoader fxmlLoader= new FXMLLoader();
         Stage s = Main.getStage();
         Parent root = fxmlLoader.load(getClass().getResource("../View/NewGame.fxml").openStream());

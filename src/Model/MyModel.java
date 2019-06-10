@@ -291,8 +291,8 @@ public class MyModel extends Observable implements IModel {
     private int extractMetaDataFile(String gameTitle) throws IOException {
         FileReader fileReader = new FileReader(gameTitle);
         BufferedReader bufferedReader = new BufferedReader(fileReader);
-        List<String> lines = new ArrayList<String>();
-        String line = null;
+        List<String> lines = new ArrayList<>();
+        String line ;
         while ((line = bufferedReader.readLine()) != null) {
             lines.add(line);
         }

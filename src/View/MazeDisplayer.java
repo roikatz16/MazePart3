@@ -27,8 +27,6 @@ public class MazeDisplayer extends Canvas {
 
 
 
-
-
     /* region Properties */
     private StringProperty ImageFileNameWall;
     private StringProperty ImageFileNameCharacter1;
@@ -81,8 +79,6 @@ public class MazeDisplayer extends Canvas {
     }
 
     private Image chooseCharacter() throws FileNotFoundException {
-
-
         switch (gameParams[3]){
             case "Netta":
                 return new Image(new FileInputStream(ImageFileNameCharacter1.get()));

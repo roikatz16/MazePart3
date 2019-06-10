@@ -46,7 +46,8 @@ public class MyViewModel extends Observable implements Observer {
             colCurrentPosition = model.getCurrentPositionColumn();
         }
 
-        if(o==model && arg.toString().equals("loadMaze")){
+        //neto fot the character
+       if(o==model && arg.toString().equals("loadMaze")){
             params = new String[11];
             params[3] = model.getCharacterName();
         }
