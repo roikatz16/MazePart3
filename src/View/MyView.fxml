@@ -8,11 +8,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
-
 <?import View.MazeDisplayer?>
 
-
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MyViewController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MyViewController">
    <children>
       <BorderPane onKeyPressed="#KeyPressed" prefHeight="400.0" prefWidth="600.0">
          <top>
@@ -34,7 +32,7 @@
                 </Menu>
                 <Menu mnemonicParsing="false" text="About">
                 </Menu>
-                <Menu mnemonicParsing="false" text="Exit">
+                <Menu mnemonicParsing="false" onAction="#exitGame" text="Exit">
                     <items>
                         <MenuItem mnemonicParsing="false" onAction="#exitGame" text="Exit" />
                     </items>
@@ -63,6 +61,9 @@
                                    imageFileNameStartAndGoal="resources/Images/Trophy.jpg"
                                    imageFileNameSolution = "resources/Images/note.png"
                     />
+
+
+
                 </children>
 
                <BorderPane.margin>

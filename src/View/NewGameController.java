@@ -70,7 +70,6 @@ public class NewGameController extends Controller implements Initializable{
 
     public void StartGame(ActionEvent actionEvent) throws IOException {
         FXMLLoader fxmlLoader= new FXMLLoader();
-
         sendParamsToViewModel();
         generateMaze();
         Stage s = Main.getStage();

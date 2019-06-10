@@ -77,7 +77,7 @@ public class LandingController extends Controller implements Initializable {
         d.setScene(new Scene(root,900,600));
         LoadController lc = fxmlLoader1.getController();
         lc.setViewModel(viewModel);
-        viewModel.addObserver(lc);
+
         Main.setStage(d);
         d.show();
     }

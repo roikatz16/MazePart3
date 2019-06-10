@@ -266,35 +266,34 @@ public class LoadController extends Controller implements Initializable {
     }
 
     public void loadGame1(ActionEvent actionEvent) throws IOException {
-        viewModel.loadGame(mazeTitles.get(0));
-        LoadingGame();
+        LoadingGame(0);
     }
 
     public void loadGame2(ActionEvent actionEvent) throws IOException {
-        viewModel.loadGame(mazeTitles.get(1));
-        LoadingGame();
+
+        LoadingGame(1);
     }
 
     public void loadGame3(ActionEvent actionEvent) throws IOException {
-        viewModel.loadGame(mazeTitles.get(2));
-        LoadingGame();
+
+        LoadingGame(2);
     }
 
     public void loadGame4(ActionEvent actionEvent) throws IOException {
-        viewModel.loadGame(mazeTitles.get(3));
-        LoadingGame();
+        LoadingGame(3);
+
     }
     public void loadGame5(ActionEvent actionEvent) throws IOException {
-        viewModel.loadGame(mazeTitles.get(4));
-        LoadingGame();
+        LoadingGame(4);
+
     }
 
     public void loadGame6(ActionEvent actionEvent) throws IOException {
-        viewModel.loadGame(mazeTitles.get(5));
-        LoadingGame();
+        LoadingGame(5);
+
     }
 
-    public void LoadingGame() throws IOException {
+    public void LoadingGame(int numOfMazeToLoad) throws IOException {
         FXMLLoader fxmlLoader= new FXMLLoader();
 
         Stage s = Main.getStage();
@@ -304,7 +303,7 @@ public class LoadController extends Controller implements Initializable {
 
         vc.setViewModel(viewModel);
         viewModel.addObserver(vc);
-
+        viewModel.loadGame(mazeTitles.get(numOfMazeToLoad));
         Main.setStage(s);
 
         s.show();

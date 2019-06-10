@@ -41,6 +41,7 @@ public abstract class Controller implements Observer {
         Parent root = fxmlLoader.load(getClass().getResource("../View/NewGame.fxml").openStream());
         s.setScene(new Scene(root, 600, 400));
         NewGameController ng = fxmlLoader.getController();
+        viewModel=Main.getViewModel();
         ng.setViewModel(viewModel);
         viewModel.addObserver(ng);
         Main.setStage(s);
