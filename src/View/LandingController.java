@@ -41,6 +41,8 @@ public class LandingController extends Controller implements Initializable {
             e.consume();
             closeProgram();
         });
+
+
     }
 
 

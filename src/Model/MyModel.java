@@ -20,6 +20,8 @@ import algorithms.mazeGenerators.Maze;
 import algorithms.search.AState;
 import algorithms.search.Solution;
 import javafx.scene.input.KeyCode;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 
 public class MyModel extends Observable implements IModel {
@@ -60,8 +62,8 @@ public class MyModel extends Observable implements IModel {
 
 
     @Override
-    public void generateMaze(int row, int col) {
-
+    public void generateMaze(int row, int col,String character) {
+        characterName= character;
         //Generate maze
         threadPool.execute(() -> {
             generateMazeWithServers(row,col);
@@ -166,6 +168,18 @@ public class MyModel extends Observable implements IModel {
             case T://UP
                 if(checkPassability(currentPositionRow -1, currentPositionColumn, array)){
                     currentPositionRow--;
+                    if (characterName.equals("Netta")){
+                        playAudio("resources/music/Netta -RII.mp3");
+
+                    }else if (characterName.equals("Gali")){
+
+                    }else if (characterName.equals("Dana")){
+
+                    }else if (characterName.equals("Izhar")){
+
+                    }
+
+
                 }
                 break;
 
@@ -227,6 +241,10 @@ public class MyModel extends Observable implements IModel {
                 col >= array[0].length||
                 array[row][col]=='1')
         {
+            if (characterName.equals("Netta")){
+                playAudio("resources/music/Netta - ouch.mp3");
+
+            }
             return false;
         }
         return true;
@@ -316,6 +334,15 @@ public class MyModel extends Observable implements IModel {
         }
         maze = new Maze(savedMazeBytes);
     }
+
+    protected void playAudio(String audio) {
+        String musicFile = audio;     // For example
+        Media sound = new Media(new File(musicFile).toURI().toString());
+        MediaPlayer mediaPlayer = new MediaPlayer(sound);
+        mediaPlayer.play();
+
+    }
+
 
     @Override
     public Maze getMaze() {

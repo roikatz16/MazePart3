@@ -130,7 +130,7 @@ public class NewGameController extends Controller implements Initializable{
                 row = Integer.parseInt(gameParams[1]);
                 col = Integer.parseInt(gameParams[2]);
         }
-        viewModel.generateMaze(row, col);
+        viewModel.generateMaze(row, col,gameParams[3]);
     }
 
     @Override
