@@ -2,9 +2,6 @@ package sample;
 
 import Model.MyModel;
 import View.LandingController;
-import View.LoadController;
-import View.MyViewController;
-import View.NewGameController;
 import ViewModel.MyViewModel;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

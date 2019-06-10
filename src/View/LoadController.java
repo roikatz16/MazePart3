@@ -252,7 +252,7 @@ public class LoadController extends Controller implements Initializable {
 
 
     public void goToNewGame(ActionEvent actionEvent) throws IOException {
-        newGame(actionEvent);
+        newGame();
 
     }
 

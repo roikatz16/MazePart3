@@ -17,6 +17,7 @@ public interface IModel {
     int getCurrentPositionColumn();
     void setCurrentPositionRow(int row);
     void setCurrentPositionColumn(int col);
+    void deleteSolution();
     int [][] solveMaze();
     void stopServers();
     String getCharacterName();

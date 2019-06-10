@@ -96,6 +96,13 @@ public class MyViewModel extends Observable implements Observer {
     public ArrayList<int[]> getSolutionAsIntegersList() {
         return solutionAsIntegersList;
     }
+
+    public void deleteSolution() {
+        this.solutionAsIntegersList = null;
+        model.deleteSolution();
+
+    }
+
     public int getRowStartPosition() { return rowStartPosition; }
     public int getColStartPosition() { return colStartPosition; }
     public int getRowGoalPosition() {

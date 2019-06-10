@@ -29,6 +29,7 @@ public class MazeDisplayer extends Canvas {
 
     /* region Properties */
     private StringProperty ImageFileNameWall;
+    private StringProperty ImageFileNameRedWall;
     private StringProperty ImageFileNameCharacter1;
     private StringProperty ImageFileNameCharacter2;
     private StringProperty ImageFileNameCharacter3;
@@ -44,6 +45,7 @@ public class MazeDisplayer extends Canvas {
     public MazeDisplayer(){
         showSolution = true;
         ImageFileNameWall = new SimpleStringProperty();
+        ImageFileNameRedWall = new SimpleStringProperty();
         ImageFileNameCharacter1 = new SimpleStringProperty();
         ImageFileNameCharacter2 = new SimpleStringProperty();
         ImageFileNameCharacter3 = new SimpleStringProperty();
@@ -102,6 +104,7 @@ public class MazeDisplayer extends Canvas {
 
             try {
                 Image wallImage = new Image(new FileInputStream(ImageFileNameWall.get()));
+                Image redWallImage = new Image(new FileInputStream(ImageFileNameRedWall.get()));
                 Image startAndGoalImage = new Image(new FileInputStream(ImageFileNameStartAndGoal.get()));
                 Image solutionImage = new Image (new FileInputStream(ImageFileNameSolution.get()));
 
@@ -112,8 +115,14 @@ public class MazeDisplayer extends Canvas {
                 for (int i = 0; i < maze[0].length; i++) {
                     for (int j = 0; j < maze.length; j++) {
                         if (maze[j][i] == '1') {
-                            gc.fillRect(i * cellHeight, j * cellWidth, cellHeight, cellWidth);
-                            gc.drawImage(wallImage, i * cellHeight, j * cellWidth, cellHeight, cellWidth);
+                            if(i==0 || j==0 || i==maze[0].length-1 || j==maze.length-1){
+                                gc.fillRect(i * cellHeight, j * cellWidth, cellHeight, cellWidth);
+                                gc.drawImage(redWallImage, i * cellHeight, j * cellWidth, cellHeight, cellWidth);
+                            }
+                            else {
+                                gc.fillRect(i * cellHeight, j * cellWidth, cellHeight, cellWidth);
+                                gc.drawImage(wallImage, i * cellHeight, j * cellWidth, cellHeight, cellWidth);
+                            }
                         }
                     }
                 }
@@ -178,6 +187,17 @@ public class MazeDisplayer extends Canvas {
 
     public String getImageFileNameWall() { return ImageFileNameWall.get(); }
     public void setImageFileNameWall(String imageFileNameWall) { this.ImageFileNameWall.set(imageFileNameWall); }
+
+    public String getImageFileNameRedWall() {
+        return ImageFileNameRedWall.get();
+    }
+    public void setImageFileNameRedWall(String imageFileNameRedWall) {
+        this.ImageFileNameRedWall.set(imageFileNameRedWall);
+    }
+
+    public StringProperty imageFileNameRedWallProperty() {
+        return ImageFileNameRedWall;
+    }
 
     public String getImageFileNameCharacter1() { return ImageFileNameCharacter1.get();}
     public StringProperty imageFileNameCharacter1Property() { return ImageFileNameCharacter1;}

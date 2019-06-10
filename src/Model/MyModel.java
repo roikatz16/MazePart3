@@ -92,9 +92,10 @@ public class MyModel extends Observable implements IModel {
                         toServer.flush();
                         byte[] compressedMaze = (byte[])((byte[])fromServer.readObject());
                         InputStream is = new MyDecompressorInputStream(new ByteArrayInputStream(compressedMaze));
-                        byte[] decompressedMaze = new byte[20018];
+                        byte[] decompressedMaze = new byte[row*col+18];
                         is.read(decompressedMaze);
                         maze = new Maze(decompressedMaze);
+                        schiffMaze(maze);
                         if(maze != null){
                             maze.print();
                         }
@@ -250,6 +251,53 @@ public class MyModel extends Observable implements IModel {
         return true;
     }
 
+    private void schiffMaze (Maze maze){
+        boolean found1 = false;
+        boolean found2 = false;
+        boolean found3 = false;
+        boolean found4 = false;
+        int x = maze.getColumns();
+        int y = maze.getRows();
+
+        for (int i = 0; i<x && !found1 ; i++) {
+            if (maze.getArray()[0][i] == '0') {
+                found1 = true;
+                for (int j = 0; j < x ; j++) {
+                    maze.getArray()[0][j] = '1';
+                }
+            }
+        }
+
+         for (int i = 0; i<x && !found2 ; i++){
+            if(maze.getArray()[y-1][i]=='0'){
+                found2 = true;
+                for (int j = 0; j<x ; j++){
+                    maze.getArray()[y-1][j]='1';
+                }
+            }
+        }
+
+        for (int i = 0; i<y && !found3 ; i++){
+            if(maze.getArray()[i][x-1]=='0'){
+                found3 = true;
+                for (int j = 0; j<y ; j++){
+                    maze.getArray()[j][x-1]='1';
+                }
+            }
+        }
+
+        for (int i = 0; i<y && !found4 ; i++){
+            if(maze.getArray()[i][0]=='0'){
+                found4 = true;
+                for (int j = 0; j<y-1 ; j++){
+                    maze.getArray()[j][0]='1';
+                }
+            }
+        }
+
+
+    }
+
     public void saveGame(int CharacterPositionRow, int characterPositionCol, String characterName, String fileName){
         TimeZone tz = TimeZone.getTimeZone("UTC+3");
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd&HH-mm"); // Quoted "Z" to indicate UTC, no timezone offset
@@ -351,6 +399,10 @@ public class MyModel extends Observable implements IModel {
 
     public ArrayList<AState> getSolutionAsList() {
         return solutionAsList;
+    }
+
+    public void deleteSolution() {
+        this.solutionAsList = null;
     }
 
     public int getCurrentPositionRow() {

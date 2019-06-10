@@ -1,6 +1,5 @@
 package View;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -99,17 +98,20 @@ public class MyViewController extends Controller implements IView, Initializable
     }
 
     @FXML
-    private void backToNewGame(ActionEvent actionEvent) throws IOException {
+    private void backToNewGame() throws IOException {
+
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Do you want to save the game before starting a new one?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
         // alert.se
         alert.showAndWait();
 
         if (alert.getResult() == ButtonType.YES) {
             saveGame();
+            viewModel.deleteSolution();
             newGame();
         }
 
         else if(alert.getResult() == ButtonType.NO){
+            viewModel.deleteSolution();
             newGame();
         }
     }
@@ -153,6 +155,7 @@ public class MyViewController extends Controller implements IView, Initializable
 
     @Override
     protected void closeProgram() {
+
         Stage s = Main.getStage();
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Do you want to save the game?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
         alert.showAndWait();
@@ -161,12 +164,14 @@ public class MyViewController extends Controller implements IView, Initializable
             if(alert.getResult() == ButtonType.YES){
                 saveGame();
             }
+            viewModel.deleteSolution();
             s.close();
             viewModel.close();
         }
     }
 
     public void saveGame() {
+        viewModel.deleteSolution();
         TextInputDialog dialog = new TextInputDialog("my game");
         dialog.setTitle("SAVE GAME");
         dialog.setHeaderText("Please, save your game");
@@ -187,6 +192,7 @@ public class MyViewController extends Controller implements IView, Initializable
     }
 
     public void goToLoadGame() throws IOException {
+        viewModel.deleteSolution();
         FXMLLoader fxmlLoader1 = new FXMLLoader();
         saveGame();
         Stage d = Main.getStage();

@@ -32,7 +32,7 @@
                 </Menu>
                 <Menu mnemonicParsing="false" text="About">
                 </Menu>
-                <Menu mnemonicParsing="false" onAction="#exitGame" text="Exit">
+                <Menu mnemonicParsing="false" text="Exit">
                     <items>
                         <MenuItem mnemonicParsing="false" onAction="#exitGame" text="Exit" />
                     </items>
@@ -54,13 +54,16 @@
                 <children>
                     <MazeDisplayer fx:id="mazeDisplayer" height="600.0" width="600.0"
                                    imageFileNameWall="resources/Images/wall1.jpg"
+                                   imageFileNameRedWall="resources/Images/redWall.jpeg"
                                    imageFileNameCharacter1 = "resources/Images/netta.jpeg"
                                    imageFileNameCharacter2 ="resources/Images/Dana.jpg"
                                    imageFileNameCharacter3 ="resources/Images/Gali.jpg"
                                    imageFileNameCharacter4 ="resources/Images/Izhar.jpg"
                                    imageFileNameStartAndGoal="resources/Images/Trophy.jpg"
                                    imageFileNameSolution = "resources/Images/note.png"
-                    />
+                    >
+
+                    </MazeDisplayer>
 
 
 

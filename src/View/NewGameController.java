@@ -138,24 +138,24 @@ public class NewGameController extends Controller implements Initializable{
         boolean bool = false;
     }
 
-    public void pickEasy(ActionEvent actionEvent) {
+    public void pickEasy() {
 
         gameParams[0]="easy";
         setRowsCol(true);
 
     }
-    public void pickMedium(ActionEvent actionEvent) {
+    public void pickMedium() {
 
         gameParams[0]="medium";
         setRowsCol(true);
     }
-    public void PickHard(ActionEvent actionEvent) {
+    public void PickHard() {
 
         gameParams[0]="hard";
         setRowsCol(true);
     }
 
-    public void pressedCustom(ActionEvent actionEvent) {
+    public void pressedCustom() {
 
         gameParams[0]="custom";
         setRowsCol(false);
