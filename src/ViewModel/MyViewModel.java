@@ -28,8 +28,8 @@ public class MyViewModel extends Observable implements Observer {
     public MyViewModel(IModel model) {
         this.model = model;
     }
-    public void generateMaze(int row, int col){
-      model.generateMaze(row, col);
+    public void generateMaze(int row, int col,String character){
+      model.generateMaze(row, col,character);
     }
     public void solveMaze() { model.solveMaze();}
 

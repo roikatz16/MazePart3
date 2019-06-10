@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public interface IModel {
 
-    void generateMaze(int width, int height);
+    void generateMaze(int width, int height,String character);
     void moveCharacter(KeyCode movement, char[][] array);
     Maze getMaze();
     ArrayList<AState> getSolutionAsList();
