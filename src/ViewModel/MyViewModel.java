@@ -23,10 +23,12 @@ public class MyViewModel extends Observable implements Observer {
     private int colGoalPosition;
     private int rowCurrentPosition;
     private int colCurrentPosition;
+    private boolean won;
 
 
     public MyViewModel(IModel model) {
         this.model = model;
+        won=false;
     }
     public void generateMaze(int row, int col,String character){
       model.generateMaze(row, col,character);
@@ -44,6 +46,7 @@ public class MyViewModel extends Observable implements Observer {
             colStartPosition = (model.getMaze()).getStartPosition().getColumnIndex() ;
             rowCurrentPosition = model.getCurrentPositionRow();
             colCurrentPosition = model.getCurrentPositionColumn();
+            won = model.isWon();
         }
 
         //neto fot the character
@@ -84,6 +87,10 @@ public class MyViewModel extends Observable implements Observer {
 
     public void close(){
         model.stopServers();
+    }
+
+    public boolean isWon() {
+        return won;
     }
 
     public void moveCharacter(KeyCode movement){

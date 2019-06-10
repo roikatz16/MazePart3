@@ -34,6 +34,7 @@ public class MyModel extends Observable implements IModel {
     private ArrayList<AState> solutionAsList;
     private ExecutorService threadPool = Executors.newCachedThreadPool();
     private String characterName;
+    private boolean won;
 
 
 
@@ -41,7 +42,9 @@ public class MyModel extends Observable implements IModel {
         //Raise the servers
         mazeGeneratingServer =new Server(5400, 1000, new ServerStrategyGenerateMaze());
         solveSearchProblemServer = new Server(5401, 5000, new ServerStrategySolveSearchProblem());
+        won=false;
     }
+
 
     public void startServers() {
         solveSearchProblemServer.start();
@@ -165,74 +168,130 @@ public class MyModel extends Observable implements IModel {
     }
 
     public void moveCharacter(KeyCode movement, char[][] array) {
-        switch (movement) {
-            case T://UP
-                if(checkPassability(currentPositionRow -1, currentPositionColumn, array)){
-                    currentPositionRow--;
-                    if (characterName.equals("Netta")){
-                        playAudio("resources/music/Netta -RII.mp3");
+        if (wonTheGame()){
+            if (characterName.equals("Netta")){
+                playAudio("resources/music/Netta - won.mp3");
 
-                    }else if (characterName.equals("Gali")){
+            }else if (characterName.equals("Gali")){
 
-                    }else if (characterName.equals("Dana")){
+            }else if (characterName.equals("Dana")){
 
-                    }else if (characterName.equals("Izhar")){
+            }else if (characterName.equals("Izhar")){
+
+            }
+
+        }else {
+            switch (movement) {
+                case T://UP
+                    if(checkPassability(currentPositionRow -1, currentPositionColumn, array)){
+                        currentPositionRow--;
+                        if (characterName.equals("Netta")){
+                            playAudio("resources/music/Netta -RII.mp3");
+
+                        }else if (characterName.equals("Gali")){
+
+                        }else if (characterName.equals("Dana")){
+
+                        }else if (characterName.equals("Izhar")){
+
+                        }
+
 
                     }
+                    break;
 
 
-                }
-                break;
+                case B://DOWN
+                    if(checkPassability(currentPositionRow +1, currentPositionColumn, array)){
+                        currentPositionRow++;
+                        if (characterName.equals("Netta")){
+                            playAudio("resources/music/Netta - la.mp3");
+
+                        }else if (characterName.equals("Gali")){
+
+                        }else if (characterName.equals("Dana")){
+
+                        }else if (characterName.equals("Izhar")){
+
+                        }
 
 
-            case B://DOWN
-                if(checkPassability(currentPositionRow +1, currentPositionColumn, array)){
-                    currentPositionRow++;
-                }
-                break;
+                    }
+                    break;
 
-            case F://LEFT
-                if(checkPassability(currentPositionRow, currentPositionColumn -1, array)){
-                    currentPositionColumn--;
-                }
-                break;
+                case F://LEFT
+                    if(checkPassability(currentPositionRow, currentPositionColumn -1, array)){
+                        currentPositionColumn--;
+                        if (characterName.equals("Netta")){
+                            playAudio("resources/music/Netta - ha.mp3");
 
-            case H://RIGHT
-                if(checkPassability(currentPositionRow, currentPositionColumn +1, array)){
-                    currentPositionColumn++;
-                }
-                break;
+                        }else if (characterName.equals("Gali")){
 
-            case R://UP-LEFT
-                if(checkPassability(currentPositionRow -1, currentPositionColumn -1, array)){
-                    currentPositionRow--;
-                    currentPositionColumn--;
-                }
-                break;
+                        }else if (characterName.equals("Dana")){
 
-            case Y://UP-RIGHT
-                if(checkPassability(currentPositionRow -1, currentPositionColumn +1, array)){
-                    currentPositionRow--;
-                    currentPositionColumn++;
-                }
-                break;
+                        }else if (characterName.equals("Izhar")){
 
-            case N://DOWN-RIGHT
-                if(checkPassability(currentPositionRow +1, currentPositionColumn +1, array)){
-                    currentPositionRow++;
-                    currentPositionColumn++;
-                }
-                break;
+                        }
+                    }
+                    break;
 
-            case V://DOWN-LEFT
-                if(checkPassability(currentPositionRow +1, currentPositionColumn -1, array)){
-                    currentPositionRow++;
-                    currentPositionColumn--;
-                }
-                break;
+                case H://RIGHT
+                    if(checkPassability(currentPositionRow, currentPositionColumn +1, array)){
+                        currentPositionColumn++;
+                        if (characterName.equals("Netta")){
+                            playAudio("resources/music/Netta - foo.mp3");
+
+                        }else if (characterName.equals("Gali")){
+
+                        }else if (characterName.equals("Dana")){
+
+                        }else if (characterName.equals("Izhar")){
+
+                        }
+                    }
+                    break;
+
+                case R://UP-LEFT
+                    if(checkPassability(currentPositionRow -1, currentPositionColumn -1, array)){
+                        currentPositionRow--;
+                        currentPositionColumn--;
+                    }
+                    break;
+
+                case Y://UP-RIGHT
+                    if(checkPassability(currentPositionRow -1, currentPositionColumn +1, array)){
+                        currentPositionRow--;
+                        currentPositionColumn++;
+                    }
+                    break;
+
+                case N://DOWN-RIGHT
+                    if(checkPassability(currentPositionRow +1, currentPositionColumn +1, array)){
+                        currentPositionRow++;
+                        currentPositionColumn++;
+                    }
+                    break;
+
+                case V://DOWN-LEFT
+                    if(checkPassability(currentPositionRow +1, currentPositionColumn -1, array)){
+                        currentPositionRow++;
+                        currentPositionColumn--;
+                    }
+                    break;
+            }
         }
+
         setChanged();
         notifyObservers("move");
+    }
+
+    private boolean wonTheGame() {
+        if(currentPositionColumn==maze.getGoalPosition().getColumnIndex() && currentPositionRow == maze.getGoalPosition().getRowIndex()){
+            won = true;
+        } else {
+            won=false;
+        }
+        return won;
     }
 
     private boolean checkPassability(int row, int col, char[][] array) {
@@ -336,7 +395,9 @@ public class MyModel extends Observable implements IModel {
         }
     }
 
-
+    public boolean isWon() {
+        return won;
+    }
 
 
     @Override

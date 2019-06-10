@@ -21,6 +21,7 @@ public interface IModel {
     int [][] solveMaze();
     void stopServers();
     String getCharacterName();
+    boolean isWon();
 
 
     void saveGame(int characterPositionRow, int characterPositionCol, String characterName, String fileName);

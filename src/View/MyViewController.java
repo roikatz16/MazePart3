@@ -1,5 +1,6 @@
 package View;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -98,20 +99,17 @@ public class MyViewController extends Controller implements IView, Initializable
     }
 
     @FXML
-    private void backToNewGame() throws IOException {
-
+    private void backToNewGame(ActionEvent actionEvent) throws IOException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Do you want to save the game before starting a new one?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
         // alert.se
         alert.showAndWait();
 
         if (alert.getResult() == ButtonType.YES) {
             saveGame();
-            viewModel.deleteSolution();
             newGame();
         }
 
         else if(alert.getResult() == ButtonType.NO){
-            viewModel.deleteSolution();
             newGame();
         }
     }
@@ -132,6 +130,9 @@ public class MyViewController extends Controller implements IView, Initializable
         if (o == viewModel) {
 
             try {
+                if (viewModel.isWon()){
+                    winner();
+                }
                 int goalPositionRow = viewModel.getRowGoalPosition();
                 int goalPositionCol = viewModel.getColGoalPosition();
                 mazeDisplayer.setCharacter(viewModel.getParams()[3]);
@@ -145,7 +146,35 @@ public class MyViewController extends Controller implements IView, Initializable
 
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
+        }
+    }
+
+    private void winner() throws IOException {
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("YOURE THE CHAMPION");
+        alert.setHeaderText("DOUZE POINTS! YOU WON THE GAME");
+        alert.setContentText("what would you like to do next?");
+
+        ButtonType buttonTypeOne = new ButtonType("Start a new game");
+        ButtonType buttonTypeTwo = new ButtonType("Load a previous game");
+        ButtonType buttonTypeThree = new ButtonType("Exit");
+        ButtonType buttonTypeCancel = new ButtonType("continue playing this game", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+        alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo, buttonTypeThree, buttonTypeCancel);
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == buttonTypeOne){
+            newGame();
+        } else if (result.get() == buttonTypeTwo) {
+            goToLoadGame();
+        } else if (result.get() == buttonTypeThree) {
+            exitGame();
+        } else {
+
         }
     }
 
@@ -155,7 +184,6 @@ public class MyViewController extends Controller implements IView, Initializable
 
     @Override
     protected void closeProgram() {
-
         Stage s = Main.getStage();
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Do you want to save the game?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
         alert.showAndWait();
@@ -164,14 +192,12 @@ public class MyViewController extends Controller implements IView, Initializable
             if(alert.getResult() == ButtonType.YES){
                 saveGame();
             }
-            viewModel.deleteSolution();
             s.close();
             viewModel.close();
         }
     }
 
     public void saveGame() {
-        viewModel.deleteSolution();
         TextInputDialog dialog = new TextInputDialog("my game");
         dialog.setTitle("SAVE GAME");
         dialog.setHeaderText("Please, save your game");
@@ -192,7 +218,6 @@ public class MyViewController extends Controller implements IView, Initializable
     }
 
     public void goToLoadGame() throws IOException {
-        viewModel.deleteSolution();
         FXMLLoader fxmlLoader1 = new FXMLLoader();
         saveGame();
         Stage d = Main.getStage();
