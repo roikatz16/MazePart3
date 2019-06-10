@@ -2,7 +2,10 @@ package View;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
@@ -181,5 +184,18 @@ public class MyViewController extends Controller implements IView, Initializable
         String characterName = gameParams[3];
 
         viewModel.saveGame(CharacterPositionRow, characterPositionCol,characterName,fileName);
+    }
+
+    public void goToLoadGame() throws IOException {
+        FXMLLoader fxmlLoader1 = new FXMLLoader();
+        saveGame();
+        Stage d = Main.getStage();
+        Parent root = fxmlLoader1.load(getClass().getResource("../View/Load.fxml").openStream());
+        d.setScene(new Scene(root,900,600));
+        LoadController lc = fxmlLoader1.getController();
+        lc.setViewModel(viewModel);
+
+        Main.setStage(d);
+        d.show();
     }
 }

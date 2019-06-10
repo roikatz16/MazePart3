@@ -82,7 +82,7 @@ public class MazeDisplayer extends Canvas {
 
     private Image chooseCharacter() throws FileNotFoundException {
 
-        System.out.println("merge");
+
         switch (gameParams[3]){
             case "Netta":
                 return new Image(new FileInputStream(ImageFileNameCharacter1.get()));
