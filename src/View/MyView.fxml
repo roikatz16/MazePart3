@@ -25,12 +25,18 @@
                 </Menu>
                 <Menu mnemonicParsing="false" text="Options">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="properties" />
+                    <MenuItem mnemonicParsing="false" text="properties" onAction = "#properties" />
                   </items>
                 </Menu>
-                <Menu mnemonicParsing="false" text="Help">
+                <Menu mnemonicParsing="false" text="Help" >
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#help" text="Help" />
+                    </items>
                 </Menu>
-                <Menu mnemonicParsing="false" text="About">
+                <Menu mnemonicParsing="false" text="About" >
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#about" text="About" />
+                    </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Exit">
                     <items>

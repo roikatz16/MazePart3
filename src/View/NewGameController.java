@@ -2,7 +2,6 @@ package View;
 
 
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
@@ -23,15 +22,9 @@ public class NewGameController extends Controller implements Initializable{
 
     String[] gameParams = new String[11];
 
-    public TextField row;
-    public TextField col;
+    public TextField size;
     public Text rowLabel;
-    public Text colLabel;
-    @FXML
-    private RadioButton CustomButton;
-    @FXML
 
-    public Button submitButton;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -49,7 +42,7 @@ public class NewGameController extends Controller implements Initializable{
 
 
 
-    public void exitGame(ActionEvent actionEvent) {
+    public void exitGame() {
         closeProgram();
 
 
@@ -68,7 +61,7 @@ public class NewGameController extends Controller implements Initializable{
 
 
 
-    public void StartGame(ActionEvent actionEvent) throws IOException {
+    public void StartGame() throws IOException {
         FXMLLoader fxmlLoader= new FXMLLoader();
         sendParamsToViewModel();
         generateMaze();
@@ -114,16 +107,16 @@ public class NewGameController extends Controller implements Initializable{
         switch (gameParams[0]){
             case "easy":
                 System.out.println(gameParams[0]);
-                row = 30;
-                col = 30;
+                row = 25;
+                col = 25;
                 break;
             case "medium":
-                row = 30;
-                col = 40;
+                row = 37;
+                col = 37;
                 break;
             case "hard":
-                row = 30;
-                col = 50;
+                row = 51;
+                col = 51;
                 break;
             case "custom":
                 getCustomMazeSize();
@@ -162,15 +155,15 @@ public class NewGameController extends Controller implements Initializable{
     }
 
     private void setRowsCol(boolean val){
-        row.setDisable(val);
-        col.setDisable(val);
+        size.setDisable(val);
+
     }
 
 
     public void getCustomMazeSize() {
-        if (isInt(row,row.getText()) && isInt(col,col.getText()) ){
-            gameParams[1] = row.getText();
-            gameParams[2] = col.getText();
+        if (isInt(size,size.getText()) && isInt(size,size.getText()) ){
+            gameParams[1] = size.getText();
+            gameParams[2] = size.getText();
         }
 
 

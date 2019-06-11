@@ -64,6 +64,7 @@ public abstract class Controller implements Observer {
     }
 
     protected void loadGame() throws IOException {
+        viewModel.deleteSolution();
         FXMLLoader fxmlLoader1 = new FXMLLoader();
         Stage d = Main.getStage();
         Parent root = fxmlLoader1.load(getClass().getResource("../View/Load.fxml").openStream());

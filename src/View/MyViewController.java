@@ -1,11 +1,8 @@
 package View;
 
-import javafx.event.ActionEvent;
+
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
@@ -18,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import java.util.concurrent.TimeUnit;
+
 
 
 public class MyViewController extends Controller implements IView, Initializable {
@@ -49,7 +46,7 @@ public class MyViewController extends Controller implements IView, Initializable
 
     }
 
-    public void solveMaze() throws InterruptedException, FileNotFoundException {
+    public void solveMaze() throws FileNotFoundException {
 
         if(solve.getText().equals("Solve")) {
             solve.setText("Hide Solution");
@@ -57,7 +54,6 @@ public class MyViewController extends Controller implements IView, Initializable
             solve.setDisable(true);
             restart.setDisable(true);
             if(solutionAsIntegersList==null) {
-                TimeUnit.SECONDS.sleep(2);
                 viewModel.solveMaze();
             }
             else{
@@ -80,9 +76,7 @@ public class MyViewController extends Controller implements IView, Initializable
 
     public void restart() throws FileNotFoundException {
         restart.setDisable(true);
-        //restart.cancelButtonProperty();
         solve.setDisable(true);
-        //solve.cancelButtonProperty();
         int characterPositionRow = viewModel.getRowStartPosition();
         int characterPositionColumn = viewModel.getColStartPosition();
         viewModel.setRowCurrentPosition(characterPositionRow);
@@ -99,7 +93,8 @@ public class MyViewController extends Controller implements IView, Initializable
     }
 
     @FXML
-    private void backToNewGame(ActionEvent actionEvent) throws IOException {
+    private void backToNewGame() throws IOException {
+        viewModel.deleteSolution();
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Do you want to save the game before starting a new one?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
         // alert.se
         alert.showAndWait();
@@ -184,6 +179,7 @@ public class MyViewController extends Controller implements IView, Initializable
 
     @Override
     protected void closeProgram() {
+        viewModel.deleteSolution();
         Stage s = Main.getStage();
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Do you want to save the game?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
         alert.showAndWait();
@@ -219,5 +215,27 @@ public class MyViewController extends Controller implements IView, Initializable
 
     public void goToLoadGame() throws IOException {
         loadGame();
+    }
+
+    public void properties(){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Configuration Properties");
+        alert.setHeaderText("Server.ThreadPoolSize = 4\nSolveSearchProblem.SolvingAlgorithm = BestFirstSearch\nGenerateMaze.mazeGeneratorType = MyMazeGenerator");
+        alert.showAndWait();
+
+
+    }
+    public void about(){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("ABOUT US");
+        alert.setHeaderText("Roi Katz 308097237 (Single and friendly)\nOmer Hofman 307832972 (Not single and yet friendly)");
+        alert.showAndWait();
+    }
+
+    public void help(){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("INSTRUCTIONS");
+        alert.setHeaderText("8 = Up\n2 = Down\n4 = Left\n6 = Right\n7 = Up & Left\n9 = Up & Right\n1 = Down & Left\n3 = Down & Right\n");
+        alert.showAndWait();
     }
 }
