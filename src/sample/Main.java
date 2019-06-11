@@ -50,8 +50,11 @@ public class Main extends Application {
 
         primaryStage.setTitle("MY APP");
         Parent root = fxmlLoader.load(getClass().getResource("../View/Landing.fxml").openStream());
-        primaryStage.setScene(new Scene(root, 600, 400));
+        Scene scene = new Scene(root, 600, 400);
+        scene.getStylesheets().add(getClass().getResource("../View/Landing.css").toExternalForm());
+        primaryStage.setScene(scene);
         LandingController lc = fxmlLoader.getController();
+
         lc.setViewModel(viewModel);
         primaryStage.show();
 

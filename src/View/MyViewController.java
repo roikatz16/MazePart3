@@ -218,15 +218,6 @@ public class MyViewController extends Controller implements IView, Initializable
     }
 
     public void goToLoadGame() throws IOException {
-        FXMLLoader fxmlLoader1 = new FXMLLoader();
-        saveGame();
-        Stage d = Main.getStage();
-        Parent root = fxmlLoader1.load(getClass().getResource("../View/Load.fxml").openStream());
-        d.setScene(new Scene(root,900,600));
-        LoadController lc = fxmlLoader1.getController();
-        lc.setViewModel(viewModel);
-
-        Main.setStage(d);
-        d.show();
+        loadGame();
     }
 }
