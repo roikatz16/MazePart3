@@ -169,10 +169,12 @@ public class MyModel extends Observable implements IModel {
 
     public void moveCharacter(KeyCode movement, char[][] array) {
         if (wonTheGame()){
+
             if (characterName.equals("Netta")){
                 playAudio("resources/music/Netta - won.mp3");
 
             }else if (characterName.equals("Gali")){
+                playAudio("resources/music/Gali - Won.mp3");
 
             }else if (characterName.equals("Dana")){
 

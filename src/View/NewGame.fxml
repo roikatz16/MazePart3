@@ -17,13 +17,13 @@
 <AnchorPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.NewGameController">
     <BorderPane prefHeight="400.0" prefWidth="600.0">
         <top>
-            <Label alignment="CENTER" text="START A NEW GAME" textFill="#5d3ee8">
+            <Label alignment="CENTER" prefHeight="69.0" prefWidth="604.0" text="START A NEW GAME" textFill="#5d3ee8">
             <font>
-               <Font size="29.0" />
+               <Font name="AR JULIAN" size="60.0" />
             </font></Label>
         </top>
       <left>
-         <SplitPane dividerPositions="0.16056338028169015" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" BorderPane.alignment="CENTER">
+         <SplitPane dividerPositions="0.16056338028169015" orientation="VERTICAL" prefHeight="317.0" prefWidth="272.0" BorderPane.alignment="CENTER">
            <items>
              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                   <children>
@@ -34,7 +34,7 @@
                      </Label>
                   </children>
                </AnchorPane>
-             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="346.0" prefWidth="120.0">
+             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="215.0" prefWidth="232.0">
                   <children>
                      <RadioButton fx:id="easyButton" layoutX="-4.0" mnemonicParsing="false" onAction="#pickEasy" prefHeight="42.0" prefWidth="64.0" selected="true" text="Easy" AnchorPane.bottomAnchor="188.0" AnchorPane.leftAnchor="-4.0" AnchorPane.topAnchor="0.0">
                         <padding>
@@ -71,8 +71,8 @@
                            <Insets />
                         </opaqueInsets>
                      </RadioButton>
-                     <Text fx:id="rowLabel" disable="true" layoutX="59.0" layoutY="180.0" strokeType="OUTSIDE" strokeWidth="0.0" text="size" />
-                     <TextField fx:id="size" disable="true" layoutX="54.0" layoutY="190.0" prefHeight="26.0" prefWidth="46.0" promptText="20" />
+                     <Text fx:id="rowLabel" disable="true" layoutX="77.0" layoutY="172.0" strokeType="OUTSIDE" strokeWidth="0.0" text="size" />
+                     <TextField fx:id="size" disable="true" layoutX="77.0" layoutY="181.0" prefHeight="26.0" prefWidth="46.0" promptText="20" />
                   </children>
                </AnchorPane>
            </items>
@@ -87,19 +87,20 @@
       <center>
          <SplitPane orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" BorderPane.alignment="CENTER">
            <items>
-             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="154.0" prefWidth="161.0">
+             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="281.0" prefWidth="326.0">
                   <children>
                      <Label layoutX="80.0" layoutY="2.0" prefHeight="57.0" prefWidth="137.0" text="pick character">
                         <font>
                            <Font name="System Bold Italic" size="13.0" />
                         </font>
                      </Label>
-                     <Pane layoutY="67.0" prefHeight="244.0" prefWidth="278.0">
+                     <Pane layoutY="57.0" prefHeight="254.0" prefWidth="268.0">
                         <children>
                            <RadioButton fx:id="Gali" layoutX="185.0" layoutY="22.0" mnemonicParsing="false" onAction="#pickGali" text="GALI">
                               <toggleGroup>
                                  <ToggleGroup fx:id="c" />
-                              </toggleGroup></RadioButton>
+                              </toggleGroup>
+                           </RadioButton>
                            <RadioButton fx:id="Dana" layoutX="25.0" layoutY="148.0" mnemonicParsing="false" onAction="#pickDana" text="DANA" toggleGroup="$c" />
                            <RadioButton fx:id="Izhar" layoutX="185.0" layoutY="148.0" mnemonicParsing="false" onAction="#pickIzhar" text="IZHAR" toggleGroup="$c" />
                            <RadioButton fx:id="Netta" layoutX="25.0" layoutY="22.0" mnemonicParsing="false" onAction="#pickNetta" selected="true" text="NETTA" toggleGroup="$c" />
@@ -110,35 +111,6 @@
            </items>
          </SplitPane>
       </center>
-      <right>
-         <SplitPane dividerPositions="0.20317460317460317, 0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" BorderPane.alignment="CENTER">
-           <items>
-             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
-                  <children>
-                     <Label layoutX="44.0" layoutY="2.0" prefHeight="57.0" prefWidth="137.0" text="pick theme">
-                        <font>
-                           <Font name="System Bold Italic" size="13.0" />
-                        </font>
-                     </Label>
-                  </children>
-               </AnchorPane>
-             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
-                  <children>
-                     <RadioButton mnemonicParsing="false" onAction="#pickEuroVisionTheme" prefHeight="85.0" prefWidth="153.0" selected="true" text="Default EuroVision view">
-                        <toggleGroup>
-                           <ToggleGroup fx:id="th" />
-                        </toggleGroup>
-                     </RadioButton>
-                  </children>
-               </AnchorPane>
-               <AnchorPane layoutX="10.0" layoutY="10.0" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
-                  <children>
-                     <RadioButton layoutY="14.0" mnemonicParsing="false" onAction="#pickHomeTheme" prefHeight="85.0" prefWidth="118.0" text="home view" toggleGroup="$th" />
-                  </children>
-               </AnchorPane>
-           </items>
-         </SplitPane>
-      </right>
       <bottom>
          <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
            <buttons>

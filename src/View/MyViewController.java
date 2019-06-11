@@ -126,7 +126,7 @@ public class MyViewController extends Controller implements IView, Initializable
 
             try {
                 if (viewModel.isWon()){
-                    winner();
+                    //winner();
                 }
                 int goalPositionRow = viewModel.getRowGoalPosition();
                 int goalPositionCol = viewModel.getColGoalPosition();
