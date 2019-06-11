@@ -62,25 +62,25 @@ public class MazeDisplayer extends Canvas {
         this.maze = maze;
         goalPositionRow = row;
         goalPositionColumn = col;
-        Image characterImage = chooseCharacter();
-        redraw(characterImage);
+
+        redraw();
 
     }
 
     public void setSolutionAsIntegersList(ArrayList<int[]> solutionAsIntegersList) throws FileNotFoundException {
         this.solutionAsIntegersList = solutionAsIntegersList;
-        Image characterImage = chooseCharacter();
-        redraw(characterImage);
+
+        redraw();
     }
 
     public void setCharacterPosition(int row, int column) throws FileNotFoundException {
         characterPositionRow = row;
         characterPositionColumn = column;
-        Image characterImage =  chooseCharacter();
-        redraw(characterImage);
+
+        redraw();
     }
 
-    private Image chooseCharacter() throws FileNotFoundException {
+    public Image chooseCharacter() throws FileNotFoundException {
         switch (gameParams[3]){
             case "Netta":
                 return new Image(new FileInputStream(ImageFileNameCharacter1.get()));
@@ -95,7 +95,7 @@ public class MazeDisplayer extends Canvas {
     }
 
 
-    public void redraw(Image characterImage) {
+    public void redraw() {
         if (maze != null) {
             double canvasHeight = getHeight();
             double canvasWidth = getWidth();
@@ -103,6 +103,7 @@ public class MazeDisplayer extends Canvas {
             double cellWidth = canvasWidth / maze[0].length;
 
             try {
+                Image characterImage = chooseCharacter();
                 Image wallImage = new Image(new FileInputStream(ImageFileNameWall.get()));
                 Image redWallImage = new Image(new FileInputStream(ImageFileNameRedWall.get()));
                 Image startAndGoalImage = new Image(new FileInputStream(ImageFileNameStartAndGoal.get()));
@@ -149,15 +150,15 @@ public class MazeDisplayer extends Canvas {
     }
 
     public void redrawWithoutSolution() throws FileNotFoundException {
-        Image characterImage =  chooseCharacter();
+
         showSolution = false;
-        redraw(characterImage);
+        redraw();
     }
 
     public void redrawWithSolution() throws FileNotFoundException {
-        Image characterImage =  chooseCharacter();
+
         showSolution = true;
-        redraw(characterImage);
+        redraw();
     }
 
     /* Getters & Setters */
@@ -234,7 +235,23 @@ public class MazeDisplayer extends Canvas {
         this.ImageFileNameSolution.set(imageFileNameSolution);
     }
 
+/*
+    @Override
+    public double prefHeight(double width)
+    {
+        return getHeight();
+    }
+    @Override
+    public double prefWidth(double width){
+        return getWidth();
+    }
 
+    @Override
+    public boolean isResizable()
+    {
+        return true;
+    }
+    */
 
 }
 

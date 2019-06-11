@@ -5,15 +5,19 @@
     -fx-background-color: bisque;
 }
 
-#label1{
-    -fx-text-fill: red;
+#label1,#label12,#label11,#label2,#label21,#label22,#label3,#label32,#label31,#label4,#label41,#label42,#label5,#label51,#labe52,#label6,#label61,#label62{
+    -fx-text-fill: 	#4B0082;
 }
 
 
 .label {
     -fx-text-fill: #e8e8e8;
     -fx-font-weight: bold;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
 }
+
+
+
 Button {
     -fx-text-fill: white;
     -fx-font-family: "Arial Narrow";

@@ -26,6 +26,7 @@ public abstract class Controller implements Observer {
     }
 
     protected void closeProgram() {
+        viewModel = Main.getViewModel();
         Stage s = Main.getStage();
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to exit?", ButtonType.YES, ButtonType.NO);
         alert.showAndWait();
@@ -41,7 +42,9 @@ public abstract class Controller implements Observer {
         FXMLLoader fxmlLoader= new FXMLLoader();
         Stage s = Main.getStage();
         Parent root = fxmlLoader.load(getClass().getResource("../View/NewGame.fxml").openStream());
-        s.setScene(new Scene(root, 600, 400));
+        Scene scene = new Scene(root,745,500);
+        scene.getStylesheets().add(getClass().getResource("../View/NewGame.css").toExternalForm());
+        s.setScene(scene);
         NewGameController ng = fxmlLoader.getController();
         viewModel=Main.getViewModel();
         ng.setViewModel(viewModel);
@@ -64,7 +67,7 @@ public abstract class Controller implements Observer {
     }
 
     protected void loadGame() throws IOException {
-        viewModel.deleteSolution();
+        //viewModel.deleteSolution();
         FXMLLoader fxmlLoader1 = new FXMLLoader();
         Stage d = Main.getStage();
         Parent root = fxmlLoader1.load(getClass().getResource("../View/Load.fxml").openStream());

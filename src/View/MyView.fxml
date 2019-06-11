@@ -10,9 +10,9 @@
 <?import javafx.scene.layout.Pane?>
 <?import View.MazeDisplayer?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MyViewController">
+<AnchorPane prefHeight="550.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MyViewController">
    <children>
-      <BorderPane onKeyPressed="#KeyPressed" prefHeight="400.0" prefWidth="600.0">
+      <BorderPane onKeyPressed="#KeyPressed" prefHeight="550.0" prefWidth="750.0">
          <top>
             <MenuBar BorderPane.alignment="CENTER">
               <menus>
@@ -25,15 +25,15 @@
                 </Menu>
                 <Menu mnemonicParsing="false" text="Options">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="properties" onAction = "#properties" />
+                    <MenuItem mnemonicParsing="false" onAction="#properties" text="properties" />
                   </items>
                 </Menu>
-                <Menu mnemonicParsing="false" text="Help" >
+                <Menu mnemonicParsing="false" text="Help">
                     <items>
                         <MenuItem mnemonicParsing="false" onAction="#help" text="Help" />
                     </items>
                 </Menu>
-                <Menu mnemonicParsing="false" text="About" >
+                <Menu mnemonicParsing="false" text="About">
                     <items>
                         <MenuItem mnemonicParsing="false" onAction="#about" text="About" />
                     </items>
@@ -55,9 +55,10 @@
             </Pane>
          </left>
          <center>
-            <Pane prefHeight="303.0" prefWidth="459.0" BorderPane.alignment="CENTER">
+            <Pane fx:id="MazePane" prefHeight="500.0" prefWidth="500.0" BorderPane.alignment="CENTER">
 
                 <children>
+
                     <MazeDisplayer fx:id="mazeDisplayer" height="600.0" width="600.0"
                                    imageFileNameWall="resources/Images/wall1.jpg"
                                    imageFileNameRedWall="resources/Images/redWall.jpeg"
@@ -70,7 +71,6 @@
                     >
 
                     </MazeDisplayer>
-
 
 
                 </children>

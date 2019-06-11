@@ -1,0 +1,68 @@
+
+
+.root{
+
+    -fx-background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGTgvb80vCTNLhlDy3RBaNR4o0wPl_G0KalfZ9rpMiPgyi1w-m');
+}
+
+#leftSplit{
+    -fx-background-image: url('https://image.freepik.com/free-photo/bunch-delicate-lavender-flowers-forming-frame-pink-background_23-2147847682.jpg')
+}
+
+#rightSplit{
+    -fx-background-image: url('https://image.freepik.com/free-photo/bunch-delicate-lavender-flowers-forming-frame-pink-background_23-2147847682.jpg');
+}
+
+
+
+#labelDiff,#labelChar{
+    -fx-text-fill: #000000;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+
+}
+
+#anchor{
+    -fx-background-image: url('http://newzim.co.il/merkaz/wp-content/uploads/sites/2/bfi_thumb/-%D7%91%D7%A8%D7%96%D7%99%D7%9C%D7%99-%D7%A6%D7%99%D7%9C%D7%95%D7%9D-%D7%93%D7%A0%D7%99%D7%90%D7%9C-%D7%A7%D7%9E%D7%99%D7%A0%D7%A1%D7%A7%D7%99-%D7%99%D7%97%D7%A6-nw21g2yblfw6x0bjeqi1kni8u5vmwgj1jphpbkg0a0.jpg');
+}
+
+#anchorGali{
+    -fx-background-image: url('https://images1.ynet.co.il/PicServer5/2019/03/19/9130145/1_s.jpg')
+}
+
+#anchorDana{
+    -fx-background-image: url('https://images1.ynet.co.il/PicServer5/2018/05/01/8503912/AP_9805100600_s.jpg')
+}
+
+#anchorIzhar{
+    -fx-background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdL5nfMHesFqmLlSxQiRzbm5_JpkAge8QJ2ZG4AyzZqVa8KGi4Cw')
+}
+
+#anchorTrophy{
+    -fx-background-image: url('https://i2.wp.com/www.halfwayanywhere.com/wp-content/uploads/2014/05/Eurovision-Trophy.jpg?resize=150%2C150&ssl=1')
+}
+
+.label {
+    -fx-text-fill: #e8e8e8;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+}
+
+
+Button {
+    -fx-text-fill: white;
+    -fx-font-family: "Arial Narrow";
+    -fx-font-weight: bold;
+    -fx-background-color: linear-gradient(#3f5efb, #fc466b);
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+}
+
+Button:hover{
+    -fx-background-color: -fx-shadow-highlight-color, -fx-outer-border, -fx-inner-border, -fx-body-color;
+    -fx-background-insets: 0 0 -1 0, 0, 1, 2;
+    -fx-background-radius: 3px, 3px, 2px, 1px;
+    -fx-padding: 0.333333em 0.666667em 0.333333em 0.666667em; /* 4 8 4 8 */
+    -fx-text-fill: -fx-text-base-color;
+    -fx-alignment: CENTER;
+    -fx-content-display: LEFT;
+}

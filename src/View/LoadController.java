@@ -259,7 +259,9 @@ public class LoadController extends Controller implements Initializable {
     public void backToLandingPage(ActionEvent actionEvent) throws IOException {
         Stage s = Main.getStage();
         Parent root = FXMLLoader.load(getClass().getResource("../View/Landing.fxml"));
-        s.setScene(new Scene(root, 600, 400));
+        Scene scene = new Scene(root, 758, 454);
+        scene.getStylesheets().add(getClass().getResource("../View/Landing.css").toExternalForm());
+        s.setScene(scene);
         Main.setStage(s);
         s.show();
 
@@ -297,8 +299,10 @@ public class LoadController extends Controller implements Initializable {
         FXMLLoader fxmlLoader= new FXMLLoader();
 
         Stage s = Main.getStage();
-        Parent root = fxmlLoader.load(getClass().getResource("../View/MyView.fxml").openStream());
-        s.setScene(new Scene(root, 1000, 800));
+        Parent root = fxmlLoader.load(getClass().getResource("../View/NewGame.fxml").openStream());
+        Scene scene = new Scene(root,745,500);
+        scene.getStylesheets().add(getClass().getResource("../View/NewGame.css").toExternalForm());
+        s.setScene(scene);
         MyViewController vc = fxmlLoader.getController();
 
         vc.setViewModel(viewModel);

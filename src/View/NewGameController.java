@@ -2,12 +2,15 @@ package View;
 
 
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import sample.Main;
@@ -24,6 +27,28 @@ public class NewGameController extends Controller implements Initializable{
 
     public TextField size;
     public Text rowLabel;
+    @FXML
+    private AnchorPane anchor;
+    @FXML
+    private AnchorPane anchorGali;
+    @FXML
+    private AnchorPane anchorDana;
+    @FXML
+    private AnchorPane anchorIzhar;
+    @FXML
+    private AnchorPane anchorTrophy;
+    @FXML
+    private SplitPane leftSplit;
+    @FXML
+    private SplitPane rightSplit;
+    @FXML
+    private Label labelDiff;
+    @FXML
+    private Label labelchar;
+
+
+
+
 
 
     @Override
@@ -53,7 +78,9 @@ public class NewGameController extends Controller implements Initializable{
     public void backToLanding(ActionEvent actionEvent) throws IOException {
         Stage s = Main.getStage();
         Parent root = FXMLLoader.load(getClass().getResource("../View/Landing.fxml"));
-        s.setScene(new Scene(root, 600, 400));
+        Scene scene = new Scene(root, 758, 454);
+        scene.getStylesheets().add(getClass().getResource("../View/Landing.css").toExternalForm());
+        s.setScene(scene);
         Main.setStage(s);
         s.show();
 
@@ -67,7 +94,9 @@ public class NewGameController extends Controller implements Initializable{
         generateMaze();
         Stage s = Main.getStage();
         Parent root = fxmlLoader.load(getClass().getResource("../View/MyView.fxml").openStream());
-        s.setScene(new Scene(root, 1000, 800));
+        Scene scene = new Scene(root,1000,800);
+        scene.getStylesheets().add(getClass().getResource("../View/view.css").toExternalForm());
+        s.setScene(scene);
         MyViewController vc = fxmlLoader.getController();
 
         vc.setViewModel(viewModel);

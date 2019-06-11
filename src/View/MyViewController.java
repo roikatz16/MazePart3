@@ -1,10 +1,15 @@
 package View;
 
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import sample.Main;
 
@@ -28,6 +33,9 @@ public class MyViewController extends Controller implements IView, Initializable
     @FXML
     private Button restart;
 
+    @FXML
+    private Pane MazePane;
+
 
 
     @Override
@@ -38,7 +46,15 @@ public class MyViewController extends Controller implements IView, Initializable
             e.consume();
             closeProgram();
         });
+/*
+        mazeDisplayer.heightProperty().bind(MazePane.heightProperty());
+        mazeDisplayer.widthProperty().bind(MazePane.widthProperty());
+
+        mazeDisplayer.heightProperty().addListener(e->mazeDisplayer.redraw());
+        mazeDisplayer.widthProperty().addListener(e->mazeDisplayer.redraw());
+*/
     }
+
 
     public void KeyPressed(KeyEvent keyEvent) {
         viewModel.moveCharacter(keyEvent.getCode());
@@ -137,6 +153,8 @@ public class MyViewController extends Controller implements IView, Initializable
                 mazeDisplayer.setMaze(viewModel.getMazeAsArray(), goalPositionRow, goalPositionCol );
                 solutionAsIntegersList=viewModel.getSolutionAsIntegersList();
                 mazeDisplayer.setSolutionAsIntegersList(solutionAsIntegersList);
+
+
 
 
             } catch (FileNotFoundException e) {
@@ -238,4 +256,7 @@ public class MyViewController extends Controller implements IView, Initializable
         alert.setHeaderText("8 = Up\n2 = Down\n4 = Left\n6 = Right\n7 = Up & Left\n9 = Up & Right\n1 = Down & Left\n3 = Down & Right\n");
         alert.showAndWait();
     }
+
+
+
 }
