@@ -48,9 +48,9 @@ public class Main extends Application {
 
 
 
-        primaryStage.setTitle("MY APP");
+        primaryStage.setTitle("EUROVISION CONTEST MAZE GAME 2019");
         Parent root = fxmlLoader.load(getClass().getResource("../View/Landing.fxml").openStream());
-        Scene scene = new Scene(root, 600, 400);
+        Scene scene = new Scene(root, 758, 454);
         scene.getStylesheets().add(getClass().getResource("../View/Landing.css").toExternalForm());
         primaryStage.setScene(scene);
         LandingController lc = fxmlLoader.getController();

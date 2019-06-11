@@ -1,11 +1,19 @@
 
 
 .root{
-    -fx-background-image: url('https://i0.wp.com/celebmix.com/wp-content/uploads/2018/11/42-countries-will-be-participating-in-eurovision-song-contest-2019-01.png?fit=758%2C454&ssl=1');
+    -fx-background-image: url('https://cdn1.vectorstock.com/i/1000x1000/01/15/show-or-dance-floor-background-with-vector-6510115.jpg');
     -fx-background-color: bisque;
 }
 
+#label1{
+    -fx-text-fill: red;
+}
 
+
+.label {
+    -fx-text-fill: #e8e8e8;
+    -fx-font-weight: bold;
+}
 Button {
     -fx-text-fill: white;
     -fx-font-family: "Arial Narrow";
@@ -23,3 +31,5 @@ Button:hover{
     -fx-alignment: CENTER;
     -fx-content-display: LEFT;
 }
+
+

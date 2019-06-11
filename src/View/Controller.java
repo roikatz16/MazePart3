@@ -67,7 +67,9 @@ public abstract class Controller implements Observer {
         FXMLLoader fxmlLoader1 = new FXMLLoader();
         Stage d = Main.getStage();
         Parent root = fxmlLoader1.load(getClass().getResource("../View/Load.fxml").openStream());
-        d.setScene(new Scene(root,900,600));
+        Scene scene = new Scene(root,758,500);
+        scene.getStylesheets().add(getClass().getResource("../View/Load.css").toExternalForm());
+        d.setScene(scene);
         LoadController lc = fxmlLoader1.getController();
         lc.setViewModel(viewModel);
 
