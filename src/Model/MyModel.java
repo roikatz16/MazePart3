@@ -45,7 +45,8 @@ public class MyModel extends Observable implements IModel {
     private ExecutorService threadPool = Executors.newCachedThreadPool();
     private String characterName;
     private boolean won;
-    private  MediaPlayer MP;
+    private  MediaPlayer mediaPlayer;
+    private boolean isWinnigSongPlayed;
 
 
     /**
@@ -57,6 +58,7 @@ public class MyModel extends Observable implements IModel {
         solveSearchProblemServer = new Server(5401, 5000, new ServerStrategySolveSearchProblem());
 
         won=false;// Relevant for wonTheGame method
+         isWinnigSongPlayed=false;
     }
 
     /**
@@ -206,6 +208,11 @@ public class MyModel extends Observable implements IModel {
      * @param array
      */
     public void moveCharacter(KeyCode movement, char[][] array) {
+        // mute the winning song
+        if(mediaPlayer != null && isWinnigSongPlayed){
+            mediaPlayer.stop();
+            isWinnigSongPlayed = false;
+        }
 
         switch (movement) {
             case T://UP
@@ -312,7 +319,7 @@ public class MyModel extends Observable implements IModel {
 
 
         if (wonTheGame()){
-
+            isWinnigSongPlayed = true;
             if (characterName.equals("Netta")){
                 playAudio("resources/music/Netta - won.mp3");
 
@@ -338,8 +345,8 @@ public class MyModel extends Observable implements IModel {
     protected void playAudio(String audio) {
         String musicFile = audio;     // For example
         Media sound = new Media(new File(musicFile).toURI().toString());
-        MP = new MediaPlayer(sound);
-        MP.play();
+        mediaPlayer = new MediaPlayer(sound);
+        mediaPlayer.play();
     }
 
     /**

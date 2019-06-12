@@ -90,9 +90,8 @@ public class LandingController extends Controller implements Initializable {
      */
     public void goToInstructions(){
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Maze game instructions");
-        alert.setHeaderText("Look, an Information Dialog");
-        alert.setContentText("I have a great message for you!");
+        alert.setTitle("INSTRUCTIONS");
+        alert.setHeaderText("8 = Up\n2 = Down\n4 = Left\n6 = Right\n7 = Up & Left\n9 = Up & Right\n1 = Down & Left\n3 = Down & Right\n");
         alert.showAndWait();
     }
 }
