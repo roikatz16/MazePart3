@@ -235,7 +235,7 @@ public class MazeDisplayer extends Canvas {
         this.ImageFileNameSolution.set(imageFileNameSolution);
     }
 
-/*
+
     @Override
     public double prefHeight(double width)
     {
@@ -251,7 +251,7 @@ public class MazeDisplayer extends Canvas {
     {
         return true;
     }
-    */
+
 
 }
 

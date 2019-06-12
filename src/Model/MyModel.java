@@ -179,7 +179,7 @@ public class MyModel extends Observable implements IModel {
             }else if (characterName.equals("Dana")){
 
             }else if (characterName.equals("Izhar")){
-
+                playAudio("resources/music/Izhar - Won.mp3");
             }
 
         }else {
@@ -195,7 +195,7 @@ public class MyModel extends Observable implements IModel {
                         }else if (characterName.equals("Dana")){
 
                         }else if (characterName.equals("Izhar")){
-
+                            playAudio("resources/music/Izhar - 1.mp3");
                         }
 
 
@@ -214,7 +214,7 @@ public class MyModel extends Observable implements IModel {
                         }else if (characterName.equals("Dana")){
 
                         }else if (characterName.equals("Izhar")){
-
+                            playAudio("resources/music/Izhar - 2.mp3");
                         }
 
 
@@ -232,7 +232,7 @@ public class MyModel extends Observable implements IModel {
                         }else if (characterName.equals("Dana")){
 
                         }else if (characterName.equals("Izhar")){
-
+                            playAudio("resources/music/Izhar - 3.mp3");
                         }
                     }
                     break;
@@ -248,7 +248,7 @@ public class MyModel extends Observable implements IModel {
                         }else if (characterName.equals("Dana")){
 
                         }else if (characterName.equals("Izhar")){
-
+                            playAudio("resources/music/Izhar - 4.mp3");
                         }
                     }
                     break;

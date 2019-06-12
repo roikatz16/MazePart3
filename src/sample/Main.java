@@ -54,7 +54,6 @@ public class Main extends Application {
         scene.getStylesheets().add(getClass().getResource("../View/Landing.css").toExternalForm());
         primaryStage.setScene(scene);
         LandingController lc = fxmlLoader.getController();
-
         lc.setViewModel(viewModel);
         primaryStage.show();
 

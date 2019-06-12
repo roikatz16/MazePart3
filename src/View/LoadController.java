@@ -299,9 +299,9 @@ public class LoadController extends Controller implements Initializable {
         FXMLLoader fxmlLoader= new FXMLLoader();
 
         Stage s = Main.getStage();
-        Parent root = fxmlLoader.load(getClass().getResource("../View/NewGame.fxml").openStream());
+        Parent root = fxmlLoader.load(getClass().getResource("../View/MyView.fxml").openStream());
         Scene scene = new Scene(root,745,500);
-        scene.getStylesheets().add(getClass().getResource("../View/NewGame.css").toExternalForm());
+        scene.getStylesheets().add(getClass().getResource("../View/view.css").toExternalForm());
         s.setScene(scene);
         MyViewController vc = fxmlLoader.getController();
 

@@ -2,7 +2,7 @@
 
 .root{
 
-    -fx-background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGTgvb80vCTNLhlDy3RBaNR4o0wPl_G0KalfZ9rpMiPgyi1w-m');
+
 }
 
 #leftSplit{
@@ -23,23 +23,22 @@
 }
 
 #anchor{
-    -fx-background-image: url('http://newzim.co.il/merkaz/wp-content/uploads/sites/2/bfi_thumb/-%D7%91%D7%A8%D7%96%D7%99%D7%9C%D7%99-%D7%A6%D7%99%D7%9C%D7%95%D7%9D-%D7%93%D7%A0%D7%99%D7%90%D7%9C-%D7%A7%D7%9E%D7%99%D7%A0%D7%A1%D7%A7%D7%99-%D7%99%D7%97%D7%A6-nw21g2yblfw6x0bjeqi1kni8u5vmwgj1jphpbkg0a0.jpg');
+
 }
 
 #anchorGali{
-    -fx-background-image: url('https://images1.ynet.co.il/PicServer5/2019/03/19/9130145/1_s.jpg')
+
 }
 
 #anchorDana{
-    -fx-background-image: url('https://images1.ynet.co.il/PicServer5/2018/05/01/8503912/AP_9805100600_s.jpg')
+
 }
 
 #anchorIzhar{
-    -fx-background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdL5nfMHesFqmLlSxQiRzbm5_JpkAge8QJ2ZG4AyzZqVa8KGi4Cw')
+
 }
 
 #anchorTrophy{
-    -fx-background-image: url('https://i2.wp.com/www.halfwayanywhere.com/wp-content/uploads/2014/05/Eurovision-Trophy.jpg?resize=150%2C150&ssl=1')
 }
 
 .label {

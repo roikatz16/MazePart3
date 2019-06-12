@@ -46,13 +46,13 @@ public class MyViewController extends Controller implements IView, Initializable
             e.consume();
             closeProgram();
         });
-/*
-        mazeDisplayer.heightProperty().bind(MazePane.heightProperty());
+
+        /*mazeDisplayer.heightProperty().bind(MazePane.heightProperty());
         mazeDisplayer.widthProperty().bind(MazePane.widthProperty());
 
         mazeDisplayer.heightProperty().addListener(e->mazeDisplayer.redraw());
-        mazeDisplayer.widthProperty().addListener(e->mazeDisplayer.redraw());
-*/
+        mazeDisplayer.widthProperty().addListener(e->mazeDisplayer.redraw());*/
+
     }
 
 
@@ -102,11 +102,6 @@ public class MyViewController extends Controller implements IView, Initializable
         solve.setDisable(false);
     }
 
-    private void showAlert(String alertMessage) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setContentText(alertMessage);
-        alert.show();
-    }
 
     @FXML
     private void backToNewGame() throws IOException {
@@ -142,7 +137,7 @@ public class MyViewController extends Controller implements IView, Initializable
 
             try {
                 if (viewModel.isWon()){
-                    //winner();
+                   // winner();
                 }
                 int goalPositionRow = viewModel.getRowGoalPosition();
                 int goalPositionCol = viewModel.getColGoalPosition();
