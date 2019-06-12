@@ -1,20 +1,14 @@
 package View;
 
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import sample.Main;
-
 
 import java.io.IOException;
 import java.net.URL;
@@ -47,10 +41,11 @@ public class NewGameController extends Controller implements Initializable{
     private Label labelchar;
 
 
-
-
-
-
+    /**
+     * initialize the class (mainly for close program properly)
+     * @param location
+     * @param resources
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         viewModel = Main.getViewModel();
@@ -65,50 +60,56 @@ public class NewGameController extends Controller implements Initializable{
         });
     }
 
+    /**
+     * update
+     * @param o
+     * @param arg
+     */
+    @Override
+    public void update(Observable o, Object arg) {
+        // do nothing. needed because the inheriting
+    }
 
-
+    /**
+     * close the program with confirming
+     * close the servers
+     */
     public void exitGame() {
-        closeProgram();
-
-
+        super.closeProgram();
     }
 
-
-
-    public void backToLanding(ActionEvent actionEvent) throws IOException {
-        Stage s = Main.getStage();
-        Parent root = FXMLLoader.load(getClass().getResource("../View/Landing.fxml"));
-        Scene scene = new Scene(root, 758, 454);
-        scene.getStylesheets().add(getClass().getResource("../View/Landing.css").toExternalForm());
-        s.setScene(scene);
-        Main.setStage(s);
-        s.show();
-
+   /* SCENE-CHANGING METHODS:
+    1. goToLanding
+    2. goToMainScene
+     */
+    /**
+     * Go to landing scene
+     * @throws IOException
+     */
+    public void backToLanding() throws IOException {
+        super.goToLanding();
     }
 
-
-
+    /**
+     * Go to Main scene: the game scene
+     * @throws IOException
+     */
     public void StartGame() throws IOException {
         FXMLLoader fxmlLoader= new FXMLLoader();
         sendParamsToViewModel();
-        Stage s = Main.getStage();
-        Parent root = fxmlLoader.load(getClass().getResource("../View/MyView.fxml").openStream());
-        Scene scene = new Scene(root,1000,800);
-        scene.getStylesheets().add(getClass().getResource("../View/view.css").toExternalForm());
-        s.setScene(scene);
-        MyViewController vc = fxmlLoader.getController();
-        vc.setViewModel(viewModel);
-        viewModel.addObserver(vc);
+        Stage stage = Main.getStage();
+        super.goToMainScene(fxmlLoader, stage);
         generateMaze();
-        Main.setStage(s);
-
-        s.show();
+        Main.setStage(stage);
+        stage.show();
     }
 
+    /**
+     * send parameters (difficulty, character) to viewModel
+     */
     private void sendParamsToViewModel() {
         viewModel.setParams(gameParams);
     }
-
     /*
         ///////////////MAZE PARAMS/////////////
         0 - DIFFICULTY
@@ -123,9 +124,11 @@ public class NewGameController extends Controller implements Initializable{
         8 - CHARACTER START COL POSITION
         9 - CHARACTER END  ROW POSITION
         10 - CHARACTER END COL POSITION
+    */
 
-
-        */
+    /**
+     * Creating the maze (through the model and the servers)
+     */
     private void generateMaze() {
         //get maze params from scene
         System.out.println(gameParams[0]);
@@ -154,50 +157,49 @@ public class NewGameController extends Controller implements Initializable{
         viewModel.generateMaze(row, col,gameParams[3]);
     }
 
-    @Override
-    public void update(Observable o, Object arg) {
-        boolean bool = false;
-    }
-
-    public void pickEasy() {
-
-        gameParams[0]="easy";
-        setRowsCol(true);
-
-    }
-    public void pickMedium() {
-
-        gameParams[0]="medium";
-        setRowsCol(true);
-    }
-    public void PickHard() {
-
-        gameParams[0]="hard";
-        setRowsCol(true);
-    }
-
-    public void pressedCustom() {
-
-        gameParams[0]="custom";
-        setRowsCol(false);
-    }
-
-    private void setRowsCol(boolean val){
-        size.setDisable(val);
-
-    }
-
-
-    public void getCustomMazeSize() {
+    /**
+     *
+     */
+    private void getCustomMazeSize() {
         if (isInt(size,size.getText()) && isInt(size,size.getText()) ){
             gameParams[1] = size.getText();
             gameParams[2] = size.getText();
         }
-
-
     }
 
-    //Validate age
+    /* Pick Difficulty methods */
+    public void pickEasy() {
+        gameParams[0]="easy";
+        size.setDisable(true);
+    }
+    public void pickMedium() {
+        gameParams[0]="medium";
+        size.setDisable(true);
+    }
+    public void PickHard() {
+        gameParams[0]="hard";
+        size.setDisable(true);
+    }
+
+    public void pressedCustom() {
+        gameParams[0]="custom";
+        size.setDisable(false);
+    }
+
+    /* Pick Character methods */
+
+    public void pickNetta() { gameParams[3]="Netta"; }
+    public void pickDana() { gameParams[3]="Dana"; }
+    public void pickIzhar() {gameParams[3]="Izhar"; }
+    public void pickGali() {gameParams[3]="Gali"; }
+
+
+    /**
+     * Verify the player putted valid input in the custom size
+     * @param input
+     * @param message
+     * @return
+     */
     private boolean isInt(TextField input, String message){
         try{
             int age = Integer.parseInt(input.getText());
@@ -216,32 +218,5 @@ public class NewGameController extends Controller implements Initializable{
 
 
 
-
-    public void pickTreeTheme(ActionEvent actionEvent) {
-        gameParams[2]="tree";
-    }
-
-    public void pickNetta(MouseEvent mouseEvent) {
-        gameParams[3]="Netta";
-    }
-
-
-    public void pickDana(ActionEvent actionEvent) {
-        gameParams[3]="Dana";
-    }
-
-    public void pickIzhar(ActionEvent actionEvent) {gameParams[3]="Izhar";
-    }
-
-    public void pickGali(ActionEvent actionEvent) {gameParams[3]="Gali";
-    }
-
-    public void pickEuroVisionTheme(ActionEvent actionEvent) {
-        gameParams[4] = "EuroVision";
-    }
-
-    public void pickHomeTheme(ActionEvent actionEvent) {
-        gameParams[4] = "Home";
-    }
 }
 

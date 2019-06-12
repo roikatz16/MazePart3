@@ -23,6 +23,16 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
+/*
+    METHODS:
+    # generate maze
+    # solve maze
+    # move character (+ 1. check: passability, winning 2. play audio)
+    # save game
+    # load game
+    # getters & setters
+
+ */
 
 public class MyModel extends Observable implements IModel {
 
@@ -35,23 +45,32 @@ public class MyModel extends Observable implements IModel {
     private ExecutorService threadPool = Executors.newCachedThreadPool();
     private String characterName;
     private boolean won;
+    private  MediaPlayer MP;
 
 
-
+    /**
+     * Constructor
+     */
     public MyModel() {
         //Raise the servers
         mazeGeneratingServer =new Server(5400, 1000, new ServerStrategyGenerateMaze());
         solveSearchProblemServer = new Server(5401, 5000, new ServerStrategySolveSearchProblem());
-        won=false;
+
+        won=false;// Relevant for wonTheGame method
     }
 
-
+    /**
+     * Start the servers (1. generate 2. solve)
+     */
     public void startServers() {
         solveSearchProblemServer.start();
         mazeGeneratingServer.start();
     }
 
     @Override
+    /**
+     * Stop the servers
+     */
     public void stopServers() {
         try {
             mazeGeneratingServer.stop();
@@ -63,11 +82,15 @@ public class MyModel extends Observable implements IModel {
         }
     }
 
-
+    /**
+     * Generate maze and notify the observers
+     * @param row
+     * @param col
+     * @param character
+     */
     @Override
     public void generateMaze(int row, int col,String character) {
         characterName= character;
-        //Generate maze
         threadPool.execute(() -> {
             generateMazeWithServers(row,col);
             try {
@@ -82,6 +105,11 @@ public class MyModel extends Observable implements IModel {
         });
     }
 
+    /**
+     * Generate maze by the server
+     * @param row
+     * @param col
+     */
     private void generateMazeWithServers(int row,int col){
         try {
             Client client = new Client(InetAddress.getLocalHost(), 5400, new IClientStrategy() {
@@ -93,18 +121,17 @@ public class MyModel extends Observable implements IModel {
                         int[] mazeDimensions = new int[]{row, col};
                         toServer.writeObject(mazeDimensions);
                         toServer.flush();
-                        byte[] compressedMaze = (byte[])((byte[])fromServer.readObject());
+                        byte[] compressedMaze = ((byte[])fromServer.readObject());
                         InputStream is = new MyDecompressorInputStream(new ByteArrayInputStream(compressedMaze));
                         byte[] decompressedMaze = new byte[row*col+18];
                         is.read(decompressedMaze);
                         maze = new Maze(decompressedMaze);
-                        //schiffMaze(maze);
                         if(maze != null){
                             maze.print();
                         }
 
                     } catch (Exception var10) {
-                        var10.printStackTrace();
+                        //var10.printStackTrace();
                     }
                 }
             });
@@ -114,9 +141,12 @@ public class MyModel extends Observable implements IModel {
         }
     }
     @Override
+    /**
+     * Solve the maze and notify the observers
+     * Returns the solution (int[][]: indexes)
+     */
     public int[][] solveMaze() {
 
-        //Generate maze
         threadPool.execute(() -> {
             solveMazeWithServers();
             try {
@@ -130,7 +160,9 @@ public class MyModel extends Observable implements IModel {
         return new int[0][];
     }
 
-
+    /**
+     * Solve maze by the server
+     */
     public void solveMazeWithServers() {
 
         try {
@@ -138,13 +170,11 @@ public class MyModel extends Observable implements IModel {
                 @Override
                 public void clientStrategy(InputStream inFromServer, OutputStream outToServer) {
                     try {
-                        //System.out.println(System.getProperty("java.io.tmpdir"));
+
                         ObjectOutputStream toServer = new ObjectOutputStream(outToServer);
                         ObjectInputStream fromServer = new ObjectInputStream(inFromServer);
                         toServer.flush();
-                        //MyMazeGenerator mg = new MyMazeGenerator();
-                        //Maze maze = mg.generate(4, 4);
-                        //maze.print();
+
                         toServer.writeObject(maze); //send maze to server
                         toServer.flush();
                         Solution mazeSolution = (Solution) fromServer.readObject(); //read generated maze (compressed with MyCompressor) from server
@@ -167,7 +197,120 @@ public class MyModel extends Observable implements IModel {
 
     }
 
+    /**
+     * For every movement of the character we:
+     * 1. notify the observers (for redrawing)
+     * 2. play the matching sound
+     * 3. check if we have won
+     * @param movement
+     * @param array
+     */
     public void moveCharacter(KeyCode movement, char[][] array) {
+
+        switch (movement) {
+            case T://UP
+                if(checkPassability(currentPositionRow -1, currentPositionColumn, array)){
+                    currentPositionRow--;
+                    if (characterName.equals("Netta")){
+                        playAudio("resources/music/Netta -RII.mp3");
+
+                    }else if (characterName.equals("Gali")){
+                        playAudio("resources/music/Gali - ha.mp3");
+
+                    }else if (characterName.equals("Dana")){
+                        playAudio("resources/music/Dana - 1.mp3");
+
+                    }else if (characterName.equals("Izhar")){
+                        playAudio("resources/music/Izhar - 1.mp3");
+                    }
+                }
+                break;
+
+
+            case B://DOWN
+                if(checkPassability(currentPositionRow +1, currentPositionColumn, array)){
+                    currentPositionRow++;
+                    if (characterName.equals("Netta")){
+                        playAudio("resources/music/Netta - la.mp3");
+
+                    }else if (characterName.equals("Gali")){
+                        playAudio("resources/music/Gali - le.mp3");
+
+                    }else if (characterName.equals("Dana")){
+                        playAudio("resources/music/Dana - 2.mp3");
+
+                    }else if (characterName.equals("Izhar")){
+                        playAudio("resources/music/Izhar - 2.mp3");
+                    }
+                }
+                break;
+
+            case F://LEFT
+                if(checkPassability(currentPositionRow, currentPositionColumn -1, array)){
+                    currentPositionColumn--;
+                    if (characterName.equals("Netta")){
+                        playAudio("resources/music/Netta - ha.mp3");
+
+                    }else if (characterName.equals("Gali")){
+                        playAudio("resources/music/Gali - lu.mp3");
+
+                    }else if (characterName.equals("Dana")){
+                        playAudio("resources/music/Dana - 3.mp3");
+
+                    }else if (characterName.equals("Izhar")){
+                        playAudio("resources/music/Izhar - 3.mp3");
+                    }
+                }
+                break;
+
+            case H://RIGHT
+                if(checkPassability(currentPositionRow, currentPositionColumn +1, array)){
+                    currentPositionColumn++;
+                    if (characterName.equals("Netta")){
+                        playAudio("resources/music/Netta - foo.mp3");
+
+                    }else if (characterName.equals("Gali")){
+                        playAudio("resources/music/Gali - ya.mp3");
+
+                    }else if (characterName.equals("Dana")){
+                        playAudio("resources/music/Dana - 4.mp3");
+
+                    }else if (characterName.equals("Izhar")){
+                        playAudio("resources/music/Izhar - 4.mp3");
+                    }
+                }
+                break;
+
+            case R://UP-LEFT
+                if(checkPassability(currentPositionRow -1, currentPositionColumn -1, array)){
+                    currentPositionRow--;
+                    currentPositionColumn--;
+                }
+                break;
+
+            case Y://UP-RIGHT
+                if(checkPassability(currentPositionRow -1, currentPositionColumn +1, array)){
+                    currentPositionRow--;
+                    currentPositionColumn++;
+                }
+                break;
+
+            case N://DOWN-RIGHT
+                if(checkPassability(currentPositionRow +1, currentPositionColumn +1, array)){
+                    currentPositionRow++;
+                    currentPositionColumn++;
+                }
+                break;
+
+            case V://DOWN-LEFT
+                if(checkPassability(currentPositionRow +1, currentPositionColumn -1, array)){
+                    currentPositionRow++;
+                    currentPositionColumn--;
+                }
+                break;
+        }
+
+
         if (wonTheGame()){
 
             if (characterName.equals("Netta")){
@@ -177,116 +320,32 @@ public class MyModel extends Observable implements IModel {
                 playAudio("resources/music/Gali - Won.mp3");
 
             }else if (characterName.equals("Dana")){
+                playAudio("resources/music/Dana - Won.mp3");
 
             }else if (characterName.equals("Izhar")){
                 playAudio("resources/music/Izhar - Won.mp3");
             }
 
-        }else {
-            switch (movement) {
-                case T://UP
-                    if(checkPassability(currentPositionRow -1, currentPositionColumn, array)){
-                        currentPositionRow--;
-                        if (characterName.equals("Netta")){
-                            playAudio("resources/music/Netta -RII.mp3");
-
-                        }else if (characterName.equals("Gali")){
-
-                        }else if (characterName.equals("Dana")){
-
-                        }else if (characterName.equals("Izhar")){
-                            playAudio("resources/music/Izhar - 1.mp3");
-                        }
-
-
-                    }
-                    break;
-
-
-                case B://DOWN
-                    if(checkPassability(currentPositionRow +1, currentPositionColumn, array)){
-                        currentPositionRow++;
-                        if (characterName.equals("Netta")){
-                            playAudio("resources/music/Netta - la.mp3");
-
-                        }else if (characterName.equals("Gali")){
-
-                        }else if (characterName.equals("Dana")){
-
-                        }else if (characterName.equals("Izhar")){
-                            playAudio("resources/music/Izhar - 2.mp3");
-                        }
-
-
-                    }
-                    break;
-
-                case F://LEFT
-                    if(checkPassability(currentPositionRow, currentPositionColumn -1, array)){
-                        currentPositionColumn--;
-                        if (characterName.equals("Netta")){
-                            playAudio("resources/music/Netta - ha.mp3");
-
-                        }else if (characterName.equals("Gali")){
-
-                        }else if (characterName.equals("Dana")){
-
-                        }else if (characterName.equals("Izhar")){
-                            playAudio("resources/music/Izhar - 3.mp3");
-                        }
-                    }
-                    break;
-
-                case H://RIGHT
-                    if(checkPassability(currentPositionRow, currentPositionColumn +1, array)){
-                        currentPositionColumn++;
-                        if (characterName.equals("Netta")){
-                            playAudio("resources/music/Netta - foo.mp3");
-
-                        }else if (characterName.equals("Gali")){
-
-                        }else if (characterName.equals("Dana")){
-
-                        }else if (characterName.equals("Izhar")){
-                            playAudio("resources/music/Izhar - 4.mp3");
-                        }
-                    }
-                    break;
-
-                case R://UP-LEFT
-                    if(checkPassability(currentPositionRow -1, currentPositionColumn -1, array)){
-                        currentPositionRow--;
-                        currentPositionColumn--;
-                    }
-                    break;
-
-                case Y://UP-RIGHT
-                    if(checkPassability(currentPositionRow -1, currentPositionColumn +1, array)){
-                        currentPositionRow--;
-                        currentPositionColumn++;
-                    }
-                    break;
-
-                case N://DOWN-RIGHT
-                    if(checkPassability(currentPositionRow +1, currentPositionColumn +1, array)){
-                        currentPositionRow++;
-                        currentPositionColumn++;
-                    }
-                    break;
-
-                case V://DOWN-LEFT
-                    if(checkPassability(currentPositionRow +1, currentPositionColumn -1, array)){
-                        currentPositionRow++;
-                        currentPositionColumn--;
-                    }
-                    break;
-            }
         }
-
         setChanged();
         notifyObservers("move");
     }
 
+    /**
+     * Play audion
+     * @param audio
+     */
+    protected void playAudio(String audio) {
+        String musicFile = audio;     // For example
+        Media sound = new Media(new File(musicFile).toURI().toString());
+        MP = new MediaPlayer(sound);
+        MP.play();
+    }
+
+    /**
+     * Check if the character has reached the end of the maze
+     * @return boolean answer
+     */
     private boolean wonTheGame() {
         if(currentPositionColumn==maze.getGoalPosition().getColumnIndex() && currentPositionRow == maze.getGoalPosition().getRowIndex()){
             won = true;
@@ -296,6 +355,22 @@ public class MyModel extends Observable implements IModel {
         return won;
     }
 
+    /**
+     * For the observers
+     * Check if the character has reached the end of the maze
+     * @return boolean answer
+     */
+    public boolean isWon() {
+        return won;
+    }
+
+    /**
+     * Check whether the character can move or got to a wall
+     * @param row
+     * @param col
+     * @param array
+     * @return boolean answer
+     */
     private boolean checkPassability(int row, int col, char[][] array) {
         if(row<0 ||
                 col<0 ||
@@ -305,22 +380,26 @@ public class MyModel extends Observable implements IModel {
         {
             if (characterName.equals("Netta")){
                 playAudio("resources/music/Netta - ouch.mp3");
-
             }
             return false;
         }
         return true;
     }
 
-
-
+    /**
+     * Save the game
+     * include the character's position in the maze
+     * @param CharacterPositionRow
+     * @param characterPositionCol
+     * @param characterName
+     * @param fileName
+     */
     public void saveGame(int CharacterPositionRow, int characterPositionCol, String characterName, String fileName){
         TimeZone tz = TimeZone.getTimeZone("UTC+3");
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd&HH-mm"); // Quoted "Z" to indicate UTC, no timezone offset
         df.setTimeZone(tz);
         String nowAsISO = df.format(new Date());
         String fileMetaData = fileName+ " "+ nowAsISO + "METADATA";
-
 
         try (BufferedWriter outWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(fileMetaData),"utf-8"),1024)) {
 
@@ -352,11 +431,12 @@ public class MyModel extends Observable implements IModel {
         }
     }
 
-    public boolean isWon() {
-        return won;
-    }
 
-
+    /**
+     * Load an old game
+     * @param gameTitle
+     * @throws IOException
+     */
     @Override
     public void loadGame(String gameTitle) throws IOException {
         //extract string data from metaDATA file
@@ -372,6 +452,12 @@ public class MyModel extends Observable implements IModel {
 
     }
 
+    /**
+     * Extract the meta data of loaded game
+     * @param gameTitle
+     * @return
+     * @throws IOException
+     */
     private int extractMetaDataFile(String gameTitle) throws IOException {
         FileReader fileReader = new FileReader(gameTitle);
         BufferedReader bufferedReader = new BufferedReader(fileReader);
@@ -387,6 +473,11 @@ public class MyModel extends Observable implements IModel {
 
     }
 
+    /**
+     * Extract byte file to maze using decompressor
+     * @param gameTitle
+     * @param length
+     */
     private void extractByteFile(String gameTitle, int length) {
         byte[] savedMazeBytes = new byte[0];
 
@@ -401,14 +492,8 @@ public class MyModel extends Observable implements IModel {
         maze = new Maze(savedMazeBytes);
     }
 
-    protected void playAudio(String audio) {
-        String musicFile = audio;     // For example
-        Media sound = new Media(new File(musicFile).toURI().toString());
-        MediaPlayer mediaPlayer = new MediaPlayer(sound);
-        mediaPlayer.play();
 
-    }
-
+   /* Getters and Setters */
 
     @Override
     public Maze getMaze() {
@@ -419,6 +504,7 @@ public class MyModel extends Observable implements IModel {
         return solutionAsList;
     }
 
+    //set solutionAsList to null
     public void deleteSolution() {
         this.solutionAsList = null;
     }
@@ -438,7 +524,6 @@ public class MyModel extends Observable implements IModel {
     public void setCurrentPositionColumn(int currentPositionColumn) {
         this.currentPositionColumn = currentPositionColumn;
     }
-
 
     @Override
     public String getCharacterName() {

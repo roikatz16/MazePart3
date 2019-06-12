@@ -32,12 +32,21 @@ public class MyViewController extends Controller implements IView, Initializable
     private Button solve;
     @FXML
     private Button restart;
-
     @FXML
     private Pane MazePane;
 
+    /*
+    METHODS:
+    1. initialize, update
+    2. maze events: key-pressed (move character), solve, restart, win
+    3. menu events: new, load, save, exit
+     */
 
-
+    /**
+     * initialize the class (mainly for close program properly)
+     * @param location
+     * @param resources
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -55,14 +64,66 @@ public class MyViewController extends Controller implements IView, Initializable
 
     }
 
+    /**
+     * This method is called whenever the observed object is changed. An
+     * application calls an <tt>Observable</tt> object's
+     * <code>notifyObservers</code> method to have all the object's
+     * observers notified of the change.
+     *
+     * @param o   the observable object.
+     * @param arg an argument passed to the <code>notifyObservers</code>
+     */
+    @Override
+    public void update(Observable o, Object arg) {
 
+        if (o == viewModel) {
+
+           // try {
+                if (viewModel.isWon()){
+                    // winner();
+                }
+                int goalPositionRow = viewModel.getRowGoalPosition();
+                int goalPositionCol = viewModel.getColGoalPosition();
+                mazeDisplayer.setCharacter(viewModel.getParams()[3]);
+                int characterPositionRow = viewModel.getRowCurrentPosition();
+                int characterPositionColumn = viewModel.getColCurrentPosition();
+                mazeDisplayer.setCharacterPosition(characterPositionRow, characterPositionColumn);
+                mazeDisplayer.setMaze(viewModel.getMazeAsArray(), goalPositionRow, goalPositionCol );
+                solutionAsIntegersList=viewModel.getSolutionAsIntegersList();
+                mazeDisplayer.setSolutionAsIntegersList(solutionAsIntegersList);
+
+            /*} catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }*/
+        }
+    }
+
+    /*
+     * MAZE EVENTS:
+     * 1. KeyPressed
+     * 2. solveMaze
+     * 3. restart
+     * 4. winner
+     */
+
+    /**
+     * move the character (if able to)
+     * @param keyEvent
+     */
     public void KeyPressed(KeyEvent keyEvent) {
         viewModel.moveCharacter(keyEvent.getCode());
         keyEvent.consume();
 
     }
 
-    public void solveMaze() throws FileNotFoundException {
+    /**
+     * Solve the maze if it is not solved yet
+     * show the solution / hide the solution
+     * @throws FileNotFoundException
+     */
+    public void solveMaze() {
 
         if(solve.getText().equals("Solve")) {
             solve.setText("Hide Solution");
@@ -90,6 +151,10 @@ public class MyViewController extends Controller implements IView, Initializable
 
     }
 
+    /**
+     * Move the character to the start of the maze
+     * @throws FileNotFoundException
+     */
     public void restart() throws FileNotFoundException {
         restart.setDisable(true);
         solve.setDisable(true);
@@ -102,64 +167,12 @@ public class MyViewController extends Controller implements IView, Initializable
         solve.setDisable(false);
     }
 
-
-    @FXML
-    private void backToNewGame() throws IOException {
-        viewModel.deleteSolution();
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Do you want to save the game before starting a new one?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
-        // alert.se
-        alert.showAndWait();
-
-        if (alert.getResult() == ButtonType.YES) {
-            saveGame();
-            newGame();
-        }
-
-        else if(alert.getResult() == ButtonType.NO){
-            newGame();
-        }
-    }
-
-
     /**
-     * This method is called whenever the observed object is changed. An
-     * application calls an <tt>Observable</tt> object's
-     * <code>notifyObservers</code> method to have all the object's
-     * observers notified of the change.
-     *
-     * @param o   the observable object.
-     * @param arg an argument passed to the <code>notifyObservers</code>
+     * In case of winning:
+     * 1. cogrates the player
+     * 2. open an alert for 'what to do next'
+     * @throws IOException
      */
-    @Override
-    public void update(Observable o, Object arg) {
-
-        if (o == viewModel) {
-
-            try {
-                if (viewModel.isWon()){
-                   // winner();
-                }
-                int goalPositionRow = viewModel.getRowGoalPosition();
-                int goalPositionCol = viewModel.getColGoalPosition();
-                mazeDisplayer.setCharacter(viewModel.getParams()[3]);
-                int characterPositionRow = viewModel.getRowCurrentPosition();
-                int characterPositionColumn = viewModel.getColCurrentPosition();
-                mazeDisplayer.setCharacterPosition(characterPositionRow, characterPositionColumn);
-                mazeDisplayer.setMaze(viewModel.getMazeAsArray(), goalPositionRow, goalPositionCol );
-                solutionAsIntegersList=viewModel.getSolutionAsIntegersList();
-                mazeDisplayer.setSolutionAsIntegersList(solutionAsIntegersList);
-
-
-
-
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
     private void winner() throws IOException {
 
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -176,7 +189,7 @@ public class MyViewController extends Controller implements IView, Initializable
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == buttonTypeOne){
-            newGame();
+            goToNewGame();
         } else if (result.get() == buttonTypeTwo) {
             goToLoadGame();
         } else if (result.get() == buttonTypeThree) {
@@ -186,26 +199,41 @@ public class MyViewController extends Controller implements IView, Initializable
         }
     }
 
-    public void exitGame() {
-        closeProgram();
-    }
 
-    @Override
-    protected void closeProgram() {
+    /*
+     * MAZE MENU EVENTS:
+     * 1. New
+     * 2. Load
+     * 3. Save
+     * 4. properties / help / about
+     * 5. Exit
+     */
+
+    /**
+     * going to "new game" scene
+     * @throws IOException
+     */
+    @FXML
+    private void backToNewGame() throws IOException {
         viewModel.deleteSolution();
-        Stage s = Main.getStage();
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Do you want to save the game?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Do you want to save the game before starting a new one?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
+        // alert.se
         alert.showAndWait();
 
-        if (alert.getResult() == ButtonType.YES || alert.getResult() == ButtonType.NO) {
-            if(alert.getResult() == ButtonType.YES){
-                saveGame();
-            }
-            s.close();
-            viewModel.close();
+        if (alert.getResult() == ButtonType.YES) {
+            saveGame();
+            super.goToNewGame();
+        }
+
+        else if(alert.getResult() == ButtonType.NO){
+            super.goToNewGame();
         }
     }
 
+
+    /**
+     * save the game
+     */
     public void saveGame() {
         TextInputDialog dialog = new TextInputDialog("my game");
         dialog.setTitle("SAVE GAME");
@@ -226,18 +254,27 @@ public class MyViewController extends Controller implements IView, Initializable
         viewModel.saveGame(CharacterPositionRow, characterPositionCol,characterName,fileName);
     }
 
-    public void goToLoadGame() throws IOException {
-        loadGame();
+    /**
+     * load new game --> loadGame(father's method)
+     * @throws IOException
+     */
+    public void loadGame() throws IOException {
+        super.goToLoadGame();
     }
 
+    /**
+     * show Configuration Properties (Configuration file // part B)
+     */
     public void properties(){
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Configuration Properties");
         alert.setHeaderText("Server.ThreadPoolSize = 4\nSolveSearchProblem.SolvingAlgorithm = BestFirstSearch\nGenerateMaze.mazeGeneratorType = MyMazeGenerator");
         alert.showAndWait();
-
-
     }
+
+    /**
+     * Show information About us
+     */
     public void about(){
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("ABOUT US");
@@ -245,13 +282,39 @@ public class MyViewController extends Controller implements IView, Initializable
         alert.showAndWait();
     }
 
+    /**
+     * Show instructions
+     */
     public void help(){
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("INSTRUCTIONS");
         alert.setHeaderText("8 = Up\n2 = Down\n4 = Left\n6 = Right\n7 = Up & Left\n9 = Up & Right\n1 = Down & Left\n3 = Down & Right\n");
         alert.showAndWait();
     }
+    /**
+     * exit game --> closeProgram
+     */
+    public void exitGame() {
+        this.closeProgram();
+    }
 
+    /**
+     * exit the game with saving offer
+     * close the servers
+     */
+    @Override
+    protected void closeProgram() {
+        viewModel.deleteSolution();
+        Stage s = Main.getStage();
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Do you want to save the game?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
+        alert.showAndWait();
 
-
+        if (alert.getResult() == ButtonType.YES || alert.getResult() == ButtonType.NO) {
+            if(alert.getResult() == ButtonType.YES){
+                saveGame();
+            }
+            s.close();
+            viewModel.close();
+        }
+    }
 }

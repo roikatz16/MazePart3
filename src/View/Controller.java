@@ -14,12 +14,22 @@ import java.util.ArrayList;
 import java.util.Observer;
 
 public abstract class Controller implements Observer {
-    protected MyViewModel viewModel;
+    MyViewModel viewModel;
 
+    // No constructor because it is abstract class
+
+    /**
+     * set the viewModel
+     * @param viewModel
+     */
     public void setViewModel(MyViewModel viewModel) {
         this.viewModel = viewModel;
     }
 
+    /**
+     *  close the program with confirming
+     *  close the servers
+     */
     protected void closeProgram() {
         viewModel = Main.getViewModel();
         Stage s = Main.getStage();
@@ -30,10 +40,34 @@ public abstract class Controller implements Observer {
             s.close();
             viewModel.close();
         }
+    }
+    /*
+    SCENE-CHANGING METHODS:
+    1. goToLanding
+    2. goToNewGame
+    3. goToLoadGame
+    4. goToMainScene
+     */
 
+    /**
+     * Go to landing scene
+     * @throws IOException
+     */
+    protected void goToLanding() throws IOException {
+        Stage s = Main.getStage();
+        Parent root = FXMLLoader.load(getClass().getResource("../View/Landing.fxml"));
+        Scene scene = new Scene(root, 758, 454);
+        scene.getStylesheets().add(getClass().getResource("../View/Landing.css").toExternalForm());
+        s.setScene(scene);
+        Main.setStage(s);
+        s.show();
     }
 
-    protected void newGame() throws IOException {
+    /**
+     * Go to new-game scene
+     * @throws IOException
+     */
+    protected void goToNewGame() throws IOException {
         FXMLLoader fxmlLoader= new FXMLLoader();
         Stage s = Main.getStage();
         Parent root = fxmlLoader.load(getClass().getResource("../View/NewGame.fxml").openStream());
@@ -48,20 +82,11 @@ public abstract class Controller implements Observer {
         s.show();
     }
 
-
-    protected ArrayList<String> getTitlesOfFiles(){
-        ArrayList<String> mazeTitles = new ArrayList<>();
-        File dir = new File(".");
-        File[] filesList = dir.listFiles();
-        for (File file : filesList) {
-            if (isMeta(file.getName())){
-                mazeTitles.add(file.getName());
-            }
-        }
-        return mazeTitles;
-    }
-
-    protected void loadGame() throws IOException {
+    /**
+     * Go to loading scene
+     * @throws IOException
+     */
+    protected void goToLoadGame() throws IOException {
         viewModel = Main.getViewModel();
         viewModel.deleteSolution();
         FXMLLoader fxmlLoader1 = new FXMLLoader();
@@ -77,8 +102,42 @@ public abstract class Controller implements Observer {
         d.show();
     }
 
+    /**
+     * Go to Main scene: the game scene
+     * @throws IOException
+     */
+    protected void goToMainScene (FXMLLoader fxmlLoader, Stage stage)throws IOException{
+        stage = Main.getStage();
 
-    protected boolean isMeta(String name){
+        Parent root = fxmlLoader.load(getClass().getResource("../View/MyView.fxml").openStream());
+        Scene scene = new Scene(root,1000,800);
+        scene.getStylesheets().add(getClass().getResource("../View/view.css").toExternalForm());
+        stage.setScene(scene);
+        MyViewController vc = fxmlLoader.getController();
+        vc.setViewModel(viewModel);
+        viewModel.addObserver(vc);
+    }
+
+
+    /* Complete notes!!!*/
+
+    protected ArrayList<String> getTitlesOfFiles(){
+        ArrayList<String> mazeTitles = new ArrayList<>();
+        File dir = new File(".");
+        File[] filesList = dir.listFiles();
+        assert filesList != null;
+        for (File file : filesList) {
+            if (isMeta(file.getName())){
+                mazeTitles.add(file.getName());
+            }
+        }
+        return mazeTitles;
+    }
+
+
+
+
+    private boolean isMeta(String name){
         if (name.length()>7){
 
             if(name.charAt(name.length()-1)=='A' && name.charAt(name.length()-2)=='T' && name.charAt(name.length()-3)=='A' ){

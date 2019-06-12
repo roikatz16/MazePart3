@@ -251,68 +251,49 @@ public class LoadController extends Controller implements Initializable {
     }
 
 
-    public void goToNewGame(ActionEvent actionEvent) throws IOException {
-        newGame();
-
+    public void NewGame() throws IOException {
+        super.goToNewGame();
     }
 
-    public void backToLandingPage(ActionEvent actionEvent) throws IOException {
-        Stage s = Main.getStage();
-        Parent root = FXMLLoader.load(getClass().getResource("../View/Landing.fxml"));
-        Scene scene = new Scene(root, 758, 454);
-        scene.getStylesheets().add(getClass().getResource("../View/Landing.css").toExternalForm());
-        s.setScene(scene);
-        Main.setStage(s);
-        s.show();
-
+    public void backToLandingPage() throws IOException {
+        super.goToLanding();
     }
 
-    public void loadGame1(ActionEvent actionEvent) throws IOException {
+    public void loadGame1() throws IOException {
         LoadingGame(0);
     }
 
-    public void loadGame2(ActionEvent actionEvent) throws IOException {
+    public void loadGame2() throws IOException {
 
         LoadingGame(1);
     }
 
-    public void loadGame3(ActionEvent actionEvent) throws IOException {
+    public void loadGame3() throws IOException {
 
         LoadingGame(2);
     }
 
-    public void loadGame4(ActionEvent actionEvent) throws IOException {
+    public void loadGame4() throws IOException {
         LoadingGame(3);
 
     }
-    public void loadGame5(ActionEvent actionEvent) throws IOException {
+    public void loadGame5() throws IOException {
         LoadingGame(4);
 
     }
 
-    public void loadGame6(ActionEvent actionEvent) throws IOException {
+    public void loadGame6() throws IOException {
         LoadingGame(5);
 
     }
 
     public void LoadingGame(int numOfMazeToLoad) throws IOException {
         FXMLLoader fxmlLoader= new FXMLLoader();
-
-        Stage s = Main.getStage();
-        Parent root = fxmlLoader.load(getClass().getResource("../View/MyView.fxml").openStream());
-        Scene scene = new Scene(root,745,500);
-        scene.getStylesheets().add(getClass().getResource("../View/view.css").toExternalForm());
-        s.setScene(scene);
-        MyViewController vc = fxmlLoader.getController();
-
-        vc.setViewModel(viewModel);
-        viewModel.addObserver(vc);
+        Stage stage = Main.getStage();
+        super.goToMainScene(fxmlLoader, stage);
         viewModel.loadGame(mazeTitles.get(numOfMazeToLoad));
-        Main.setStage(s);
-
-        s.show();
+        Main.setStage(stage);
+        stage.show();
     }
-
-
 
 }

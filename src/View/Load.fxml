@@ -26,7 +26,7 @@
       <Label fx:id="game6Title" layoutX="554.0" layoutY="274.0" text="Game6Title" visible="false" />
       <Label fx:id="game5Title" layoutX="325.0" layoutY="272.0" text="Game5Title" visible="false" />
       <Label fx:id="game4Title" layoutX="120.0" layoutY="270.0" text="Game4Title" visible="false" />
-      <Button layoutX="576.0" layoutY="450.0" mnemonicParsing="false" onAction="#goToNewGame" prefHeight="40.0" prefWidth="119.0" style="-fx-background-color: linear-gradient(#3f5efb, #fc466b);" text="Create new game" />
+      <Button layoutX="576.0" layoutY="450.0" mnemonicParsing="false" onAction="#NewGame" prefHeight="40.0" prefWidth="119.0" style="-fx-background-color: linear-gradient(#3f5efb, #fc466b);" text="Create new game" />
       <Button layoutX="13.0" layoutY="450.0" mnemonicParsing="false" onAction="#backToLandingPage" prefHeight="40.0" prefWidth="151.0" style="-fx-background-color: linear-gradient(#3f5efb, #fc466b);" text="back to landing page" />
       <Label fx:id="label41" layoutX="14.0" layoutY="301.0" text="Date of creation" visible="false" />
       <Label fx:id="label42" layoutX="14.0" layoutY="328.0" text="Time of creation" visible="false" />

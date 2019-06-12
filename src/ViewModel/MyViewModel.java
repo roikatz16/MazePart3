@@ -2,7 +2,6 @@ package ViewModel;
 
 import Model.IModel;
 import algorithms.search.AState;
-import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 
 import java.io.IOException;
@@ -25,17 +24,19 @@ public class MyViewModel extends Observable implements Observer {
     private int colCurrentPosition;
     private boolean won;
 
-
+    /**
+     * Constructor
+     * @param model
+     */
     public MyViewModel(IModel model) {
         this.model = model;
         won=false;
     }
-    public void generateMaze(int row, int col,String character){
-      model.generateMaze(row, col,character);
-    }
-    public void solveMaze() { model.solveMaze();}
 
     @Override
+    /**
+     * Update the model changes
+     */
     public void update(Observable o, Object arg) {
         if (o==model){
             mazeAsArray = (model.getMaze()).getArray();
@@ -49,18 +50,35 @@ public class MyViewModel extends Observable implements Observer {
             won = model.isWon();
         }
 
-        //neto fot the character
-       if(o==model && arg.toString().equals("loadMaze")){
+        if(o==model && arg.toString().equals("loadMaze")){
             params = new String[11];
             params[3] = model.getCharacterName();
         }
 
         setChanged();
         notifyObservers();
-
     }
 
+    /**
+     * generate Maze
+     * @param row
+     * @param col
+     * @param character
+     */
+    public void generateMaze(int row, int col,String character){
+      model.generateMaze(row, col,character);
+    }
 
+    /**
+     * solve Maze
+     */
+    public void solveMaze() { model.solveMaze();}
+
+    /**
+     * Convert the solution: ArrayList<AState> --> ArrayList<int[]>
+     * @param ASlist
+     * @return
+     */
     private ArrayList<int[]> convert (ArrayList<AState> ASlist){
         if (ASlist == null){
             return null;
@@ -85,6 +103,29 @@ public class MyViewModel extends Observable implements Observer {
         return result;
     }
 
+    /**
+     * save the game
+     * @param characterPositionRow
+     * @param characterPositionCol
+     * @param characterName
+     * @param fileName
+     */
+    public void saveGame(int characterPositionRow ,int characterPositionCol, String characterName, String fileName){
+        model.saveGame(characterPositionRow,characterPositionCol,characterName,fileName);
+    }
+
+    /**
+     * load the game
+     * @param gameTitle
+     * @throws IOException
+     */
+    public void loadGame(String gameTitle) throws IOException {
+        model.loadGame(gameTitle);
+    }
+
+    /**
+     * close the servers
+     */
     public void close(){
         model.stopServers();
     }
@@ -96,6 +137,8 @@ public class MyViewModel extends Observable implements Observer {
     public void moveCharacter(KeyCode movement){
         model.moveCharacter(movement, mazeAsArray);
     }
+
+    /* getters & setters */
 
     public char[][] getMazeAsArray() {
         return mazeAsArray;
@@ -140,13 +183,5 @@ public class MyViewModel extends Observable implements Observer {
     }
     public void setParams(String[] params) {
         this.params = params;
-    }
-
-    public void saveGame(int characterPositionRow ,int characterPositionCol, String characterName, String fileName){
-        model.saveGame(characterPositionRow,characterPositionCol,characterName,fileName);
-    }
-
-    public void loadGame(String gameTitle) throws IOException {
-        model.loadGame(gameTitle);
     }
 }

@@ -16,18 +16,14 @@ public class MazeDisplayer extends Canvas {
 
     private char[][] maze;
     private ArrayList<int[]> solutionAsIntegersList;
-
+    private String[] gameParams;
     private int characterPositionRow;
     private int characterPositionColumn;
-    private String[] gameParams;
     private int goalPositionRow;
     private int goalPositionColumn;
     private boolean showSolution;
 
-
-
-
-    /* region Properties */
+    /* Region Properties */
     private StringProperty ImageFileNameWall;
     private StringProperty ImageFileNameRedWall;
     private StringProperty ImageFileNameCharacter1;
@@ -52,49 +48,71 @@ public class MazeDisplayer extends Canvas {
         ImageFileNameCharacter4 = new SimpleStringProperty();
         ImageFileNameStartAndGoal = new SimpleStringProperty();
         ImageFileNameSolution = new SimpleStringProperty();
-
-
         viewModel = Main.getViewModel();
         gameParams = viewModel.getParams();
-
     }
-    public void setMaze(char[][] maze, int row, int col) throws FileNotFoundException {
+
+    /*
+    METHODS:
+    1. Update methods (set maze, set solution, set character)
+    2. Redraw ( + choose character)
+    3. SetReziable methods
+    4. Getters & Setters
+     */
+
+    /**
+     * Update the maze (including goal position) and redraw
+     * @param maze
+     * @param goalRow
+     * @param goalColumn
+     */
+    public void setMaze(char[][] maze, int goalRow, int goalColumn) {
         this.maze = maze;
-        goalPositionRow = row;
-        goalPositionColumn = col;
-
+        goalPositionRow = goalRow;
+        goalPositionColumn = goalColumn;
         redraw();
-
     }
 
-    public void setSolutionAsIntegersList(ArrayList<int[]> solutionAsIntegersList) throws FileNotFoundException {
+    /**
+     * Update the solution and redraw
+     * @param solutionAsIntegersList
+     */
+    public void setSolutionAsIntegersList(ArrayList<int[]> solutionAsIntegersList) {
         this.solutionAsIntegersList = solutionAsIntegersList;
-
         redraw();
     }
 
-    public void setCharacterPosition(int row, int column) throws FileNotFoundException {
+    /**
+     * Draw With Solution
+     */
+    public void redrawWithSolution() {
+        showSolution = true;
+        redraw();
+    }
+
+    /**
+     * Draw Without Solution
+     */
+    public void redrawWithoutSolution(){
+        showSolution = false;
+        redraw();
+    }
+
+    /**
+     * Update the character and redraw
+     * @param row
+     * @param column
+     */
+    public void setCharacterPosition(int row, int column) {
         characterPositionRow = row;
         characterPositionColumn = column;
-
         redraw();
     }
 
-    public Image chooseCharacter() throws FileNotFoundException {
-        switch (gameParams[3]){
-            case "Netta":
-                return new Image(new FileInputStream(ImageFileNameCharacter1.get()));
-            case "Dana":
-                return  new Image(new FileInputStream(ImageFileNameCharacter2.get()));
-            case "Gali":
-                return  new Image(new FileInputStream(ImageFileNameCharacter3.get()));
-            case "Izhar":
-                return  new Image(new FileInputStream(ImageFileNameCharacter4.get()));
-        }
-        return new Image(new FileInputStream(ImageFileNameCharacter1.get()));
-    }
-
-
+    /**
+     * Draw:
+     * 1. the maze  2. the solution (if needed)  3. start and goal  4. the character
+     */
     public void redraw() {
         if (maze != null) {
             double canvasHeight = getHeight();
@@ -103,6 +121,8 @@ public class MazeDisplayer extends Canvas {
             double cellWidth = canvasWidth / maze[0].length;
 
             try {
+
+                // Raising Images and Graphic Contexts
                 Image characterImage = chooseCharacter();
                 Image wallImage = new Image(new FileInputStream(ImageFileNameWall.get()));
                 Image redWallImage = new Image(new FileInputStream(ImageFileNameRedWall.get()));
@@ -112,7 +132,7 @@ public class MazeDisplayer extends Canvas {
                 GraphicsContext gc = getGraphicsContext2D();
                 gc.clearRect(0, 0, getWidth(), getHeight());
 
-                //Draw Maze
+                // Draw Maze
                 for (int i = 0; i < maze[0].length; i++) {
                     for (int j = 0; j < maze.length; j++) {
                         if (maze[j][i] == '1') {
@@ -128,12 +148,11 @@ public class MazeDisplayer extends Canvas {
                     }
                 }
 
-               //draw solution
+               // Draw solution (if needed)
                if(solutionAsIntegersList!=null && showSolution){
                    for (int i = 0; i < solutionAsIntegersList.size(); i++) {
                        gc.fillRect(solutionAsIntegersList.get(i)[1] * cellHeight, solutionAsIntegersList.get(i)[0] * cellWidth, cellHeight, cellWidth);
                        gc.drawImage(solutionImage, solutionAsIntegersList.get(i)[1] * cellHeight, solutionAsIntegersList.get(i)[0] * cellWidth, cellHeight, cellWidth);
-
                    }
                }
 
@@ -142,23 +161,46 @@ public class MazeDisplayer extends Canvas {
                 // Draw character
                 gc.drawImage(characterImage, characterPositionColumn * cellHeight, characterPositionRow * cellWidth, cellHeight, cellWidth);
 
-
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
         }
     }
 
-    public void redrawWithoutSolution() throws FileNotFoundException {
-
-        showSolution = false;
-        redraw();
+    /**
+     *
+     * @return character according to the player's choice
+     * @throws FileNotFoundException
+     */
+    public Image chooseCharacter() throws FileNotFoundException {
+        switch (gameParams[3]){
+            case "Netta":
+                return new Image(new FileInputStream(ImageFileNameCharacter1.get()));
+            case "Dana":
+                return  new Image(new FileInputStream(ImageFileNameCharacter2.get()));
+            case "Gali":
+                return  new Image(new FileInputStream(ImageFileNameCharacter3.get()));
+            case "Izhar":
+                return  new Image(new FileInputStream(ImageFileNameCharacter4.get()));
+        }
+        return new Image(new FileInputStream(ImageFileNameCharacter1.get()));
     }
 
-    public void redrawWithSolution() throws FileNotFoundException {
+    /* setReziable methods */
+    @Override
+    public double prefHeight(double width)
+    {
+        return getHeight();
+    }
+    @Override
+    public double prefWidth(double width){
+        return getWidth();
+    }
 
-        showSolution = true;
-        redraw();
+    @Override
+    public boolean isResizable()
+    {
+        return true;
     }
 
     /* Getters & Setters */
@@ -185,6 +227,10 @@ public class MazeDisplayer extends Canvas {
 
 
     /* region Properties Getters & Setters */
+
+    /* ! NOTICE: even though the set-methods marked as not used,
+        they are needed for the fxml class
+    */
 
     public String getImageFileNameWall() { return ImageFileNameWall.get(); }
     public void setImageFileNameWall(String imageFileNameWall) { this.ImageFileNameWall.set(imageFileNameWall); }
@@ -234,24 +280,5 @@ public class MazeDisplayer extends Canvas {
     public void setImageFileNameSolution(String imageFileNameSolution) {
         this.ImageFileNameSolution.set(imageFileNameSolution);
     }
-
-
-    @Override
-    public double prefHeight(double width)
-    {
-        return getHeight();
-    }
-    @Override
-    public double prefWidth(double width){
-        return getWidth();
-    }
-
-    @Override
-    public boolean isResizable()
-    {
-        return true;
-    }
-
-
 }
 
