@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import sample.Main;
@@ -340,6 +341,34 @@ public class MyViewController extends Controller implements IView, Initializable
                 mazeDisplayer.resize((double) newSceneHeight,mazeDisplayer.getHeight());
             }
         });
+    }
+
+
+    /**
+     * ZOOM IN METHOD
+     * @param event zoom in
+     */
+    public void handleScroll(ScrollEvent event) {
+        //System.out.println(mazeDisplayer.getScaleX());
+        if (!event.isControlDown()) return;
+        if (mazeDisplayer.getScaleX() <= 1 && mazeDisplayer.getScaleX() >= 0.25) {
+            // System.out.println(mazeDisplayer.getScaleX());
+            double zoomFactor = 1.05;
+            double deltaY = event.getDeltaY();
+            if (deltaY < 0) {
+                zoomFactor = 2.0 - zoomFactor;
+            }
+
+            mazeDisplayer.setScaleX(mazeDisplayer.getScaleX() * zoomFactor);
+            mazeDisplayer.setScaleY(mazeDisplayer.getScaleY() * zoomFactor);
+        } else if (mazeDisplayer.getScaleX() > 1) {
+            mazeDisplayer.setScaleX(1);
+            mazeDisplayer.setScaleY(1);
+        } else if (mazeDisplayer.getScaleX() < 0.25) {
+            mazeDisplayer.setScaleX(0.25);
+            mazeDisplayer.setScaleY(0.25);
+        }
+        event.consume();
     }
 
 

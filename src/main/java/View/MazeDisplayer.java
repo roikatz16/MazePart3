@@ -6,6 +6,7 @@ import javafx.beans.property.StringProperty;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.input.ScrollEvent;
 import sample.Main;
 
 import java.io.FileInputStream;
@@ -231,6 +232,13 @@ public class MazeDisplayer extends Canvas {
     public int getCharacterPositionColumn() {
         return characterPositionColumn;
     }
+
+
+
+
+
+
+
 
 
 
