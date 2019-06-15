@@ -136,6 +136,9 @@ public abstract class Controller implements Observer {
             String removedMaze = mazeTitles.remove(0);
             File file = new File(removedMaze);
             file.delete();
+            removedMaze = removedMaze.substring(0,removedMaze.length()-8);
+            file = new File(removedMaze);
+            file.delete();
         }
 
         return mazeTitles;
