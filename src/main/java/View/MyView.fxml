@@ -54,11 +54,11 @@
             </Pane>
          </left>
          <center>
-            <Pane fx:id="MazePane" onScroll="#handleScroll" prefHeight="700.0" prefWidth="700.0" BorderPane.alignment="CENTER">
+            <Pane fx:id="MazePane" onScroll="#handleScroll" prefHeight="600.0" prefWidth="600.0" BorderPane.alignment="CENTER">
 
                 <children>
 
-                    <MazeDisplayer fx:id="mazeDisplayer" height="700.0" width="700.0"
+                    <MazeDisplayer fx:id="mazeDisplayer" height="600.0" width="600.0"
                                    imageFileNameWall="resources/Images/wall1.jpg"
                                    imageFileNameRedWall="resources/Images/redWall.jpeg"
                                    imageFileNameCharacter1 = "resources/Images/netta.jpeg"

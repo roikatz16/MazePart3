@@ -198,7 +198,7 @@ public class MazeDisplayer extends Canvas {
     @Override
     public double maxHeight(double width)
     {
-        return 700;
+        return 600;
     }
 
 
@@ -210,7 +210,7 @@ public class MazeDisplayer extends Canvas {
     @Override
     public double maxWidth(double height)
     {
-        return 700;
+        return 600;
     }
 
 
