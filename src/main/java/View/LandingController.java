@@ -69,19 +69,24 @@ public class LandingController extends Controller implements Initializable {
      * @throws IOException
      */
     public void oldGamesMenu() throws IOException {
-        super.goToLoadGame();
-        //validation();
+        if(validation()) {
+            super.goToLoadGame();
+        }
 
     }
 
-    private void validation() {
+    private boolean validation() {
         ArrayList<String> savedFiles = getTitlesOfFiles();
         if (savedFiles.size() == 0) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error Error");
             alert.setHeaderText("Ooops, there was an error!");
-            alert.setContentText("you have not saved any file, please create new game first!");
+            alert.setContentText("You have not saved any file, please create new game first!");
             alert.showAndWait();
+            return false;
+        }
+        else{
+            return true;
         }
     }
 

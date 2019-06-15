@@ -8,10 +8,10 @@
    <Pane prefHeight="454.0" prefWidth="758.0">
       <children>
       
-              <Button fx:id="newGameButton" layoutX="114.0" layoutY="344.0" onAction="#newGame" prefHeight="44.0" prefWidth="110.0" text="Start new game" />
-              <Button fx:id="oldGameButton" layoutX="259.0" layoutY="344.0" onAction="#oldGamesMenu" prefHeight="44.0" prefWidth="123.0" text="Load exciting game" />
+              <Button fx:id="newGameButton" layoutX="114.0" layoutY="344.0" onAction="#newGame" prefHeight="44.0" prefWidth="110.0" text="Start new contest" />
+              <Button fx:id="oldGameButton" layoutX="259.0" layoutY="344.0" onAction="#oldGamesMenu" prefHeight="44.0" prefWidth="123.0" text="Load exciting contest" />
               <Button fx:id="instructionsButton" layoutX="429.0" layoutY="344.0" onAction="#goToInstructions" prefHeight="44.0" prefWidth="84.0" text="Instructions" />
-              <Button fx:id="exitButton" layoutX="571.0" layoutY="344.0" onAction="#exitGame" prefHeight="44.0" prefWidth="77.0" text="Exit game" />
+              <Button fx:id="exitButton" layoutX="571.0" layoutY="344.0" onAction="#exitGame" prefHeight="44.0" prefWidth="77.0" text="Exit contest" />
       </children>
    </Pane>
 

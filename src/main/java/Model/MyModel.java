@@ -1,3 +1,4 @@
+
 package Model;
 import java.io.*;
 import java.net.InetAddress;
@@ -33,7 +34,6 @@ import org.apache.logging.log4j.Logger;
     # save game
     # load game
     # getters & setters
-
  */
 
 public class MyModel extends Observable implements IModel {
@@ -61,7 +61,7 @@ public class MyModel extends Observable implements IModel {
         solveSearchProblemServer = new Server(5401, 5000, new ServerStrategySolveSearchProblem());
 
         won=false;// Relevant for wonTheGame method
-         isWinnigSongPlayed=false;
+        isWinnigSongPlayed=false;
     }
 
     /**
@@ -193,13 +193,9 @@ public class MyModel extends Observable implements IModel {
                         toServer.writeObject(maze); //send maze to server
                         toServer.flush();
                         Solution mazeSolution = (Solution) fromServer.readObject(); //read generated maze (compressed with MyCompressor) from server
+                        solutionAsList = mazeSolution.getSolutionPath();
 
-                        //Print Maze Solution retrieved from the server
-                        System.out.println(String.format("Solution steps: %s", mazeSolution));
-                        solutionAsList = mazeSolution.getSolutionPath();//todo ?
-                        for (int i = 0; i < solutionAsList.size(); i++) {
-                            System.out.println(String.format("%s. %s", i, solutionAsList.get(i).toString()));
-                        }
+
                     } catch (Exception e) {
                         LOG.error("Exception:", e);
                         e.printStackTrace();
@@ -516,7 +512,7 @@ public class MyModel extends Observable implements IModel {
     }
 
 
-   /* Getters and Setters */
+    /* Getters and Setters */
 
     @Override
     public Maze getMaze() {

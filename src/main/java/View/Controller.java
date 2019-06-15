@@ -110,7 +110,7 @@ public abstract class Controller implements Observer {
         stage = Main.getStage();
 
         Parent root = fxmlLoader.load(getClass().getResource("../View/MyView.fxml").openStream());
-        Scene scene = new Scene(root,1000,800);
+        Scene scene = new Scene(root,800,800);
         scene.getStylesheets().add(getClass().getResource("../View/view.css").toExternalForm());
         stage.setScene(scene);
         MyViewController vc = fxmlLoader.getController();

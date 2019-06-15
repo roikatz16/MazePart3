@@ -16,9 +16,9 @@
 <AnchorPane prefHeight="500.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.NewGameController">
     <BorderPane prefHeight="500.0" prefWidth="750.0">
         <top>
-            <Label alignment="CENTER" prefHeight="69.0" prefWidth="604.0" text="START A NEW GAME" textFill="#5d3ee8">
+            <Label alignment="CENTER" prefHeight="69.0" prefWidth="604.0" text="START A NEW CONTEST" textFill="#5d3ee8">
             <font>
-               <Font name="AR JULIAN" size="60.0" />
+               <Font name="AR JULIAN" size="40.0" />
             </font></Label>
         </top>
       <left>
@@ -26,7 +26,7 @@
            <items>
              <AnchorPane fx:id="leftAnchor" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                   <children>
-                     <Label fx:id="labelDiff" layoutX="87.0" layoutY="-17.0" prefHeight="57.0" prefWidth="137.0" text="pick maze diffculty" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-17.0" AnchorPane.topAnchor="-17.0">
+                     <Label fx:id="labelDiff" layoutX="87.0" layoutY="-17.0" prefHeight="57.0" prefWidth="137.0" text="Pick maze Difficulty" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-17.0" AnchorPane.topAnchor="-17.0">
                         <font>
                            <Font name="System Bold Italic" size="16.0" />
                         </font>
@@ -89,7 +89,7 @@
            <items>
                <AnchorPane prefHeight="29.0" prefWidth="476.0">
                   <children>
-                     <Label fx:id="labelChar" layoutX="14.0" layoutY="5.0" prefHeight="57.0" prefWidth="137.0" text="pick character">
+                     <Label fx:id="labelChar" layoutX="14.0" layoutY="5.0" prefHeight="57.0" prefWidth="137.0" text="Pick Contestant">
                         <font>
                            <Font name="System Bold Italic" size="16.0" />
                         </font>

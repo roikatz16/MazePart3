@@ -131,13 +131,11 @@ public class NewGameController extends Controller implements Initializable{
      */
     private void generateMaze() {
         //get maze params from scene
-        System.out.println(gameParams[0]);
         int row = 0;
         int col = 0;
 
         switch (gameParams[0]){
             case "easy":
-                System.out.println(gameParams[0]);
                 row = 25;
                 col = 25;
                 break;
@@ -153,6 +151,10 @@ public class NewGameController extends Controller implements Initializable{
                 getCustomMazeSize();
                 row = Integer.parseInt(gameParams[1]);
                 col = Integer.parseInt(gameParams[2]);
+                if(row%2==0){
+                    row++;
+                    col++;
+                }
         }
         viewModel.generateMaze(row, col,gameParams[3]);
     }

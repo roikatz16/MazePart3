@@ -1,6 +1,7 @@
 package View;
 
 
+import Server.Configurations;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -79,10 +80,8 @@ public class MyViewController extends Controller implements IView, Initializable
 
         if (o == viewModel) {
 
-           // try {
-                if (viewModel.isWon()){
-                    // winner();
-                }
+            try {
+
                 int goalPositionRow = viewModel.getRowGoalPosition();
                 int goalPositionCol = viewModel.getColGoalPosition();
                 mazeDisplayer.setCharacter(viewModel.getParams()[3]);
@@ -92,12 +91,14 @@ public class MyViewController extends Controller implements IView, Initializable
                 mazeDisplayer.setMaze(viewModel.getMazeAsArray(), goalPositionRow, goalPositionCol );
                 solutionAsIntegersList=viewModel.getSolutionAsIntegersList();
                 mazeDisplayer.setSolutionAsIntegersList(solutionAsIntegersList);
+                if (viewModel.isWon()){
+                    winner();
+                }
 
-            /*} catch (FileNotFoundException e) {
-                e.printStackTrace();
+
             } catch (IOException e) {
                 e.printStackTrace();
-            }*/
+            }
         }
     }
 
@@ -184,7 +185,7 @@ public class MyViewController extends Controller implements IView, Initializable
         ButtonType buttonTypeOne = new ButtonType("Start a new game");
         ButtonType buttonTypeTwo = new ButtonType("Load a previous game");
         ButtonType buttonTypeThree = new ButtonType("Exit");
-        ButtonType buttonTypeCancel = new ButtonType("continue playing this game", ButtonBar.ButtonData.CANCEL_CLOSE);
+        ButtonType buttonTypeCancel = new ButtonType("continue playing this game");
 
         alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo, buttonTypeThree, buttonTypeCancel);
 
@@ -195,9 +196,8 @@ public class MyViewController extends Controller implements IView, Initializable
             goToLoadGame();
         } else if (result.get() == buttonTypeThree) {
             exitGame();
-        } else {
-
         }
+
     }
 
 
@@ -269,7 +269,10 @@ public class MyViewController extends Controller implements IView, Initializable
     public void properties(){
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Configuration Properties");
-        alert.setHeaderText("Server.ThreadPoolSize = 4\nSolveSearchProblem.SolvingAlgorithm = BestFirstSearch\nGenerateMaze.mazeGeneratorType = MyMazeGenerator");
+        String ThreadPoolSize = Configurations.getProperty("Server.ThreadPoolSize");
+        String algorithm = Configurations.getProperty("SolveSearchProblem.SolvingAlgorithm");
+        String generate = Configurations.getProperty("GenerateMaze.mazeGeneratorType");
+        alert.setHeaderText("Server's Thread Pool Size = "+ThreadPoolSize+"\nSolving Algorithm = "+algorithm+"\nMaze Generator Type = "+generate);
         alert.showAndWait();
     }
 
