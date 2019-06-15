@@ -23,23 +23,25 @@
 }
 
 #anchor{
-
+    -fx-background-image: url('https://images1.ynet.co.il/PicServer5/2018/05/13/8528033/AP_18132822917022_s.jpg')
 }
 
 #anchorGali{
-
+    -fx-background-image: url('https://images1.ynet.co.il/PicServer5/2019/03/19/9130145/1_s.jpg')
 }
 
 #anchorDana{
-
+    -fx-background-image: url('https://images1.ynet.co.il/PicServer5/2018/05/01/8503912/AP_9805100600_s.jpg')
 }
 
 #anchorIzhar{
-
+    -fx-background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdL5nfMHesFqmLlSxQiRzbm5_JpkAge8QJ2ZG4AyzZqVa8KGi4Cw')
 }
 
 #anchorTrophy{
+    -fx-background-image: url('https://i2.wp.com/www.halfwayanywhere.com/wp-content/uploads/2014/05/Eurovision-Trophy.jpg?resize=150%2C150&ssl=1')
 }
+
 
 .label {
     -fx-text-fill: #e8e8e8;
