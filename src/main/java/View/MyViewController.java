@@ -236,7 +236,7 @@ public class MyViewController extends Controller implements IView, Initializable
      * save the game
      */
     public void saveGame() {
-        TextInputDialog dialog = new TextInputDialog("my game");
+        TextInputDialog dialog = new TextInputDialog("");
         dialog.setTitle("SAVE GAME");
         dialog.setHeaderText("Please, save your game");
         dialog.setContentText("Please enter a valid name (characters only!):");
@@ -245,14 +245,38 @@ public class MyViewController extends Controller implements IView, Initializable
         Optional<String> result = dialog.showAndWait();
         if (result.isPresent()){
             fileName = result.get();
+            while(!isChar(fileName)) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error Dialog");
+                alert.setHeaderText("UNVALID NAME!");
+                alert.setContentText("file name has to contain small case letter only!");
+                alert.showAndWait();
+
+                fileName = "";
+                result = dialog.showAndWait();
+                if (result.isPresent()) {
+                    fileName = result.get();
+
+
+                }
+            }
+            int CharacterPositionRow = mazeDisplayer.getCharacterPositionRow();
+            int characterPositionCol = mazeDisplayer.getCharacterPositionColumn();
+            String gameParams[] = mazeDisplayer.getGameParams();
+            String characterName = gameParams[3];
+
+            viewModel.saveGame(CharacterPositionRow, characterPositionCol,characterName,fileName);
         }
+    }
 
-        int CharacterPositionRow = mazeDisplayer.getCharacterPositionRow();
-        int characterPositionCol = mazeDisplayer.getCharacterPositionColumn();
-        String gameParams[] = mazeDisplayer.getGameParams();
-        String characterName = gameParams[3];
+    private boolean isChar(String fileName) {
+        for (int i=0;i<fileName.length();i++){
+            if (fileName.charAt(i)<97 || fileName.charAt(i)>122 ){
+                return false;
+            }
 
-        viewModel.saveGame(CharacterPositionRow, characterPositionCol,characterName,fileName);
+        }
+        return true;
     }
 
     /**
@@ -260,7 +284,24 @@ public class MyViewController extends Controller implements IView, Initializable
      * @throws IOException
      */
     public void loadGame() throws IOException {
-        super.goToLoadGame();
+        viewModel.deleteSolution();
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Do you want to save the game before loading a new one?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
+        // alert.se
+        alert.showAndWait();
+
+        if (alert.getResult() == ButtonType.YES) {
+            saveGame();
+            super.goToLoadGame();
+        }
+
+        else if(alert.getResult() == ButtonType.NO){
+            super.goToLoadGame();
+        }
+
+
+
+
+
     }
 
     /**
