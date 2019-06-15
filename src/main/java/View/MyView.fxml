@@ -9,7 +9,6 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 <?import View.MazeDisplayer?>
-
 <AnchorPane prefHeight="550.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MyViewController">
    <children>
       <BorderPane onKeyPressed="#KeyPressed" prefHeight="550.0" prefWidth="750.0">
@@ -55,11 +54,11 @@
             </Pane>
          </left>
          <center>
-            <Pane fx:id="MazePane" prefHeight="500.0" prefWidth="500.0" BorderPane.alignment="CENTER">
+            <Pane fx:id="MazePane" onScroll="#handleScroll" prefHeight="700.0" prefWidth="700.0" BorderPane.alignment="CENTER">
 
                 <children>
 
-                    <MazeDisplayer fx:id="mazeDisplayer" height="600.0" width="600.0"
+                    <MazeDisplayer fx:id="mazeDisplayer" height="700.0" width="700.0"
                                    imageFileNameWall="resources/Images/wall1.jpg"
                                    imageFileNameRedWall="resources/Images/redWall.jpeg"
                                    imageFileNameCharacter1 = "resources/Images/netta.jpeg"
@@ -71,6 +70,7 @@
                     >
 
                     </MazeDisplayer>
+
 
 
                 </children>

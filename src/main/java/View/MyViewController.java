@@ -350,8 +350,8 @@ public class MyViewController extends Controller implements IView, Initializable
      */
     public void handleScroll(ScrollEvent event) {
         //System.out.println(mazeDisplayer.getScaleX());
-        if (!event.isControlDown()) return;
-        if (mazeDisplayer.getScaleX() <= 1 && mazeDisplayer.getScaleX() >= 0.25) {
+        if (event.isControlDown()) return;
+        if (mazeDisplayer.getScaleX() <= 3 && mazeDisplayer.getScaleX() >= 0.25) {
             // System.out.println(mazeDisplayer.getScaleX());
             double zoomFactor = 1.05;
             double deltaY = event.getDeltaY();
@@ -361,9 +361,9 @@ public class MyViewController extends Controller implements IView, Initializable
 
             mazeDisplayer.setScaleX(mazeDisplayer.getScaleX() * zoomFactor);
             mazeDisplayer.setScaleY(mazeDisplayer.getScaleY() * zoomFactor);
-        } else if (mazeDisplayer.getScaleX() > 1) {
-            mazeDisplayer.setScaleX(1);
-            mazeDisplayer.setScaleY(1);
+        } else if (mazeDisplayer.getScaleX() > 3) {
+            mazeDisplayer.setScaleX(3);
+            mazeDisplayer.setScaleY(3);
         } else if (mazeDisplayer.getScaleX() < 0.25) {
             mazeDisplayer.setScaleX(0.25);
             mazeDisplayer.setScaleY(0.25);
