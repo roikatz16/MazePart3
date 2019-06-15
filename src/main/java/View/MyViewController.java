@@ -337,7 +337,7 @@ public class MyViewController extends Controller implements IView, Initializable
     public void help(){
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("INSTRUCTIONS");
-        alert.setHeaderText("8 = Up\n2 = Down\n4 = Left\n6 = Right\n7 = Up & Left\n9 = Up & Right\n1 = Down & Left\n3 = Down & Right\n");
+        alert.setHeaderText("T = Up\nB = Down\nF = Left\nH = Right\nR = Up & Left\nY = Up & Right\nV = Down & Left\nN = Down & Right\n");
         alert.showAndWait();
     }
     /**
