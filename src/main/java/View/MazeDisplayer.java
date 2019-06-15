@@ -152,8 +152,8 @@ public class MazeDisplayer extends Canvas {
                // Draw solution (if needed)
                if(solutionAsIntegersList!=null && showSolution){
                    for (int i = 0; i < solutionAsIntegersList.size(); i++) {
-                       gc.fillRect(solutionAsIntegersList.get(i)[1] * cellHeight, solutionAsIntegersList.get(i)[0] * cellWidth, cellHeight, cellWidth);
-                       gc.drawImage(solutionImage, solutionAsIntegersList.get(i)[1] * cellHeight, solutionAsIntegersList.get(i)[0] * cellWidth, cellHeight, cellWidth);
+                       gc.fillRect(solutionAsIntegersList.get(i)[1] * cellWidth, solutionAsIntegersList.get(i)[0] * cellHeight, cellWidth, cellHeight);
+                       gc.drawImage(solutionImage, solutionAsIntegersList.get(i)[1] * cellWidth, solutionAsIntegersList.get(i)[0] * cellHeight, cellWidth, cellHeight);
                    }
                }
 
