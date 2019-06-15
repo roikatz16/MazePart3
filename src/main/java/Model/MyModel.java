@@ -395,9 +395,9 @@ public class MyModel extends Observable implements IModel {
                 col >= array[0].length||
                 array[row][col]=='1')
         {
-            if (characterName.equals("Netta")){
+
                 playAudio("resources/music/Netta - ouch.mp3");
-            }
+
             return false;
         }
         return true;
@@ -549,5 +549,19 @@ public class MyModel extends Observable implements IModel {
         return characterName;
     }
 
+    public MediaPlayer getMediaPlayer() {
+        return mediaPlayer;
+    }
 
+    public boolean isWinnigSongPlayed() {
+        return isWinnigSongPlayed;
+    }
+
+    public void setWinnigSongPlayed(boolean winnigSongPlayed) {
+        isWinnigSongPlayed = winnigSongPlayed;
+    }
+
+    public void stopMediaPlayer() {
+        this.mediaPlayer.stop();
+    }
 }

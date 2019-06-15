@@ -286,7 +286,6 @@ public class MyViewController extends Controller implements IView, Initializable
     public void loadGame() throws IOException {
         viewModel.deleteSolution();
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Do you want to save the game before loading a new one?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
-        // alert.se
         alert.showAndWait();
 
         if (alert.getResult() == ButtonType.YES) {
@@ -297,11 +296,6 @@ public class MyViewController extends Controller implements IView, Initializable
         else if(alert.getResult() == ButtonType.NO){
             super.goToLoadGame();
         }
-
-
-
-
-
     }
 
     /**
@@ -393,10 +387,8 @@ public class MyViewController extends Controller implements IView, Initializable
      * @param event zoom in
      */
     public void handleScroll(ScrollEvent event) {
-        //System.out.println(mazeDisplayer.getScaleX());
         if (event.isControlDown()) return;
         if (mazeDisplayer.getScaleX() <= 3 && mazeDisplayer.getScaleX() >= 0.25) {
-            // System.out.println(mazeDisplayer.getScaleX());
             double zoomFactor = 1.05;
             double deltaY = event.getDeltaY();
             if (deltaY < 0) {

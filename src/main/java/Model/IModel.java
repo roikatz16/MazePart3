@@ -3,6 +3,7 @@ package Model;
 import algorithms.mazeGenerators.Maze;
 import algorithms.search.AState;
 import javafx.scene.input.KeyCode;
+import javafx.scene.media.MediaPlayer;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -29,13 +30,8 @@ public interface IModel {
     void setCurrentPositionColumn(int col);
 
 
-
-
-
-
-
-
-
-
-
+    void stopMediaPlayer();
+    boolean isWinnigSongPlayed();
+    void setWinnigSongPlayed(boolean winnigSongPlayed);
+    MediaPlayer getMediaPlayer();
 }

@@ -3,6 +3,7 @@ package ViewModel;
 import Model.IModel;
 import algorithms.search.AState;
 import javafx.scene.input.KeyCode;
+import javafx.scene.media.MediaPlayer;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -183,5 +184,26 @@ public class MyViewModel extends Observable implements Observer {
     }
     public void setParams(String[] params) {
         this.params = params;
+    }
+
+
+
+    public boolean isWinnigSongPlayed() {
+        return model.isWinnigSongPlayed();
+    }
+
+    public void setWinnigSongPlayed(boolean winningSongPlayed) {
+        model.setWinnigSongPlayed(winningSongPlayed);
+    }
+
+    public void stopMediaPlayer() {
+        model.stopMediaPlayer();
+    }
+
+    public boolean isAoudioExist(){
+        if (model.getMediaPlayer()!= null){
+            return true;
+        }
+        return false;
     }
 }

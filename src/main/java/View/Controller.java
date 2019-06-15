@@ -54,6 +54,10 @@ public abstract class Controller implements Observer {
      * @throws IOException
      */
     protected void goToLanding() throws IOException {
+        if(viewModel.isAoudioExist()  && viewModel.isWinnigSongPlayed()){
+            viewModel.stopMediaPlayer();
+            viewModel.setWinnigSongPlayed(false);
+        }
         Stage s = Main.getStage();
         Parent root = FXMLLoader.load(getClass().getResource("../View/Landing.fxml"));
         Scene scene = new Scene(root, 758, 454);
@@ -68,6 +72,10 @@ public abstract class Controller implements Observer {
      * @throws IOException
      */
     protected void goToNewGame() throws IOException {
+        if(viewModel.isAoudioExist()  && viewModel.isWinnigSongPlayed()){
+            viewModel.stopMediaPlayer();
+            viewModel.setWinnigSongPlayed(false);
+        }
         FXMLLoader fxmlLoader= new FXMLLoader();
         Stage s = Main.getStage();
         Parent root = fxmlLoader.load(getClass().getResource("../View/NewGame.fxml").openStream());
@@ -87,19 +95,25 @@ public abstract class Controller implements Observer {
      * @throws IOException
      */
     protected void goToLoadGame() throws IOException {
-        viewModel = Main.getViewModel();
-        viewModel.deleteSolution();
-        FXMLLoader fxmlLoader1 = new FXMLLoader();
-        Stage d = Main.getStage();
-        Parent root = fxmlLoader1.load(getClass().getResource("../View/Load.fxml").openStream());
-        Scene scene = new Scene(root,758,500);
-        scene.getStylesheets().add(getClass().getResource("../View/Load.css").toExternalForm());
-        d.setScene(scene);
-        LoadController lc = fxmlLoader1.getController();
-        lc.setViewModel(viewModel);
+        if(viewModel.isAoudioExist()  && viewModel.isWinnigSongPlayed()){
+            viewModel.stopMediaPlayer();
+            viewModel.setWinnigSongPlayed(false);
+        }
+        if(validation()) {
+            viewModel = Main.getViewModel();
+            viewModel.deleteSolution();
+            FXMLLoader fxmlLoader1 = new FXMLLoader();
+            Stage d = Main.getStage();
+            Parent root = fxmlLoader1.load(getClass().getResource("../View/Load.fxml").openStream());
+            Scene scene = new Scene(root, 758, 500);
+            scene.getStylesheets().add(getClass().getResource("../View/Load.css").toExternalForm());
+            d.setScene(scene);
+            LoadController lc = fxmlLoader1.getController();
+            lc.setViewModel(viewModel);
 
-        Main.setStage(d);
-        d.show();
+            Main.setStage(d);
+            d.show();
+        }
     }
 
     /**
@@ -144,6 +158,20 @@ public abstract class Controller implements Observer {
         return mazeTitles;
     }
 
+    private boolean validation() {
+        ArrayList<String> savedFiles = getTitlesOfFiles();
+        if (savedFiles.size() == 0) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error Error");
+            alert.setHeaderText("Ooops, there was an error!");
+            alert.setContentText("You have not saved any file, please create new game first!");
+            alert.showAndWait();
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
 
 
 
