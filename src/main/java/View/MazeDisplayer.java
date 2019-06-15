@@ -188,6 +188,32 @@ public class MazeDisplayer extends Canvas {
     }
 
     /* setReziable methods */
+
+
+    public double minHeight(double width)
+    {
+        return 0;
+    }
+
+    @Override
+    public double maxHeight(double width)
+    {
+        return 700;
+    }
+
+
+    public double minWidth(double height)
+    {
+        return 0;
+    }
+
+    @Override
+    public double maxWidth(double height)
+    {
+        return 700;
+    }
+
+
     @Override
     public double prefHeight(double height)
     {
@@ -232,13 +258,6 @@ public class MazeDisplayer extends Canvas {
     public int getCharacterPositionColumn() {
         return characterPositionColumn;
     }
-
-
-
-
-
-
-
 
 
 

@@ -140,9 +140,6 @@ public class MyModel extends Observable implements IModel {
                         byte[] decompressedMaze = new byte[row*col+18];
                         is.read(decompressedMaze);
                         maze = new Maze(decompressedMaze);
-                        if(maze != null){
-                            maze.print();
-                        }
 
                     } catch (Exception var10) {
                         LOG.error("InterruptedException:", var10);

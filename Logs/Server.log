@@ -136,3 +136,216 @@
 2019.06.13 15:15:29.496 INFO  Model.MyModel - generating maze...
 2019.06.13 15:15:30.508 INFO  Model.MyModel - New maze created, maze sizes: 625
 2019.06.13 15:15:53.234 INFO  Model.MyModel - Stopping servers..
+2019.06.15 10:05:13.620 INFO  Model.MyModel - start generate maze server port 5400 
+2019.06.15 10:05:13.633 INFO  Model.MyModel - start search problem server port 5400 
+2019.06.15 10:07:52.080 INFO  Model.MyModel - Server is waiting for clients...
+2019.06.15 10:07:52.081 INFO  Model.MyModel - client has been found!
+2019.06.15 10:07:52.081 INFO  Model.MyModel - generating maze...
+2019.06.15 10:07:53.094 INFO  Model.MyModel - New maze created, maze sizes: 625
+2019.06.15 10:08:12.846 INFO  Model.MyModel - Stopping servers..
+2019.06.15 10:13:31.912 INFO  Model.MyModel - start generate maze server port 5400 
+2019.06.15 10:13:31.914 INFO  Model.MyModel - start search problem server port 5400 
+2019.06.15 10:13:40.775 INFO  Model.MyModel - Server is waiting for clients...
+2019.06.15 10:13:40.776 INFO  Model.MyModel - client has been found!
+2019.06.15 10:13:40.776 INFO  Model.MyModel - generating maze...
+2019.06.15 10:13:41.790 INFO  Model.MyModel - New maze created, maze sizes: 625
+2019.06.15 10:22:12.862 INFO  Model.MyModel - start generate maze server port 5400 
+2019.06.15 10:22:12.864 INFO  Model.MyModel - start search problem server port 5400 
+2019.06.15 10:22:32.568 INFO  Model.MyModel - Try Load game...
+2019.06.15 10:22:32.583 INFO  Model.MyModel - game has been load successfully!
+2019.06.15 10:22:57.049 INFO  Model.MyModel - Try save game...
+2019.06.15 10:22:57.050 INFO  Model.MyModel - game has been save successfully!
+2019.06.15 10:22:57.063 INFO  Model.MyModel - Stopping servers..
+2019.06.15 10:23:06.877 INFO  Model.MyModel - start generate maze server port 5400 
+2019.06.15 10:23:06.879 INFO  Model.MyModel - start search problem server port 5400 
+2019.06.15 10:32:39.664 INFO  Model.MyModel - Stopping servers..
+2019.06.15 10:56:05.651 INFO  Model.MyModel - start generate maze server port 5400 
+2019.06.15 10:56:05.653 INFO  Model.MyModel - start search problem server port 5400 
+2019.06.15 10:56:17.063 INFO  Model.MyModel - Server is waiting for clients...
+2019.06.15 10:56:17.064 INFO  Model.MyModel - client has been found!
+2019.06.15 10:56:17.064 INFO  Model.MyModel - generating maze...
+2019.06.15 10:56:18.078 INFO  Model.MyModel - New maze created, maze sizes: 625
+2019.06.15 10:56:56.022 INFO  Model.MyModel - Stopping servers..
+2019.06.15 10:57:04.982 INFO  Model.MyModel - start generate maze server port 5400 
+2019.06.15 10:57:04.984 INFO  Model.MyModel - start search problem server port 5400 
+2019.06.15 10:57:12.946 INFO  Model.MyModel - Server is waiting for clients...
+2019.06.15 10:57:12.946 INFO  Model.MyModel - client has been found!
+2019.06.15 10:57:12.946 INFO  Model.MyModel - generating maze...
+2019.06.15 10:57:13.960 INFO  Model.MyModel - New maze created, maze sizes: 625
+2019.06.15 10:57:15.538 INFO  Model.MyModel - Stopping servers..
+2019.06.15 10:57:25.604 INFO  Model.MyModel - start generate maze server port 5400 
+2019.06.15 10:57:25.606 INFO  Model.MyModel - start search problem server port 5400 
+2019.06.15 10:57:33.923 INFO  Model.MyModel - Server is waiting for clients...
+2019.06.15 10:57:33.923 INFO  Model.MyModel - client has been found!
+2019.06.15 10:57:33.923 INFO  Model.MyModel - generating maze...
+2019.06.15 10:57:34.945 INFO  Model.MyModel - New maze created, maze sizes: 2601
+2019.06.15 10:58:20.741 INFO  Model.MyModel - start generate maze server port 5400 
+2019.06.15 10:58:20.743 INFO  Model.MyModel - start search problem server port 5400 
+2019.06.15 10:58:49.481 INFO  Model.MyModel - Server is waiting for clients...
+2019.06.15 10:58:49.481 INFO  Model.MyModel - client has been found!
+2019.06.15 10:58:49.481 INFO  Model.MyModel - generating maze...
+2019.06.15 10:58:50.503 INFO  Model.MyModel - New maze created, maze sizes: 2601
+2019.06.15 10:58:57.812 INFO  Model.MyModel - Stopping servers..
+2019.06.15 11:01:26.233 INFO  Model.MyModel - start generate maze server port 5400 
+2019.06.15 11:01:26.235 INFO  Model.MyModel - start search problem server port 5400 
+2019.06.15 11:01:32.949 INFO  Model.MyModel - Server is waiting for clients...
+2019.06.15 11:01:32.949 INFO  Model.MyModel - client has been found!
+2019.06.15 11:01:32.949 INFO  Model.MyModel - generating maze...
+2019.06.15 11:01:33.961 INFO  Model.MyModel - New maze created, maze sizes: 625
+2019.06.15 11:01:46.968 INFO  Model.MyModel - Stopping servers..
+2019.06.15 11:02:36.131 INFO  Model.MyModel - start generate maze server port 5400 
+2019.06.15 11:02:36.133 INFO  Model.MyModel - start search problem server port 5400 
+2019.06.15 11:02:41.795 INFO  Model.MyModel - Server is waiting for clients...
+2019.06.15 11:02:41.795 INFO  Model.MyModel - client has been found!
+2019.06.15 11:02:41.795 INFO  Model.MyModel - generating maze...
+2019.06.15 11:02:42.808 INFO  Model.MyModel - New maze created, maze sizes: 625
+2019.06.15 11:03:15.982 INFO  Model.MyModel - Stopping servers..
+2019.06.15 11:03:20.952 INFO  Model.MyModel - start generate maze server port 5400 
+2019.06.15 11:03:20.954 INFO  Model.MyModel - start search problem server port 5400 
+2019.06.15 11:03:27.232 INFO  Model.MyModel - Server is waiting for clients...
+2019.06.15 11:03:27.232 INFO  Model.MyModel - client has been found!
+2019.06.15 11:03:27.233 INFO  Model.MyModel - generating maze...
+2019.06.15 11:03:28.245 INFO  Model.MyModel - New maze created, maze sizes: 625
+2019.06.15 11:04:03.766 INFO  Model.MyModel - Stopping servers..
+2019.06.15 11:14:05.732 INFO  Model.MyModel - start generate maze server port 5400 
+2019.06.15 11:14:05.734 INFO  Model.MyModel - start search problem server port 5400 
+2019.06.15 11:14:11.955 INFO  Model.MyModel - Server is waiting for clients...
+2019.06.15 11:14:11.955 INFO  Model.MyModel - client has been found!
+2019.06.15 11:14:11.955 INFO  Model.MyModel - generating maze...
+2019.06.15 11:14:12.963 INFO  Model.MyModel - New maze created, maze sizes: 625
+2019.06.15 11:14:51.463 INFO  Model.MyModel - start generate maze server port 5400 
+2019.06.15 11:14:51.465 INFO  Model.MyModel - start search problem server port 5400 
+2019.06.15 11:14:58.073 INFO  Model.MyModel - Server is waiting for clients...
+2019.06.15 11:14:58.074 INFO  Model.MyModel - client has been found!
+2019.06.15 11:14:58.075 INFO  Model.MyModel - generating maze...
+2019.06.15 11:14:59.099 INFO  Model.MyModel - New maze created, maze sizes: 625
+2019.06.15 11:15:42.594 INFO  Model.MyModel - Stopping servers..
+2019.06.15 11:16:07.920 INFO  Model.MyModel - start generate maze server port 5400 
+2019.06.15 11:16:07.922 INFO  Model.MyModel - start search problem server port 5400 
+2019.06.15 11:16:15.352 INFO  Model.MyModel - Server is waiting for clients...
+2019.06.15 11:16:15.352 INFO  Model.MyModel - client has been found!
+2019.06.15 11:16:15.352 INFO  Model.MyModel - generating maze...
+2019.06.15 11:16:16.368 INFO  Model.MyModel - New maze created, maze sizes: 625
+2019.06.15 11:16:28.399 INFO  Model.MyModel - Stopping servers..
+2019.06.15 11:16:58.687 INFO  Model.MyModel - start generate maze server port 5400 
+2019.06.15 11:16:58.689 INFO  Model.MyModel - start search problem server port 5400 
+2019.06.15 11:17:16.833 INFO  Model.MyModel - Server is waiting for clients...
+2019.06.15 11:17:16.833 INFO  Model.MyModel - client has been found!
+2019.06.15 11:17:16.834 INFO  Model.MyModel - generating maze...
+2019.06.15 11:17:17.842 INFO  Model.MyModel - New maze created, maze sizes: 625
+2019.06.15 11:17:33.947 INFO  Model.MyModel - Stopping servers..
+2019.06.15 11:17:47.909 INFO  Model.MyModel - start generate maze server port 5400 
+2019.06.15 11:17:47.911 INFO  Model.MyModel - start search problem server port 5400 
+2019.06.15 11:17:55.684 INFO  Model.MyModel - Server is waiting for clients...
+2019.06.15 11:17:55.684 INFO  Model.MyModel - client has been found!
+2019.06.15 11:17:55.684 INFO  Model.MyModel - generating maze...
+2019.06.15 11:17:56.694 INFO  Model.MyModel - New maze created, maze sizes: 625
+2019.06.15 11:18:16.367 INFO  Model.MyModel - Stopping servers..
+2019.06.15 11:21:43.480 INFO  Model.MyModel - start generate maze server port 5400 
+2019.06.15 11:21:43.482 INFO  Model.MyModel - start search problem server port 5400 
+2019.06.15 11:21:49.410 INFO  Model.MyModel - Server is waiting for clients...
+2019.06.15 11:21:49.410 INFO  Model.MyModel - client has been found!
+2019.06.15 11:21:49.410 INFO  Model.MyModel - generating maze...
+2019.06.15 11:21:50.419 INFO  Model.MyModel - New maze created, maze sizes: 625
+2019.06.15 11:22:46.602 INFO  Model.MyModel - Stopping servers..
+2019.06.15 11:23:36.967 INFO  Model.MyModel - start generate maze server port 5400 
+2019.06.15 11:23:36.973 INFO  Model.MyModel - start search problem server port 5400 
+2019.06.15 11:23:44.148 INFO  Model.MyModel - Server is waiting for clients...
+2019.06.15 11:23:44.149 INFO  Model.MyModel - client has been found!
+2019.06.15 11:23:44.149 INFO  Model.MyModel - generating maze...
+2019.06.15 11:23:45.158 INFO  Model.MyModel - New maze created, maze sizes: 625
+2019.06.15 11:24:16.152 INFO  Model.MyModel - Stopping servers..
+2019.06.15 11:40:53.002 INFO  Model.MyModel - start generate maze server port 5400 
+2019.06.15 11:40:53.004 INFO  Model.MyModel - start search problem server port 5400 
+2019.06.15 11:41:01.470 INFO  Model.MyModel - Server is waiting for clients...
+2019.06.15 11:41:01.470 INFO  Model.MyModel - client has been found!
+2019.06.15 11:41:01.471 INFO  Model.MyModel - generating maze...
+2019.06.15 11:41:02.479 INFO  Model.MyModel - New maze created, maze sizes: 625
+2019.06.15 11:41:35.346 INFO  Model.MyModel - Stopping servers..
+2019.06.15 11:42:46.567 INFO  Model.MyModel - start generate maze server port 5400 
+2019.06.15 11:42:46.569 INFO  Model.MyModel - start search problem server port 5400 
+2019.06.15 11:42:52.281 INFO  Model.MyModel - Server is waiting for clients...
+2019.06.15 11:42:52.281 INFO  Model.MyModel - client has been found!
+2019.06.15 11:42:52.282 INFO  Model.MyModel - generating maze...
+2019.06.15 11:42:53.290 INFO  Model.MyModel - New maze created, maze sizes: 625
+2019.06.15 11:43:39.167 INFO  Model.MyModel - Stopping servers..
+2019.06.15 11:44:02.854 INFO  Model.MyModel - start generate maze server port 5400 
+2019.06.15 11:44:02.857 INFO  Model.MyModel - start search problem server port 5400 
+2019.06.15 11:44:07.929 INFO  Model.MyModel - Server is waiting for clients...
+2019.06.15 11:44:07.929 INFO  Model.MyModel - client has been found!
+2019.06.15 11:44:07.930 INFO  Model.MyModel - generating maze...
+2019.06.15 11:44:08.940 INFO  Model.MyModel - New maze created, maze sizes: 625
+2019.06.15 11:44:21.518 INFO  Model.MyModel - Stopping servers..
+2019.06.15 11:57:19.440 INFO  Model.MyModel - start generate maze server port 5400 
+2019.06.15 11:57:19.455 INFO  Model.MyModel - start search problem server port 5400 
+2019.06.15 11:57:44.917 INFO  Model.MyModel - Server is waiting for clients...
+2019.06.15 11:57:44.917 INFO  Model.MyModel - client has been found!
+2019.06.15 11:57:44.917 INFO  Model.MyModel - generating maze...
+2019.06.15 11:57:45.926 INFO  Model.MyModel - New maze created, maze sizes: 625
+2019.06.15 11:59:47.949 INFO  Model.MyModel - Stopping servers..
+2019.06.15 12:01:53.858 INFO  Model.MyModel - start generate maze server port 5400 
+2019.06.15 12:01:53.860 INFO  Model.MyModel - start search problem server port 5400 
+2019.06.15 12:02:01.255 INFO  Model.MyModel - Server is waiting for clients...
+2019.06.15 12:02:01.255 INFO  Model.MyModel - client has been found!
+2019.06.15 12:02:01.255 INFO  Model.MyModel - generating maze...
+2019.06.15 12:02:02.263 INFO  Model.MyModel - New maze created, maze sizes: 625
+2019.06.15 12:02:14.217 INFO  Model.MyModel - Stopping servers..
+2019.06.15 12:02:22.462 INFO  Model.MyModel - start generate maze server port 5400 
+2019.06.15 12:02:22.464 INFO  Model.MyModel - start search problem server port 5400 
+2019.06.15 12:02:28.033 INFO  Model.MyModel - Server is waiting for clients...
+2019.06.15 12:02:28.033 INFO  Model.MyModel - client has been found!
+2019.06.15 12:02:28.034 INFO  Model.MyModel - generating maze...
+2019.06.15 12:02:29.045 INFO  Model.MyModel - New maze created, maze sizes: 625
+2019.06.15 12:02:47.793 INFO  Model.MyModel - Stopping servers..
+2019.06.15 12:03:12.534 INFO  Model.MyModel - start generate maze server port 5400 
+2019.06.15 12:03:12.536 INFO  Model.MyModel - start search problem server port 5400 
+2019.06.15 12:03:18.218 INFO  Model.MyModel - Server is waiting for clients...
+2019.06.15 12:03:18.218 INFO  Model.MyModel - client has been found!
+2019.06.15 12:03:18.218 INFO  Model.MyModel - generating maze...
+2019.06.15 12:03:19.227 INFO  Model.MyModel - New maze created, maze sizes: 625
+2019.06.15 12:03:28.471 INFO  Model.MyModel - Stopping servers..
+2019.06.15 12:03:41.263 INFO  Model.MyModel - start generate maze server port 5400 
+2019.06.15 12:03:41.265 INFO  Model.MyModel - start search problem server port 5400 
+2019.06.15 12:03:47.005 INFO  Model.MyModel - Server is waiting for clients...
+2019.06.15 12:03:47.006 INFO  Model.MyModel - client has been found!
+2019.06.15 12:03:47.006 INFO  Model.MyModel - generating maze...
+2019.06.15 12:03:48.015 INFO  Model.MyModel - New maze created, maze sizes: 625
+2019.06.15 12:03:55.093 INFO  Model.MyModel - Stopping servers..
+2019.06.15 12:04:04.016 INFO  Model.MyModel - start generate maze server port 5400 
+2019.06.15 12:04:04.018 INFO  Model.MyModel - start search problem server port 5400 
+2019.06.15 12:04:08.190 INFO  Model.MyModel - Stopping servers..
+2019.06.15 12:04:14.104 INFO  Model.MyModel - start generate maze server port 5400 
+2019.06.15 12:04:14.106 INFO  Model.MyModel - start search problem server port 5400 
+2019.06.15 12:04:20.301 INFO  Model.MyModel - Server is waiting for clients...
+2019.06.15 12:04:20.301 INFO  Model.MyModel - client has been found!
+2019.06.15 12:04:20.301 INFO  Model.MyModel - generating maze...
+2019.06.15 12:04:21.310 INFO  Model.MyModel - New maze created, maze sizes: 625
+2019.06.15 12:04:26.208 INFO  Model.MyModel - Stopping servers..
+2019.06.15 12:04:35.316 INFO  Model.MyModel - start generate maze server port 5400 
+2019.06.15 12:04:35.319 INFO  Model.MyModel - start search problem server port 5400 
+2019.06.15 12:04:42.086 INFO  Model.MyModel - Server is waiting for clients...
+2019.06.15 12:04:42.086 INFO  Model.MyModel - client has been found!
+2019.06.15 12:04:42.086 INFO  Model.MyModel - generating maze...
+2019.06.15 12:04:43.096 INFO  Model.MyModel - New maze created, maze sizes: 625
+2019.06.15 12:04:56.586 INFO  Model.MyModel - Stopping servers..
+2019.06.15 12:05:17.288 INFO  Model.MyModel - start generate maze server port 5400 
+2019.06.15 12:05:17.290 INFO  Model.MyModel - start search problem server port 5400 
+2019.06.15 12:05:22.807 INFO  Model.MyModel - Server is waiting for clients...
+2019.06.15 12:05:22.807 INFO  Model.MyModel - client has been found!
+2019.06.15 12:05:22.807 INFO  Model.MyModel - generating maze...
+2019.06.15 12:05:23.816 INFO  Model.MyModel - New maze created, maze sizes: 625
+2019.06.15 12:05:35.431 INFO  Model.MyModel - Stopping servers..
+2019.06.15 12:05:56.478 INFO  Model.MyModel - start generate maze server port 5400 
+2019.06.15 12:05:56.480 INFO  Model.MyModel - start search problem server port 5400 
+2019.06.15 12:06:02.727 INFO  Model.MyModel - Server is waiting for clients...
+2019.06.15 12:06:02.727 INFO  Model.MyModel - client has been found!
+2019.06.15 12:06:02.727 INFO  Model.MyModel - generating maze...
+2019.06.15 12:06:03.736 INFO  Model.MyModel - New maze created, maze sizes: 625
+2019.06.15 12:06:55.399 INFO  Model.MyModel - Stopping servers..
+2019.06.15 12:09:42.989 INFO  Model.MyModel - start generate maze server port 5400 
+2019.06.15 12:09:42.991 INFO  Model.MyModel - start search problem server port 5400 
+2019.06.15 12:09:59.428 INFO  Model.MyModel - Server is waiting for clients...
+2019.06.15 12:09:59.428 INFO  Model.MyModel - client has been found!
+2019.06.15 12:09:59.428 INFO  Model.MyModel - generating maze...
+2019.06.15 12:10:00.437 INFO  Model.MyModel - New maze created, maze sizes: 625
+2019.06.15 12:12:15.465 INFO  Model.MyModel - Stopping servers..
