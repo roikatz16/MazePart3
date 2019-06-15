@@ -11,6 +11,8 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.ScrollEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import sample.Main;
@@ -37,6 +39,12 @@ public class MyViewController extends Controller implements IView, Initializable
     @FXML
     private Pane MazePane;
 
+    @FXML
+    private BorderPane borderPane;
+
+    @FXML
+    private AnchorPane anchorPane;
+
     /*
     METHODS:
     1. initialize, update
@@ -58,11 +66,11 @@ public class MyViewController extends Controller implements IView, Initializable
             closeProgram();
         });
 
-        /*mazeDisplayer.heightProperty().bind(MazePane.heightProperty());
-        mazeDisplayer.widthProperty().bind(MazePane.widthProperty());
+        mazeDisplayer.heightProperty().bind(anchorPane.heightProperty().multiply(0.9));
+        mazeDisplayer.widthProperty().bind(anchorPane.widthProperty().multiply(0.7));
 
-        mazeDisplayer.heightProperty().addListener(e->mazeDisplayer.redraw());
-        mazeDisplayer.widthProperty().addListener(e->mazeDisplayer.redraw());*/
+        //mazeDisplayer.heightProperty().addListener(e->mazeDisplayer.redraw());
+        //mazeDisplayer.widthProperty().addListener(e->mazeDisplayer.redraw());
 
     }
 
@@ -191,8 +199,10 @@ public class MyViewController extends Controller implements IView, Initializable
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == buttonTypeOne){
+            viewModel.deleteSolution();
             goToNewGame();
         } else if (result.get() == buttonTypeTwo) {
+            viewModel.deleteSolution();
             goToLoadGame();
         } else if (result.get() == buttonTypeThree) {
             exitGame();

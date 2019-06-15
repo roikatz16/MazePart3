@@ -134,16 +134,16 @@ public class MazeDisplayer extends Canvas {
                 gc.clearRect(0, 0, getWidth(), getHeight());
 
                 // Draw Maze
-                for (int i = 0; i < maze[0].length; i++) {
-                    for (int j = 0; j < maze.length; j++) {
-                        if (maze[j][i] == '1') {
-                            if(i==0 || j==0 || i==maze[0].length-1 || j==maze.length-1){
-                                gc.fillRect(i * cellHeight, j * cellWidth, cellHeight, cellWidth);
-                                gc.drawImage(redWallImage, i * cellHeight, j * cellWidth, cellHeight, cellWidth);
+                for (int i = 0; i < maze.length; i++) {
+                    for (int j = 0; j < maze[0].length; j++) {
+                        if (maze[i][j] == '1') {
+                            if(i==0 || j==0 || i==maze.length-1 || j==maze[0].length-1){
+                                gc.fillRect(j * cellWidth, i * cellHeight, cellWidth, cellHeight);
+                                gc.drawImage(redWallImage, j * cellWidth, i * cellHeight, cellWidth, cellHeight);
                             }
                             else {
-                                gc.fillRect(i * cellHeight, j * cellWidth, cellHeight, cellWidth);
-                                gc.drawImage(wallImage, i * cellHeight, j * cellWidth, cellHeight, cellWidth);
+                                gc.fillRect(j * cellWidth, i * cellHeight, cellWidth, cellHeight);
+                                gc.drawImage(wallImage, j * cellWidth, i * cellHeight, cellWidth, cellHeight);
                             }
                         }
                     }
@@ -158,9 +158,9 @@ public class MazeDisplayer extends Canvas {
                }
 
                 // Draw Start and Goal
-                gc.drawImage(startAndGoalImage, goalPositionColumn * cellHeight, goalPositionRow  * cellWidth, cellHeight, cellWidth);
+                gc.drawImage(startAndGoalImage, goalPositionColumn * cellWidth, goalPositionRow  * cellHeight, cellWidth, cellHeight);
                 // Draw character
-                gc.drawImage(characterImage, characterPositionColumn * cellHeight, characterPositionRow * cellWidth, cellHeight, cellWidth);
+                gc.drawImage(characterImage, characterPositionColumn * cellWidth, characterPositionRow * cellHeight, cellWidth, cellHeight);
 
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
@@ -188,7 +188,7 @@ public class MazeDisplayer extends Canvas {
     }
 
     /* setReziable methods */
-
+/*
 
     public double minHeight(double width)
     {
@@ -224,7 +224,7 @@ public class MazeDisplayer extends Canvas {
     public double prefWidth(double width){
         return getWidth();
     }
-
+*/
     @Override
     public boolean isResizable()
     {
@@ -233,8 +233,8 @@ public class MazeDisplayer extends Canvas {
 
     @Override
     public void resize(double width, double height){
-        super.setWidth(width);
-        super.setHeight(height);
+        //super.setWidth(width);
+        //super.setHeight(height);
         redraw();
     }
 
